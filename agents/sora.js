@@ -52,7 +52,7 @@ async function runSora(options = {}) {
 
         const resp = await anthropic.messages.create({
           model:      'claude-haiku-4-5-20251001',
-          max_tokens: 8000,
+          max_tokens: 2000,
           
           tools:      [{ type: 'web_search_20250305', name: 'web_search' }],
           messages: [{
