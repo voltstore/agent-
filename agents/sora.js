@@ -92,7 +92,7 @@ async function runSora(options = {}) {
             `فشل ${MAX_FAILURES} مرات متتالية:\n${e.message}`);
           throw e;
         }
-        await sleep(30000);
+        await sleep(65000);
       }
     }
 
