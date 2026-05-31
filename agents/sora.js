@@ -1,8 +1,6 @@
 'use strict';
 // ===================================================================
 // سورا — الباحث
-// يكتشف الشركات السعودية التي لا تملك موقعاً إلكترونياً
-// التشغيل المستقل: node agents/sora.js [city] [category] [target]
 // ===================================================================
 require('dotenv').config({ path: require('path').join(__dirname, '..', '.env') });
 
@@ -15,7 +13,6 @@ const {
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
-// ===== الدالة الرئيسية =====
 async function runSora(options = {}) {
   let failures = 0;
   const t0 = Date.now();
@@ -23,16 +20,15 @@ async function runSora(options = {}) {
   try {
     if (!(await checkBudget())) return { success: false, reason: 'ميزانية منتهية' };
 
-    // تحميل الإعدادات من Firebase
     const settings  = await fbGet('settings') || DEFAULT_SETTINGS;
     const dayNames  = ['sunday','monday','tuesday','wednesday','thursday','friday','saturday'];
     const todayKey  = dayNames[new Date().getDay()];
     const cityMap   = settings.cities      || DEFAULT_SETTINGS.cities;
     const cats      = settings.categories  || DEFAULT_SETTINGS.categories;
 
-    const city      = options.city     || cityMap[todayKey]                       || 'الرياض';
+    const city      = options.city     || cityMap[todayKey] || 'الرياض';
     const category  = options.category || cats[Math.floor(Math.random()*cats.length)];
-    const target    = Number(options.target  || settings.dailyTarget              || 30);
+    const target    = Number(options.target  || settings.dailyTarget || 30);
     const minRating = Number(settings.minRating || 4.0);
 
     await logEvent('info', `سورا: بدء البحث — ${city} | ${category} | الهدف: ${target}`);
@@ -53,7 +49,6 @@ async function runSora(options = {}) {
         const resp = await anthropic.messages.create({
           model:      'claude-haiku-4-5-20251001',
           max_tokens: 2000,
-          
           tools:      [{ type: 'web_search_20250305', name: 'web_search' }],
           messages: [{
             role: 'user',
@@ -61,27 +56,37 @@ async function runSora(options = {}) {
           }]
         });
 
-        // استخراج JSON من نص الرد
         const text = resp.content
           .filter(b => b.type === 'text')
           .map(b => b.text)
           .join('');
 
-        const match = text.match(/\{[\s\S]*"companies"[\s\S]*\}/);
+        // تنظيف الرد من علامات markdown
+        const clean = text.replace(/```json|```/g, '').trim();
+        const match = clean.match(/\{[\s\S]*"companies"[\s\S]*\}/);
+
         if (match) {
-          const parsed = JSON.parse(match[0]);
-          for (const c of (parsed.companies || [])) {
-            if (isQualified(c, minRating) && !isDuplicate(c, found)) {
-              found.push(c);
-              console.log(`  ✓ [${found.length}/${target}] ${c.name} — ${c.city} — ⭐${c.rating}`);
+          try {
+            const parsed = JSON.parse(match[0]);
+            for (const c of (parsed.companies || [])) {
+              if (isQualified(c, minRating) && !isDuplicate(c, found)) {
+                found.push(c);
+                console.log(`  ✓ [${found.length}/${target}] ${c.name} — ${c.city} — ⭐${c.rating}`);
+              }
+              if (found.length >= target) break;
             }
-            if (found.length >= target) break;
+          } catch (parseErr) {
+            console.warn('  ⚠ فشل تحليل JSON:', parseErr.message);
           }
         } else {
           console.warn('  ⚠ لم يُعثر على JSON في الرد');
         }
 
         failures = 0;
+        // تأخير دقيقة بين الجولات
+        if (found.length < target && round < maxRound) {
+          await sleep(65000);
+        }
       } catch (e) {
         failures++;
         await logEvent('error', `سورا: خطأ جولة ${round}`, { error: e.message });
@@ -96,7 +101,6 @@ async function runSora(options = {}) {
       }
     }
 
-    // حفظ النتائج في Firebase
     let saved = 0;
     const now = new Date().toISOString();
     for (const c of found) {
@@ -122,35 +126,16 @@ async function runSora(options = {}) {
   }
 }
 
-// ===== مساعدات =====
 function buildSearchPrompt(city, category, count, minRating) {
   return `أنت باحث متخصص في السوق السعودي.
 
-ابحث عن ${count} شركة في مجال "${category}" بمدينة "${city}" تستوفي الشروط:
-١. لا موقع إلكتروني فعّال لها
+ابحث عن ${count} شركة في "${category}" بـ "${city}" تستوفي:
+١. لا موقع إلكتروني
 ٢. تقييم ${minRating}/5 أو أعلى
-٣. جوال واتساب أو بريد إلكتروني للتواصل
+٣. جوال واتساب أو إيميل للتواصل
 
-جرّب هذه المصطلحات:
-- "${category} ${city} واتساب"
-- "${category} ${city} للتواصل"
-- "${category} ${city} رقم الجوال"
-
-أعد النتيجة بـ JSON فقط بدون أي نص إضافي:
-{
-  "companies": [
-    {
-      "name": "اسم المنشأة",
-      "city": "${city}",
-      "category": "${category}",
-      "phone": "05xxxxxxxx",
-      "email": "example@email.com",
-      "rating": 4.5,
-      "hasWebsite": false,
-      "source": "رابط المصدر"
-    }
-  ]
-}`;
+أعد النتيجة بـ JSON خام فقط (لا تستخدم \`\`\`json):
+{"companies":[{"name":"الاسم","city":"${city}","category":"${category}","phone":"05xxxxxxxx","email":"x@x.com","rating":4.5,"hasWebsite":false,"source":"المصدر"}]}`;
 }
 
 function isQualified(c, minRating) {
@@ -166,8 +151,6 @@ function isDuplicate(c, list) {
 
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
-// ===== تشغيل مستقل =====
-// node agents/sora.js "جدة" "شركات تنظيف" 20
 if (require.main === module) {
   const [,, city, category, target] = process.argv;
   runSora({ city, category, target: target ? Number(target) : undefined })
