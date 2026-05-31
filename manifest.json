@@ -1,0 +1,21 @@
+{
+  "name": "سورا · ديب · جولد",
+  "short_name": "SDG",
+  "description": "نظام توليد العملاء الذكي — المملكة العربية السعودية",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050508",
+  "theme_color": "#dc2626",
+  "orientation": "portrait-primary",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity"]
+}

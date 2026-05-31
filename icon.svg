@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#dc2626"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+  </defs>
+  <rect width="192" height="192" rx="40" fill="#050508"/>
+  <circle cx="96" cy="96" r="70" fill="none" stroke="url(#g)" stroke-width="4" opacity="0.3"/>
+  <text x="96" y="80" text-anchor="middle" font-family="Arial" font-size="28" font-weight="700" fill="url(#g)">SDG</text>
+  <text x="96" y="118" text-anchor="middle" font-family="Arial" font-size="13" fill="#94a3b8">سورا · ديب · جولد</text>
+  <circle cx="56" cy="142" r="6" fill="#2563eb"/>
+  <circle cx="96" cy="142" r="6" fill="#d97706"/>
+  <circle cx="136" cy="142" r="6" fill="#dc2626"/>
+</svg>

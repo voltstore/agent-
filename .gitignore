@@ -1,0 +1,17 @@
+# المفاتيح السرية — لا تُرفع أبداً
+.env
+
+# اعتماديات Node
+node_modules/
+
+# سجلات
+*.log
+npm-debug.log*
+
+# نظام التشغيل
+.DS_Store
+Thumbs.db
+
+# بيئات التطوير
+.vscode/
+.idea/
