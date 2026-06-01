@@ -1,4 +1,4 @@
-﻿'use strict';
+'use strict';
 require('dotenv').config();
 const express=require('express');
 const cors=require('cors');
@@ -31,5 +31,7 @@ app.post('/api/agents/sora/run',requireAuth,(req,res)=>{res.json({success:true,m
 app.post('/api/agents/deep/run',requireAuth,(req,res)=>{res.json({success:true,message:'ديب يعمل...'});runDeep(req.body).catch(e=>logEvent('error','ديب',{error:e.message}));});
 app.post('/api/agents/gold/run',requireAuth,(req,res)=>{res.json({success:true,message:'جولد يعمل...'});runGold().catch(e=>logEvent('error','جولد',{error:e.message}));});
 app.get('/api/reports',requireAuth,async(req,res)=>{try{const all=await fbGet('reports')||{};const list=Object.entries(all).map(([date,d])=>({date,...d})).sort((a,b)=>b.date.localeCompare(a.date)).slice(0,30);res.json(list);}catch(e){res.status(500).json({error:e.message});}});
+app.post('/api/leads/:id/email',requireAuth,async(req,res)=>{try{const leads=await fbGet('leads')||{};const lead=leads[req.params.id];if(!lead)return res.status(404).json({error:'لا توجد'});if(!lead.email)return res.status(400).json({error:'لا يوجد إيميل'});const nodemailer=require('nodemailer');const t=nodemailer.createTransport({service:'gmail',auth:{user:process.env.GMAIL_USER,pass:process.env.GMAIL_PASS}});const msg=req.body.message||'السلام عليكم،\n\nنحن من فريق VOLT STORE المتخصص في تصميم المواقع.\n\nنود مساعدة '+lead.name+' في بناء موقع احترافي.\n\nنقدم:\n✅ تصميم موقع احترافي\n✅ ظهور في Google\n✅ دعم فني\n\nهل يمكننا التحدث؟';await t.sendMail({from:'VOLT STORE <'+process.env.GMAIL_USER+'>',to:lead.email,subject:'عرض خاص لـ '+lead.name,text:msg,html:'<div dir=rtl style=font-family:Arial,sans-serif;padding:24px><h2 style=color:#6366f1>'+lead.name+'</h2><p style=color:#64748b>'+lead.category+' · '+lead.city+'</p><div style=background:#f8fafc;padding:18px;border-radius:8px;border-right:4px solid #6366f1;line-height:2>'+msg.replace(/\n/g,'<br>')+'</div></div>'});await fbUpdate('leads/'+req.params.id,{status:'أُرسل',sentAt:new Date().toISOString()});res.json({success:true});}catch(e){res.status(500).json({error:e.message});}});
 app.get('/health',(_,res)=>res.json({status:'ok',time:new Date().toISOString()}));
 app.listen(PORT,async()=>{console.log('TRIPLE AGENTS منفذ '+PORT);try{const e=await fbGet('settings');if(!e)await fbSet('settings',DEFAULT_SETTINGS);}catch{}await initSchedule();});
+
