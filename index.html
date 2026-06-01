@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
@@ -246,7 +246,7 @@
 
     .search-wrap { position: relative; margin-bottom: 12px; }
     .search-wrap input { padding-right: 40px; }
-    .search-wrap::before { content: '🔍'; position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font-size: 14px; pointer-events: none; opacity: .5; }
+    .search-wrap::before { content: 'ًں”چ'; position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font-size: 14px; pointer-events: none; opacity: .5; }
 
     /* Company Card */
     .company-card {
@@ -412,10 +412,10 @@
 <body data-theme="dark">
 
 <div id="lock-screen">
-  <div class="lock-badge">🤖</div>
+  <div class="lock-badge">ًں¤–</div>
   <div class="lock-logo">
     <h1>TRIPLE AGENTS</h1>
-    <p>SORA · DEEP · GOLD</p>
+    <p>SORA آ· DEEP آ· GOLD</p>
   </div>
   <div class="pin-dots" id="pin-dots">
     <div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div>
@@ -433,7 +433,7 @@
     <button class="pin-btn" onclick="pinPress('9')">9</button>
     <button class="pin-btn empty"></button>
     <button class="pin-btn" onclick="pinPress('0')">0</button>
-    <button class="pin-btn" onclick="pinDelete()">⌫</button>
+    <button class="pin-btn" onclick="pinDelete()">âŒ«</button>
   </div>
   <div class="lock-error" id="lock-error"></div>
 </div>
@@ -444,8 +444,8 @@
   <div class="modal">
     <div class="modal-grip"></div>
     <div class="modal-title">
-      <span id="md-title">تفاصيل الشركة</span>
-      <button class="modal-close" onclick="closeModal('modal-detail')">✕</button>
+      <span id="md-title">طھظپط§طµظٹظ„ ط§ظ„ط´ط±ظƒط©</span>
+      <button class="modal-close" onclick="closeModal('modal-detail')">âœ•</button>
     </div>
     <div id="md-content"></div>
   </div>
@@ -455,227 +455,227 @@
 
   <header class="header">
     <div class="brand">
-      <div class="brand-icon">🤖</div>
+      <div class="brand-icon">ًں¤–</div>
       <div class="brand-title">TRIPLE AGENTS</div>
     </div>
     <div class="header-actions">
       <div class="health-pill">
         <div class="health-dot" id="health-dot"></div>
-        <span id="health-text">متصل</span>
+        <span id="health-text">ظ…طھطµظ„</span>
       </div>
-      <button class="icon-btn" onclick="toggleTheme()" title="الوضع" id="theme-btn">🌙</button>
-      <button class="icon-btn" onclick="refreshAll()" title="تحديث">🔄</button>
-      <button class="icon-btn" onclick="logout()" title="خروج">↩</button>
+      <button class="icon-btn" onclick="toggleTheme()" title="ط§ظ„ظˆط¶ط¹" id="theme-btn">ًںŒ™</button>
+      <button class="icon-btn" onclick="refreshAll()" title="طھط­ط¯ظٹط«">ًں”„</button>
+      <button class="icon-btn" onclick="logout()" title="ط®ط±ظˆط¬">â†©</button>
     </div>
   </header>
 
-  <!-- ===== الرئيسية ===== -->
+  <!-- ===== ط§ظ„ط±ط¦ظٹط³ظٹط© ===== -->
   <div class="page active" id="page-home">
     <div class="hero">
-      <div class="hero-label">إجمالي العملاء المحتملين</div>
-      <div class="hero-value" id="h-total">–</div>
+      <div class="hero-label">ط¥ط¬ظ…ط§ظ„ظٹ ط§ظ„ط¹ظ…ظ„ط§ط، ط§ظ„ظ…ط­طھظ…ظ„ظٹظ†</div>
+      <div class="hero-value" id="h-total">â€“</div>
       <div class="hero-meta">
-        <div class="hero-meta-item"><span style="color:var(--blue);">●</span> <span id="h-new">–</span> جديد</div>
-        <div class="hero-meta-item"><span style="color:var(--gold);">●</span> <span id="h-sent">–</span> مُرسَل</div>
-        <div class="hero-meta-item"><span style="color:var(--green);">●</span> <span id="h-clients">–</span> عملاء</div>
+        <div class="hero-meta-item"><span style="color:var(--blue);">â—ڈ</span> <span id="h-new">â€“</span> ط¬ط¯ظٹط¯</div>
+        <div class="hero-meta-item"><span style="color:var(--gold);">â—ڈ</span> <span id="h-sent">â€“</span> ظ…ظڈط±ط³ظژظ„</div>
+        <div class="hero-meta-item"><span style="color:var(--green);">â—ڈ</span> <span id="h-clients">â€“</span> ط¹ظ…ظ„ط§ط،</div>
       </div>
     </div>
 
     <div class="quick-action" id="quick-action-banner" style="display:none;">
-      <div class="qa-icon">⚡</div>
+      <div class="qa-icon">âڑ،</div>
       <div class="qa-text">
-        <div class="qa-title"><span id="qa-count">0</span> شركة جاهزة للتواصل</div>
-        <div class="qa-sub">اضغط للبدء في الإرسال</div>
+        <div class="qa-title"><span id="qa-count">0</span> ط´ط±ظƒط© ط¬ط§ظ‡ط²ط© ظ„ظ„طھظˆط§طµظ„</div>
+        <div class="qa-sub">ط§ط¶ط؛ط· ظ„ظ„ط¨ط¯ط، ظپظٹ ط§ظ„ط¥ط±ط³ط§ظ„</div>
       </div>
-      <button class="qa-btn" onclick="showPage('leads', document.querySelector('[data-page=leads]'))">ابدأ ←</button>
+      <button class="qa-btn" onclick="showPage('leads', document.querySelector('[data-page=leads]'))">ط§ط¨ط¯ط£ â†گ</button>
     </div>
 
     <div class="card">
       <div class="card-head">
-        <div class="card-title"><span class="icon">📅</span> اليوم</div>
-        <div class="card-badge brand" id="today-date">–</div>
+        <div class="card-title"><span class="icon">ًں“…</span> ط§ظ„ظٹظˆظ…</div>
+        <div class="card-badge brand" id="today-date">â€“</div>
       </div>
       <div class="stats-grid">
-        <div class="stat-mini"><div class="stat-mini-val blue" id="t-disc">–</div><div class="stat-mini-lbl">مكتشفة</div></div>
-        <div class="stat-mini"><div class="stat-mini-val gold" id="t-sent">–</div><div class="stat-mini-lbl">مرسلة</div></div>
-        <div class="stat-mini"><div class="stat-mini-val green" id="t-rep">–</div><div class="stat-mini-lbl">ردود</div></div>
+        <div class="stat-mini"><div class="stat-mini-val blue" id="t-disc">â€“</div><div class="stat-mini-lbl">ظ…ظƒطھط´ظپط©</div></div>
+        <div class="stat-mini"><div class="stat-mini-val gold" id="t-sent">â€“</div><div class="stat-mini-lbl">ظ…ط±ط³ظ„ط©</div></div>
+        <div class="stat-mini"><div class="stat-mini-val green" id="t-rep">â€“</div><div class="stat-mini-lbl">ط±ط¯ظˆط¯</div></div>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-head"><div class="card-title"><span class="icon">📊</span> توزيع الحالات</div></div>
+      <div class="card-head"><div class="card-title"><span class="icon">ًں“ٹ</span> طھظˆط²ظٹط¹ ط§ظ„ط­ط§ظ„ط§طھ</div></div>
       <div id="status-breakdown"></div>
     </div>
 
-    <!-- رصيد Claude -->
+    <!-- ط±طµظٹط¯ Claude -->
     <div class="card" style="background:linear-gradient(135deg,rgba(99,102,241,.1),transparent);">
       <div class="card-head">
-        <div class="card-title"><span class="icon">🤖</span> رصيد Claude API</div>
+        <div class="card-title"><span class="icon">ًں¤–</span> ط±طµظٹط¯ Claude API</div>
       </div>
       <p style="font-size:12px;color:var(--txt3);line-height:1.7;margin-bottom:12px;">
-        لا يمكن قراءة الرصيد تلقائياً — افتح لوحة Anthropic لرؤية المتبقي وإعادة الشحن.
+        ظ„ط§ ظٹظ…ظƒظ† ظ‚ط±ط§ط،ط© ط§ظ„ط±طµظٹط¯ طھظ„ظ‚ط§ط¦ظٹط§ظ‹ â€” ط§ظپطھط­ ظ„ظˆط­ط© Anthropic ظ„ط±ط¤ظٹط© ط§ظ„ظ…طھط¨ظ‚ظٹ ظˆط¥ط¹ط§ط¯ط© ط§ظ„ط´ط­ظ†.
       </p>
       <button class="btn btn-ghost" onclick="window.open('https://console.anthropic.com/settings/billing','_blank')">
-        <span>💳</span> فتح لوحة الرصيد
+        <span>ًں’³</span> ظپطھط­ ظ„ظˆط­ط© ط§ظ„ط±طµظٹط¯
       </button>
     </div>
 
     <!-- Firebase -->
     <div class="card">
       <div class="card-head">
-        <div class="card-title"><span class="icon">💾</span> مساحة Firebase</div>
-        <div class="card-badge" id="fb-badge">–</div>
+        <div class="card-title"><span class="icon">ًں’¾</span> ظ…ط³ط§ط­ط© Firebase</div>
+        <div class="card-badge" id="fb-badge">â€“</div>
       </div>
       <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--txt2);margin-bottom:8px;">
-        <span id="fb-count">– سجل</span>
-        <span style="color:var(--txt3);" id="fb-size">–</span>
+        <span id="fb-count">â€“ ط³ط¬ظ„</span>
+        <span style="color:var(--txt3);" id="fb-size">â€“</span>
       </div>
       <div class="progress"><div class="progress-fill brand" id="fb-fill" style="width:0%"></div></div>
       <button class="btn btn-ghost" style="margin-top:12px;" onclick="confirmCleanFirebase()">
-        <span>🗑️</span> تفريغ السجلات القديمة
+        <span>ًں—‘ï¸ڈ</span> طھظپط±ظٹط؛ ط§ظ„ط³ط¬ظ„ط§طھ ط§ظ„ظ‚ط¯ظٹظ…ط©
       </button>
     </div>
 
     <div class="card">
-      <div class="card-head"><div class="card-title"><span class="icon">💰</span> الميزانية الشهرية</div><div class="card-badge" id="b-badge">–</div></div>
+      <div class="card-head"><div class="card-title"><span class="icon">ًں’°</span> ط§ظ„ظ…ظٹط²ط§ظ†ظٹط© ط§ظ„ط´ظ‡ط±ظٹط©</div><div class="card-badge" id="b-badge">â€“</div></div>
       <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--txt2);margin-bottom:8px;">
-        <span id="b-used">–</span><span style="color:var(--txt3);" id="b-limit">–</span>
+        <span id="b-used">â€“</span><span style="color:var(--txt3);" id="b-limit">â€“</span>
       </div>
       <div class="progress"><div class="progress-fill" id="b-fill" style="width:0%"></div></div>
     </div>
 
     <div class="card">
-      <div class="card-head"><div class="card-title"><span class="icon">⚙️</span> حالة النظام</div></div>
-      <div class="info-row"><span class="info-row-label">🔍 الخادم</span><span class="card-badge green" id="sys-server">متصل</span></div>
-      <div class="info-row"><span class="info-row-label">💾 قاعدة البيانات</span><span class="card-badge green" id="sys-db">متصلة</span></div>
-      <div class="info-row"><span class="info-row-label">🌐 Google API</span><span class="card-badge green" id="sys-google">يعمل</span></div>
+      <div class="card-head"><div class="card-title"><span class="icon">âڑ™ï¸ڈ</span> ط­ط§ظ„ط© ط§ظ„ظ†ط¸ط§ظ…</div></div>
+      <div class="info-row"><span class="info-row-label">ًں”چ ط§ظ„ط®ط§ط¯ظ…</span><span class="card-badge green" id="sys-server">ظ…طھطµظ„</span></div>
+      <div class="info-row"><span class="info-row-label">ًں’¾ ظ‚ط§ط¹ط¯ط© ط§ظ„ط¨ظٹط§ظ†ط§طھ</span><span class="card-badge green" id="sys-db">ظ…طھطµظ„ط©</span></div>
+      <div class="info-row"><span class="info-row-label">ًںŒگ Google API</span><span class="card-badge green" id="sys-google">ظٹط¹ظ…ظ„</span></div>
     </div>
   </div>
 
-  <!-- ===== العملاء ===== -->
+  <!-- ===== ط§ظ„ط¹ظ…ظ„ط§ط، ===== -->
   <div class="page" id="page-leads">
     <div class="card" style="background:linear-gradient(135deg,rgba(37,211,102,.1),transparent);border-color:rgba(37,211,102,.2);">
       <div class="card-head">
-        <div class="card-title"><span class="icon">📋</span> قائمة العملاء <span class="card-badge green" id="leads-total">0</span></div>
-        <button class="icon-btn" onclick="loadLeadsList()">🔄</button>
+        <div class="card-title"><span class="icon">ًں“‹</span> ظ‚ط§ط¦ظ…ط© ط§ظ„ط¹ظ…ظ„ط§ط، <span class="card-badge green" id="leads-total">0</span></div>
+        <button class="icon-btn" onclick="loadLeadsList()">ًں”„</button>
       </div>
       <p style="font-size:12px;color:var(--txt3);line-height:1.7;">
-        <strong style="color:var(--wa);">واتساب</strong> = إرسال وإخفاء تلقائي ·
-        <strong style="color:var(--red);">✕</strong> = حذف من القائمة
+        <strong style="color:var(--wa);">ظˆط§طھط³ط§ط¨</strong> = ط¥ط±ط³ط§ظ„ ظˆط¥ط®ظپط§ط، طھظ„ظ‚ط§ط¦ظٹ آ·
+        <strong style="color:var(--red);">âœ•</strong> = ط­ط°ظپ ظ…ظ† ط§ظ„ظ‚ط§ط¦ظ…ط©
       </p>
     </div>
 
     <div class="filter-tabs">
-      <button class="filter-tab active" data-status="جديد" onclick="switchFilter(this)">🆕 جديد <span class="count-pill" id="c-new">0</span></button>
-      <button class="filter-tab" data-status="أُرسل" onclick="switchFilter(this)">✉️ مُرسَل <span class="count-pill" id="c-sent">0</span></button>
-      <button class="filter-tab" data-status="ردّ" onclick="switchFilter(this)">💬 ردّ <span class="count-pill" id="c-reply">0</span></button>
-      <button class="filter-tab" data-status="عميل" onclick="switchFilter(this)">⭐ عميل <span class="count-pill" id="c-client">0</span></button>
+      <button class="filter-tab active" data-status="ط¬ط¯ظٹط¯" onclick="switchFilter(this)">ًں†• ط¬ط¯ظٹط¯ <span class="count-pill" id="c-new">0</span></button>
+      <button class="filter-tab" data-status="ط£ظڈط±ط³ظ„" onclick="switchFilter(this)">âœ‰ï¸ڈ ظ…ظڈط±ط³ظژظ„ <span class="count-pill" id="c-sent">0</span></button>
+      <button class="filter-tab" data-status="ط±ط¯ظ‘" onclick="switchFilter(this)">ًں’¬ ط±ط¯ظ‘ <span class="count-pill" id="c-reply">0</span></button>
+      <button class="filter-tab" data-status="ط¹ظ…ظٹظ„" onclick="switchFilter(this)">â­گ ط¹ظ…ظٹظ„ <span class="count-pill" id="c-client">0</span></button>
     </div>
 
     <div class="search-wrap">
-      <input type="text" id="leads-search" placeholder="ابحث بالاسم، المدينة، النشاط..." oninput="filterLeads()">
+      <input type="text" id="leads-search" placeholder="ط§ط¨ط­ط« ط¨ط§ظ„ط§ط³ظ…طŒ ط§ظ„ظ…ط¯ظٹظ†ط©طŒ ط§ظ„ظ†ط´ط§ط·..." oninput="filterLeads()">
     </div>
 
-    <div id="leads-list"><div class="loader">جارٍ التحميل...</div></div>
+    <div id="leads-list"><div class="loader">ط¬ط§ط±ظچ ط§ظ„طھط­ظ…ظٹظ„...</div></div>
   </div>
 
-  <!-- ===== سورا ===== -->
+  <!-- ===== ط³ظˆط±ط§ ===== -->
   <div class="page" id="page-sora">
     <div class="card">
-      <div class="card-head"><div class="card-title"><span class="agent-pill agent-sora">🔍 سورا</span> الباحث</div></div>
-      <div class="form-row"><label>المدينة</label><input type="text" id="sora-city" placeholder="الرياض، جدة، الدمام" value="الرياض"></div>
-      <div class="form-row"><label>النشاط التجاري</label><input type="text" id="sora-cat" placeholder="شركات تنظيف، مطاعم، صالونات"></div>
-      <div class="form-row"><label>عدد الشركات (1-50)</label><input type="number" id="sora-target" min="1" max="50" value="10"></div>
-      <button class="btn btn-brand" id="sora-btn" onclick="runSora()"><span>🚀</span> ابدأ البحث</button>
+      <div class="card-head"><div class="card-title"><span class="agent-pill agent-sora">ًں”چ ط³ظˆط±ط§</span> ط§ظ„ط¨ط§ط­ط«</div></div>
+      <div class="form-row"><label>ط§ظ„ظ…ط¯ظٹظ†ط©</label><input type="text" id="sora-city" placeholder="ط§ظ„ط±ظٹط§ط¶طŒ ط¬ط¯ط©طŒ ط§ظ„ط¯ظ…ط§ظ…" value="ط§ظ„ط±ظٹط§ط¶"></div>
+      <div class="form-row"><label>ط§ظ„ظ†ط´ط§ط· ط§ظ„طھط¬ط§ط±ظٹ</label><input type="text" id="sora-cat" placeholder="ط´ط±ظƒط§طھ طھظ†ط¸ظٹظپطŒ ظ…ط·ط§ط¹ظ…طŒ طµط§ظ„ظˆظ†ط§طھ"></div>
+      <div class="form-row"><label>ط¹ط¯ط¯ ط§ظ„ط´ط±ظƒط§طھ (1-50)</label><input type="number" id="sora-target" min="1" max="50" value="10"></div>
+      <button class="btn btn-brand" id="sora-btn" onclick="runSora()"><span>ًںڑ€</span> ط§ط¨ط¯ط£ ط§ظ„ط¨ط­ط«</button>
     </div>
 
     <div class="card">
-      <div class="card-head"><div class="card-title"><span class="icon">💡</span> اقتراحات سريعة</div></div>
+      <div class="card-head"><div class="card-title"><span class="icon">ًں’،</span> ط§ظ‚طھط±ط§ط­ط§طھ ط³ط±ظٹط¹ط©</div></div>
       <div style="display:flex;flex-wrap:wrap;gap:6px;">
-        <button class="filter-tab" onclick="quickSearch('الرياض','مطاعم')">🍽️ مطاعم الرياض</button>
-        <button class="filter-tab" onclick="quickSearch('جدة','شركات تنظيف')">🧹 تنظيف جدة</button>
-        <button class="filter-tab" onclick="quickSearch('الدمام','محلات أزياء')">👔 أزياء الدمام</button>
-        <button class="filter-tab" onclick="quickSearch('مكة','صالونات')">💇 صالونات مكة</button>
-        <button class="filter-tab" onclick="quickSearch('الرياض','عيادات')">🏥 عيادات الرياض</button>
-        <button class="filter-tab" onclick="quickSearch('جدة','كافيهات')">☕ كافيهات جدة</button>
+        <button class="filter-tab" onclick="quickSearch('ط§ظ„ط±ظٹط§ط¶','ظ…ط·ط§ط¹ظ…')">ًںچ½ï¸ڈ ظ…ط·ط§ط¹ظ… ط§ظ„ط±ظٹط§ط¶</button>
+        <button class="filter-tab" onclick="quickSearch('ط¬ط¯ط©','ط´ط±ظƒط§طھ طھظ†ط¸ظٹظپ')">ًں§¹ طھظ†ط¸ظٹظپ ط¬ط¯ط©</button>
+        <button class="filter-tab" onclick="quickSearch('ط§ظ„ط¯ظ…ط§ظ…','ظ…ط­ظ„ط§طھ ط£ط²ظٹط§ط،')">ًں‘” ط£ط²ظٹط§ط، ط§ظ„ط¯ظ…ط§ظ…</button>
+        <button class="filter-tab" onclick="quickSearch('ظ…ظƒط©','طµط§ظ„ظˆظ†ط§طھ')">ًں’‡ طµط§ظ„ظˆظ†ط§طھ ظ…ظƒط©</button>
+        <button class="filter-tab" onclick="quickSearch('ط§ظ„ط±ظٹط§ط¶','ط¹ظٹط§ط¯ط§طھ')">ًںڈ¥ ط¹ظٹط§ط¯ط§طھ ط§ظ„ط±ظٹط§ط¶</button>
+        <button class="filter-tab" onclick="quickSearch('ط¬ط¯ط©','ظƒط§ظپظٹظ‡ط§طھ')">âک• ظƒط§ظپظٹظ‡ط§طھ ط¬ط¯ط©</button>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-head"><div class="card-title"><span class="icon">ℹ️</span> كيف يعمل سورا؟</div></div>
+      <div class="card-head"><div class="card-title"><span class="icon">â„¹ï¸ڈ</span> ظƒظٹظپ ظٹط¹ظ…ظ„ ط³ظˆط±ط§طں</div></div>
       <div style="font-size:13px;line-height:2;color:var(--txt2);">
-        <div>1️⃣ يبحث في Google Maps عن شركات حقيقية</div>
-        <div>2️⃣ يفلتر الشركات بدون موقع إلكتروني</div>
-        <div>3️⃣ يحفظ فقط التقييم العالي (4+ نجوم)</div>
-        <div>4️⃣ يضيفها لقائمة العملاء فوراً</div>
+        <div>1ï¸ڈâƒ£ ظٹط¨ط­ط« ظپظٹ Google Maps ط¹ظ† ط´ط±ظƒط§طھ ط­ظ‚ظٹظ‚ظٹط©</div>
+        <div>2ï¸ڈâƒ£ ظٹظپظ„طھط± ط§ظ„ط´ط±ظƒط§طھ ط¨ط¯ظˆظ† ظ…ظˆظ‚ط¹ ط¥ظ„ظƒطھط±ظˆظ†ظٹ</div>
+        <div>3ï¸ڈâƒ£ ظٹط­ظپط¸ ظپظ‚ط· ط§ظ„طھظ‚ظٹظٹظ… ط§ظ„ط¹ط§ظ„ظٹ (4+ ظ†ط¬ظˆظ…)</div>
+        <div>4ï¸ڈâƒ£ ظٹط¶ظٹظپظ‡ط§ ظ„ظ‚ط§ط¦ظ…ط© ط§ظ„ط¹ظ…ظ„ط§ط، ظپظˆط±ط§ظ‹</div>
       </div>
     </div>
   </div>
 
-  <!-- ===== التقارير ===== -->
+  <!-- ===== ط§ظ„طھظ‚ط§ط±ظٹط± ===== -->
   <div class="page" id="page-gold">
     <div class="card">
-      <div class="card-head"><div class="card-title"><span class="agent-pill agent-gold">📈 جولد</span> المحلل</div></div>
-      <p style="font-size:12px;color:var(--txt3);line-height:1.7;margin-bottom:12px;">تقرير ذكي يحلل الأداء ويقترح تحسينات</p>
-      <button class="btn btn-brand" id="gold-btn" onclick="runGold()"><span>⚡</span> توليد تقرير الآن</button>
+      <div class="card-head"><div class="card-title"><span class="agent-pill agent-gold">ًں“ˆ ط¬ظˆظ„ط¯</span> ط§ظ„ظ…ط­ظ„ظ„</div></div>
+      <p style="font-size:12px;color:var(--txt3);line-height:1.7;margin-bottom:12px;">طھظ‚ط±ظٹط± ط°ظƒظٹ ظٹط­ظ„ظ„ ط§ظ„ط£ط¯ط§ط، ظˆظٹظ‚طھط±ط­ طھط­ط³ظٹظ†ط§طھ</p>
+      <button class="btn btn-brand" id="gold-btn" onclick="runGold()"><span>âڑ،</span> طھظˆظ„ظٹط¯ طھظ‚ط±ظٹط± ط§ظ„ط¢ظ†</button>
     </div>
-    <div id="reports-container"><div class="loader">جارٍ التحميل...</div></div>
+    <div id="reports-container"><div class="loader">ط¬ط§ط±ظچ ط§ظ„طھط­ظ…ظٹظ„...</div></div>
   </div>
 
-  <!-- ===== الإعدادات ===== -->
+  <!-- ===== ط§ظ„ط¥ط¹ط¯ط§ط¯ط§طھ ===== -->
   <div class="page" id="page-settings">
     <div class="card">
-      <div class="card-head"><div class="card-title"><span class="icon">🎨</span> المظهر</div></div>
+      <div class="card-head"><div class="card-title"><span class="icon">ًںژ¨</span> ط§ظ„ظ…ط¸ظ‡ط±</div></div>
       <div class="info-row">
-        <div><div class="info-row-label">الوضع الليلي</div><div style="font-size:11px;color:var(--txt3);margin-top:2px;">تبديل بين الفاتح والداكن</div></div>
-        <button class="btn btn-ghost" style="width:auto;padding:8px 16px;" onclick="toggleTheme()" id="theme-btn2">🌙 ليلي</button>
+        <div><div class="info-row-label">ط§ظ„ظˆط¶ط¹ ط§ظ„ظ„ظٹظ„ظٹ</div><div style="font-size:11px;color:var(--txt3);margin-top:2px;">طھط¨ط¯ظٹظ„ ط¨ظٹظ† ط§ظ„ظپط§طھط­ ظˆط§ظ„ط¯ط§ظƒظ†</div></div>
+        <button class="btn btn-ghost" style="width:auto;padding:8px 16px;" onclick="toggleTheme()" id="theme-btn2">ًںŒ™ ظ„ظٹظ„ظٹ</button>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-head"><div class="card-title"><span class="icon">✏️</span> قالب رسالة واتساب</div></div>
+      <div class="card-head"><div class="card-title"><span class="icon">âœڈï¸ڈ</span> ظ‚ط§ظ„ط¨ ط±ط³ط§ظ„ط© ظˆط§طھط³ط§ط¨</div></div>
       <p style="font-size:11px;color:var(--txt3);margin-bottom:10px;line-height:1.7;">
-        المتغيرات: <code style="background:var(--surface2);padding:2px 6px;border-radius:4px;">{اسم_الشركة}</code>
-        <code style="background:var(--surface2);padding:2px 6px;border-radius:4px;">{المدينة}</code>
-        <code style="background:var(--surface2);padding:2px 6px;border-radius:4px;">{النشاط}</code>
+        ط§ظ„ظ…طھط؛ظٹط±ط§طھ: <code style="background:var(--surface2);padding:2px 6px;border-radius:4px;">{ط§ط³ظ…_ط§ظ„ط´ط±ظƒط©}</code>
+        <code style="background:var(--surface2);padding:2px 6px;border-radius:4px;">{ط§ظ„ظ…ط¯ظٹظ†ط©}</code>
+        <code style="background:var(--surface2);padding:2px 6px;border-radius:4px;">{ط§ظ„ظ†ط´ط§ط·}</code>
       </p>
       <textarea id="msg-template" rows="9"></textarea>
-      <button class="btn btn-brand" style="margin-top:10px;" onclick="saveTemplate()"><span>💾</span> حفظ القالب</button>
+      <button class="btn btn-brand" style="margin-top:10px;" onclick="saveTemplate()"><span>ًں’¾</span> ط­ظپط¸ ط§ظ„ظ‚ط§ظ„ط¨</button>
     </div>
 
     <div class="card">
-      <div class="card-head"><div class="card-title"><span class="icon">🎯</span> معايير البحث</div></div>
+      <div class="card-head"><div class="card-title"><span class="icon">ًںژ¯</span> ظ…ط¹ط§ظٹظٹط± ط§ظ„ط¨ط­ط«</div></div>
       <div class="form-grid">
-        <div><label>الهدف اليومي</label><input type="number" id="s-target" min="1" max="100" onchange="saveSettings()"></div>
-        <div><label>أدنى تقييم</label><input type="number" id="s-rating" min="1" max="5" step="0.1" onchange="saveSettings()"></div>
+        <div><label>ط§ظ„ظ‡ط¯ظپ ط§ظ„ظٹظˆظ…ظٹ</label><input type="number" id="s-target" min="1" max="100" onchange="saveSettings()"></div>
+        <div><label>ط£ط¯ظ†ظ‰ طھظ‚ظٹظٹظ…</label><input type="number" id="s-rating" min="1" max="5" step="0.1" onchange="saveSettings()"></div>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-head"><div class="card-title"><span class="icon">🏭</span> الأنشطة المستهدفة</div></div>
+      <div class="card-head"><div class="card-title"><span class="icon">ًںڈ­</span> ط§ظ„ط£ظ†ط´ط·ط© ط§ظ„ظ…ط³طھظ‡ط¯ظپط©</div></div>
       <div id="cats-list" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;"></div>
       <div style="display:flex;gap:8px;">
-        <input type="text" id="cat-input" placeholder="نشاط جديد..." onkeydown="if(event.key==='Enter') addCategory()">
+        <input type="text" id="cat-input" placeholder="ظ†ط´ط§ط· ط¬ط¯ظٹط¯..." onkeydown="if(event.key==='Enter') addCategory()">
         <button class="btn btn-brand" style="width:auto;padding:12px 18px;" onclick="addCategory()">+</button>
       </div>
     </div>
 
     <div class="card" style="background:linear-gradient(135deg,rgba(99,102,241,.06),transparent);">
-      <div class="card-head"><div class="card-title"><span class="icon">ℹ️</span> المطور</div></div>
+      <div class="card-head"><div class="card-title"><span class="icon">â„¹ï¸ڈ</span> ط§ظ„ظ…ط·ظˆط±</div></div>
       <div style="font-size:13px;line-height:2;color:var(--txt2);">
-        <div>👨‍💻 <strong style="color:var(--txt);">مصطفى عبدالله أحمد</strong></div>
-        <div>⚡ <strong style="color:var(--txt);">VOLT STORE</strong></div>
-        <div>📦 TRIPLE AGENTS <strong style="color:var(--txt);">v4.0</strong></div>
+        <div>ًں‘¨â€چًں’» <strong style="color:var(--txt);">ظ…طµط·ظپظ‰ ط¹ط¨ط¯ط§ظ„ظ„ظ‡ ط£ط­ظ…ط¯</strong></div>
+        <div>âڑ، <strong style="color:var(--txt);">VOLT STORE</strong></div>
+        <div>ًں“¦ TRIPLE AGENTS <strong style="color:var(--txt);">v4.0</strong></div>
       </div>
     </div>
   </div>
 
   <nav class="bottom-nav">
-    <button class="nav-btn active" data-page="home" onclick="showPage('home', this)"><span class="nav-icon">🏠</span>الرئيسية</button>
-    <button class="nav-btn" data-page="leads" onclick="showPage('leads', this)"><span class="nav-icon">📋</span>العملاء<span class="nav-badge" id="nav-badge-leads" style="display:none;">0</span></button>
-    <button class="nav-btn" data-page="sora" onclick="showPage('sora', this)"><span class="nav-icon">🔍</span>سورا</button>
-    <button class="nav-btn" data-page="gold" onclick="showPage('gold', this)"><span class="nav-icon">📈</span>التقارير</button>
-    <button class="nav-btn" data-page="settings" onclick="showPage('settings', this)"><span class="nav-icon">⚙️</span>الإعدادات</button>
+    <button class="nav-btn active" data-page="home" onclick="showPage('home', this)"><span class="nav-icon">ًںڈ </span>ط§ظ„ط±ط¦ظٹط³ظٹط©</button>
+    <button class="nav-btn" data-page="leads" onclick="showPage('leads', this)"><span class="nav-icon">ًں“‹</span>ط§ظ„ط¹ظ…ظ„ط§ط،<span class="nav-badge" id="nav-badge-leads" style="display:none;">0</span></button>
+    <button class="nav-btn" data-page="sora" onclick="showPage('sora', this)"><span class="nav-icon">ًں”چ</span>ط³ظˆط±ط§</button>
+    <button class="nav-btn" data-page="gold" onclick="showPage('gold', this)"><span class="nav-icon">ًں“ˆ</span>ط§ظ„طھظ‚ط§ط±ظٹط±</button>
+    <button class="nav-btn" data-page="settings" onclick="showPage('settings', this)"><span class="nav-icon">âڑ™ï¸ڈ</span>ط§ظ„ط¥ط¹ط¯ط§ط¯ط§طھ</button>
   </nav>
 </div>
 
@@ -687,15 +687,15 @@ let token = localStorage.getItem('sdg_token');
 let pinValue = '';
 let settings = {};
 let currentLeads = [];
-let currentFilter = 'جديد';
-let allLeads = { 'جديد': [], 'أُرسل': [], 'ردّ': [], 'عميل': [] };
+let currentFilter = 'ط¬ط¯ظٹط¯';
+let allLeads = { 'ط¬ط¯ظٹط¯': [], 'ط£ظڈط±ط³ظ„': [], 'ط±ط¯ظ‘': [], 'ط¹ظ…ظٹظ„': [] };
 
 // ===== Theme =====
 function applyTheme(t) {
   document.body.setAttribute('data-theme', t);
   localStorage.setItem('sdg_theme', t);
-  const icon = t === 'dark' ? '🌙' : '☀️';
-  const label = t === 'dark' ? '🌙 ليلي' : '☀️ نهاري';
+  const icon = t === 'dark' ? 'ًںŒ™' : 'âک€ï¸ڈ';
+  const label = t === 'dark' ? 'ًںŒ™ ظ„ظٹظ„ظٹ' : 'âک€ï¸ڈ ظ†ظ‡ط§ط±ظٹ';
   const b1 = document.getElementById('theme-btn');
   const b2 = document.getElementById('theme-btn2');
   if (b1) b1.textContent = icon;
@@ -722,11 +722,11 @@ async function verifyPin() {
       initApp();
     } else {
       document.querySelectorAll('.pin-dot').forEach(d => d.classList.add('error'));
-      document.getElementById('lock-error').textContent = data.error || 'رمز خاطئ';
+      document.getElementById('lock-error').textContent = data.error || 'ط±ظ…ط² ط®ط§ط·ط¦';
       pinValue = ''; setTimeout(updateDots, 800);
     }
   } catch {
-    document.getElementById('lock-error').textContent = 'تعذّر الاتصال بالخادم';
+    document.getElementById('lock-error').textContent = 'طھط¹ط°ظ‘ط± ط§ظ„ط§طھطµط§ظ„ ط¨ط§ظ„ط®ط§ط¯ظ…';
     pinValue = ''; updateDots();
   }
 }
@@ -758,7 +758,7 @@ function logout() {
   pinValue = ''; updateDots();
 }
 
-function refreshAll() { loadStats(); loadAllLeads(); checkHealth(); loadFirebaseUsage(); toast('🔄 جارٍ التحديث...', 1500); }
+function refreshAll() { loadStats(); loadAllLeads(); checkHealth(); loadFirebaseUsage(); toast('ًں”„ ط¬ط§ط±ظچ ط§ظ„طھط­ط¯ظٹط«...', 1500); }
 
 function showPage(name, btn) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -776,7 +776,7 @@ async function api(path, method = 'GET', body = null) {
   const opts = { method, headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` } };
   if (body) opts.body = JSON.stringify(body);
   const r = await fetch(`${SERVER_URL}${path}`, opts);
-  if (r.status === 401) { logout(); throw new Error('جلسة منتهية'); }
+  if (r.status === 401) { logout(); throw new Error('ط¬ظ„ط³ط© ظ…ظ†طھظ‡ظٹط©'); }
   return r.json();
 }
 
@@ -791,22 +791,22 @@ async function checkHealth() {
     const r = await fetch(`${SERVER_URL}/health`);
     if (r.ok) {
       document.getElementById('health-dot').className = 'health-dot';
-      document.getElementById('health-text').textContent = 'متصل';
+      document.getElementById('health-text').textContent = 'ظ…طھطµظ„';
       document.getElementById('sys-server').className = 'card-badge green';
-      document.getElementById('sys-server').textContent = 'متصل';
+      document.getElementById('sys-server').textContent = 'ظ…طھطµظ„';
     } else throw new Error();
   } catch {
     document.getElementById('health-dot').className = 'health-dot err';
-    document.getElementById('health-text').textContent = 'غير متصل';
+    document.getElementById('health-text').textContent = 'ط؛ظٹط± ظ…طھطµظ„';
     document.getElementById('sys-server').className = 'card-badge red';
-    document.getElementById('sys-server').textContent = 'غير متصل';
+    document.getElementById('sys-server').textContent = 'ط؛ظٹط± ظ…طھطµظ„';
   }
   try {
     await api('/api/stats');
     document.getElementById('sys-db').className = 'card-badge green';
-    document.getElementById('sys-db').textContent = 'متصلة';
+    document.getElementById('sys-db').textContent = 'ظ…طھطµظ„ط©';
     document.getElementById('sys-google').className = 'card-badge green';
-    document.getElementById('sys-google').textContent = 'يعمل';
+    document.getElementById('sys-google').textContent = 'ظٹط¹ظ…ظ„';
   } catch {}
 }
 
@@ -838,18 +838,18 @@ async function loadStats() {
     document.getElementById('leads-total').textContent = d.byStatus.new;
 
     const pct = d.budget.limit > 0 ? Math.min(100, Math.round((d.budget.used / d.budget.limit) * 100)) : 0;
-    document.getElementById('b-used').textContent = `${d.budget.used} ريال`;
-    document.getElementById('b-limit').textContent = `الحد ${d.budget.limit} ريال`;
+    document.getElementById('b-used').textContent = `${d.budget.used} ط±ظٹط§ظ„`;
+    document.getElementById('b-limit').textContent = `ط§ظ„ط­ط¯ ${d.budget.limit} ط±ظٹط§ظ„`;
     document.getElementById('b-fill').style.width = `${pct}%`;
     document.getElementById('b-fill').className = 'progress-fill' + (pct > 70 ? ' warn' : '');
     document.getElementById('b-badge').textContent = `${pct}%`;
 
     const total = d.byStatus.new + d.byStatus.sent + d.byStatus.replied + d.byStatus.client || 1;
     document.getElementById('status-breakdown').innerHTML = [
-      ['🆕 جديد', d.byStatus.new, '#3b82f6'],
-      ['✉️ مُرسَل', d.byStatus.sent, '#f59e0b'],
-      ['💬 ردّ', d.byStatus.replied, '#10b981'],
-      ['⭐ عميل', d.byStatus.client, '#ef4444']
+      ['ًں†• ط¬ط¯ظٹط¯', d.byStatus.new, '#3b82f6'],
+      ['âœ‰ï¸ڈ ظ…ظڈط±ط³ظژظ„', d.byStatus.sent, '#f59e0b'],
+      ['ًں’¬ ط±ط¯ظ‘', d.byStatus.replied, '#10b981'],
+      ['â­گ ط¹ظ…ظٹظ„', d.byStatus.client, '#ef4444']
     ].map(([lbl, val, col]) => `
       <div style="margin-bottom:11px;">
         <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px;">
@@ -867,13 +867,13 @@ async function loadStats() {
 async function loadFirebaseUsage() {
   try {
     let totalRecords = 0;
-    for (const s of ['جديد','أُرسل','ردّ','عميل']) {
+    for (const s of ['ط¬ط¯ظٹط¯','ط£ظڈط±ط³ظ„','ط±ط¯ظ‘','ط¹ظ…ظٹظ„']) {
       totalRecords += (allLeads[s] || []).length;
     }
     const sizeKB = Math.round(totalRecords * 0.4);
     const freeLimit = 1024 * 1024;
     const pct = Math.min(100, Math.round((sizeKB / freeLimit) * 100 * 100) / 100);
-    document.getElementById('fb-count').textContent = `${totalRecords} سجل`;
+    document.getElementById('fb-count').textContent = `${totalRecords} ط³ط¬ظ„`;
     document.getElementById('fb-size').textContent = sizeKB > 1024 ? `${(sizeKB/1024).toFixed(1)} MB` : `${sizeKB} KB`;
     document.getElementById('fb-fill').style.width = `${Math.max(2, pct)}%`;
     document.getElementById('fb-badge').textContent = sizeKB > 1024 ? `${(sizeKB/1024).toFixed(1)} MB / 1 GB` : `${sizeKB} KB / 1 GB`;
@@ -881,19 +881,19 @@ async function loadFirebaseUsage() {
 }
 
 async function confirmCleanFirebase() {
-  if (!confirm('سيتم حذف الشركات القديمة بحالة "مُرسَل" أقدم من 30 يوماً. متابعة؟')) return;
+  if (!confirm('ط³ظٹطھظ… ط­ط°ظپ ط§ظ„ط´ط±ظƒط§طھ ط§ظ„ظ‚ط¯ظٹظ…ط© ط¨ط­ط§ظ„ط© "ظ…ظڈط±ط³ظژظ„" ط£ظ‚ط¯ظ… ظ…ظ† 30 ظٹظˆظ…ط§ظ‹. ظ…طھط§ط¨ط¹ط©طں')) return;
   try {
-    const r = await api('/api/leads/cleanup', 'POST', { olderThanDays: 30, status: 'أُرسل' });
-    toast(`✅ تم حذف ${r.deleted || 0} سجل`, 3000, 'success');
+    const r = await api('/api/leads/cleanup', 'POST', { olderThanDays: 30, status: 'ط£ظڈط±ط³ظ„' });
+    toast(`âœ… طھظ… ط­ط°ظپ ${r.deleted || 0} ط³ط¬ظ„`, 3000, 'success');
     loadAllLeads(); loadFirebaseUsage();
   } catch (e) {
-    toast('⚠️ هذه الميزة تحتاج تحديث الخادم', 3000);
+    toast('âڑ ï¸ڈ ظ‡ط°ظ‡ ط§ظ„ظ…ظٹط²ط© طھط­طھط§ط¬ طھط­ط¯ظٹط« ط§ظ„ط®ط§ط¯ظ…', 3000);
   }
 }
 
 async function loadAllLeads() {
   try {
-    for (const s of ['جديد','أُرسل','ردّ','عميل']) {
+    for (const s of ['ط¬ط¯ظٹط¯','ط£ظڈط±ط³ظ„','ط±ط¯ظ‘','ط¹ظ…ظٹظ„']) {
       const d = await api(`/api/leads?status=${encodeURIComponent(s)}&limit=200`);
       allLeads[s] = d.leads || [];
     }
@@ -915,10 +915,10 @@ function renderLeadsList(list = null) {
   currentLeads = leads;
   if (!leads.length) {
     const m = {
-      'جديد': { icon: '🎉', title: 'لا يوجد عملاء جدد', text: 'اضغط على سورا للبحث' },
-      'أُرسل': { icon: '📨', title: 'لم ترسل لأحد بعد', text: 'الشركات المُرسَلة تظهر هنا' },
-      'ردّ': { icon: '💬', title: 'لا توجد ردود', text: 'الردود تظهر هنا' },
-      'عميل': { icon: '⭐', title: 'لا يوجد عملاء', text: 'العملاء الفعليون يظهرون هنا' }
+      'ط¬ط¯ظٹط¯': { icon: 'ًںژ‰', title: 'ظ„ط§ ظٹظˆط¬ط¯ ط¹ظ…ظ„ط§ط، ط¬ط¯ط¯', text: 'ط§ط¶ط؛ط· ط¹ظ„ظ‰ ط³ظˆط±ط§ ظ„ظ„ط¨ط­ط«' },
+      'ط£ظڈط±ط³ظ„': { icon: 'ًں“¨', title: 'ظ„ظ… طھط±ط³ظ„ ظ„ط£ط­ط¯ ط¨ط¹ط¯', text: 'ط§ظ„ط´ط±ظƒط§طھ ط§ظ„ظ…ظڈط±ط³ظژظ„ط© طھط¸ظ‡ط± ظ‡ظ†ط§' },
+      'ط±ط¯ظ‘': { icon: 'ًں’¬', title: 'ظ„ط§ طھظˆط¬ط¯ ط±ط¯ظˆط¯', text: 'ط§ظ„ط±ط¯ظˆط¯ طھط¸ظ‡ط± ظ‡ظ†ط§' },
+      'ط¹ظ…ظٹظ„': { icon: 'â­گ', title: 'ظ„ط§ ظٹظˆط¬ط¯ ط¹ظ…ظ„ط§ط،', text: 'ط§ظ„ط¹ظ…ظ„ط§ط، ط§ظ„ظپط¹ظ„ظٹظˆظ† ظٹط¸ظ‡ط±ظˆظ† ظ‡ظ†ط§' }
     }[currentFilter];
     el.innerHTML = `<div class="empty-state"><div class="empty-icon">${m.icon}</div><div class="empty-title">${m.title}</div><div class="empty-text">${m.text}</div></div>`;
     return;
@@ -931,21 +931,21 @@ function renderLeadsList(list = null) {
         <div class="company-head">
           <div style="flex:1;min-width:0;">
             <div class="company-name">${l.name}</div>
-            <div class="company-cat">📍 ${l.city} · ${l.category}</div>
+            <div class="company-cat">ًں“چ ${l.city} آ· ${l.category}</div>
           </div>
-          <button class="card-x" onclick="deleteLead(${idx})" title="حذف">✕</button>
+          <button class="card-x" onclick="deleteLead(${idx})" title="ط­ط°ظپ">âœ•</button>
         </div>
         <div class="company-info">
-          <span class="info-chip rating">⭐ ${l.rating}${l.reviewCount ? ` (${l.reviewCount})` : ''}</span>
+          <span class="info-chip rating">â­گ ${l.rating}${l.reviewCount ? ` (${l.reviewCount})` : ''}</span>
           ${hasPhone ? `<span class="info-chip phone">${l.phone}</span>` : ''}
-          ${l.email ? `<span class="info-chip email">📧 إيميل</span>` : ''}
+          ${l.email ? `<span class="info-chip email">ًں“§ ط¥ظٹظ…ظٹظ„</span>` : ''}
         </div>
         ${hasPhone ? `
           <div class="company-actions">
-            <button class="act-btn act-wa" onclick="sendWhatsApp(${idx})">💬 إرسال واتساب</button>
-            <a class="act-btn act-call" href="tel:${l.phone}">📞 اتصال</a>
-            <button class="act-btn act-more" onclick="showDetails(${idx})">⋯</button>
-          </div>` : '<div style="color:var(--txt3);font-size:11px;text-align:center;padding:8px;">⚠️ لا يوجد رقم</div>'}
+            <button class="act-btn act-wa" onclick="sendWhatsApp(${idx})">ًں’¬ ط¥ط±ط³ط§ظ„ ظˆط§طھط³ط§ط¨</button>
+            <a class="act-btn act-call" href="tel:${l.phone}">ًں“‍ ط§طھطµط§ظ„</a>
+            <button class="act-btn act-more" onclick="showDetails(${idx})">â‹¯</button>
+          </div>` : '<div style="color:var(--txt3);font-size:11px;text-align:center;padding:8px;">âڑ ï¸ڈ ظ„ط§ ظٹظˆط¬ط¯ ط±ظ‚ظ…</div>'}
       </div>`;
   }).join('');
 }
@@ -961,8 +961,8 @@ function filterLeads() {
 
 function buildMessage(lead) {
   const tmpl = settings.messageTemplate || getDefaultTemplate();
-  return tmpl.replace(/\{اسم_الشركة\}/g, lead.name||'').replace(/\{المدينة\}/g, lead.city||'')
-    .replace(/\{النشاط\}/g, lead.category||'').replace(/\{التقييم\}/g, lead.rating||'');
+  return tmpl.replace(/\{ط§ط³ظ…_ط§ظ„ط´ط±ظƒط©\}/g, lead.name||'').replace(/\{ط§ظ„ظ…ط¯ظٹظ†ط©\}/g, lead.city||'')
+    .replace(/\{ط§ظ„ظ†ط´ط§ط·\}/g, lead.category||'').replace(/\{ط§ظ„طھظ‚ظٹظٹظ…\}/g, lead.rating||'');
 }
 function getWhatsAppLink(lead) {
   const phone = (lead.phone||'').replace(/\D/g,'');
@@ -971,36 +971,36 @@ function getWhatsAppLink(lead) {
   return `https://wa.me/${intl}?text=${encodeURIComponent(buildMessage(lead))}`;
 }
 function getDefaultTemplate() {
-  return `السلام عليكم،
+  return `ط§ظ„ط³ظ„ط§ظ… ط¹ظ„ظٹظƒظ…طŒ
 
-نحن من فريق VOLT STORE المتخصص في تصميم المواقع الإلكترونية.
+ظ†ط­ظ† ظ…ظ† ظپط±ظٹظ‚ VOLT STORE ط§ظ„ظ…طھط®طµطµ ظپظٹ طھطµظ…ظٹظ… ط§ظ„ظ…ظˆط§ظ‚ط¹ ط§ظ„ط¥ظ„ظƒطھط±ظˆظ†ظٹط©.
 
-لاحظنا أن "{اسم_الشركة}" في {المدينة} ليس لها موقع إلكتروني، ونود مساعدتكم في بناء حضور رقمي احترافي.
+ظ„ط§ط­ط¸ظ†ط§ ط£ظ† "{ط§ط³ظ…_ط§ظ„ط´ط±ظƒط©}" ظپظٹ {ط§ظ„ظ…ط¯ظٹظ†ط©} ظ„ظٹط³ ظ„ظ‡ط§ ظ…ظˆظ‚ط¹ ط¥ظ„ظƒطھط±ظˆظ†ظٹطŒ ظˆظ†ظˆط¯ ظ…ط³ط§ط¹ط¯طھظƒظ… ظپظٹ ط¨ظ†ط§ط، ط­ط¶ظˆط± ط±ظ‚ظ…ظٹ ط§ط­طھط±ط§ظپظٹ.
 
-نقدم:
-✅ تصميم موقع احترافي
-✅ ظهور في Google
-✅ دعم فني مستمر
+ظ†ظ‚ط¯ظ…:
+âœ… طھطµظ…ظٹظ… ظ…ظˆظ‚ط¹ ط§ط­طھط±ط§ظپظٹ
+âœ… ط¸ظ‡ظˆط± ظپظٹ Google
+âœ… ط¯ط¹ظ… ظپظ†ظٹ ظ…ط³طھظ…ط±
 
-هل يمكننا التحدث؟ 🙏`;
+ظ‡ظ„ ظٹظ…ظƒظ†ظ†ط§ ط§ظ„طھط­ط¯ط«طں ًں™ڈ`;
 }
 
 async function sendWhatsApp(idx) {
   const lead = currentLeads[idx];
   if (!lead) return;
   const link = getWhatsAppLink(lead);
-  if (!link) { toast('❌ لا يوجد رقم', 2000, 'error'); return; }
+  if (!link) { toast('â‌Œ ظ„ط§ ظٹظˆط¬ط¯ ط±ظ‚ظ…', 2000, 'error'); return; }
   const card = document.getElementById('card-' + lead.id);
   if (card) card.classList.add('disappearing');
   window.open(link, '_blank');
-  try { if (lead.id) await api(`/api/leads/${lead.id}`, 'PUT', { status: 'أُرسل' }); } catch {}
+  try { if (lead.id) await api(`/api/leads/${lead.id}`, 'PUT', { status: 'ط£ظڈط±ط³ظ„' }); } catch {}
   setTimeout(() => {
     if (card) card.remove();
-    allLeads['جديد'] = (allLeads['جديد']||[]).filter(l => l.id !== lead.id);
-    if (lead.status !== 'أُرسل') { lead.status = 'أُرسل'; allLeads['أُرسل'] = [lead, ...(allLeads['أُرسل']||[])]; }
+    allLeads['ط¬ط¯ظٹط¯'] = (allLeads['ط¬ط¯ظٹط¯']||[]).filter(l => l.id !== lead.id);
+    if (lead.status !== 'ط£ظڈط±ط³ظ„') { lead.status = 'ط£ظڈط±ط³ظ„'; allLeads['ط£ظڈط±ط³ظ„'] = [lead, ...(allLeads['ط£ظڈط±ط³ظ„']||[])]; }
     loadStats();
     if (!document.querySelectorAll('.company-card:not(.disappearing)').length) renderLeadsList();
-    toast('✅ تم — انتقل لقائمة "مُرسَل"', 2500, 'success');
+    toast('âœ… طھظ… â€” ط§ظ†طھظ‚ظ„ ظ„ظ‚ط§ط¦ظ…ط© "ظ…ظڈط±ط³ظژظ„"', 2500, 'success');
   }, 400);
 }
 
@@ -1015,7 +1015,7 @@ async function deleteLead(idx) {
     allLeads[currentFilter] = (allLeads[currentFilter]||[]).filter(l => l.id !== lead.id);
     loadStats(); loadFirebaseUsage();
     if (!document.querySelectorAll('.company-card:not(.disappearing)').length) renderLeadsList();
-    toast('🗑️ تم الحذف', 2000);
+    toast('ًں—‘ï¸ڈ طھظ… ط§ظ„ط­ط°ظپ', 2000);
   }, 400);
 }
 
@@ -1026,23 +1026,23 @@ function showDetails(idx) {
   document.getElementById('md-title').textContent = lead.name;
   document.getElementById('md-content').innerHTML = `
     <div style="display:flex;flex-direction:column;gap:14px;">
-      <div><div style="font-size:11px;color:var(--txt3);margin-bottom:4px;">📍 الموقع</div>
-        <div style="font-size:14px;">${lead.city} · ${lead.category}</div>
+      <div><div style="font-size:11px;color:var(--txt3);margin-bottom:4px;">ًں“چ ط§ظ„ظ…ظˆظ‚ط¹</div>
+        <div style="font-size:14px;">${lead.city} آ· ${lead.category}</div>
         ${lead.address ? `<div style="font-size:12px;color:var(--txt2);margin-top:4px;">${lead.address}</div>` : ''}</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-        <div class="stat-mini"><div class="stat-mini-val gold">${lead.rating||'–'}</div><div class="stat-mini-lbl">التقييم</div></div>
-        <div class="stat-mini"><div class="stat-mini-val blue">${lead.reviewCount||'–'}</div><div class="stat-mini-lbl">عدد التقييمات</div></div>
+        <div class="stat-mini"><div class="stat-mini-val gold">${lead.rating||'â€“'}</div><div class="stat-mini-lbl">ط§ظ„طھظ‚ظٹظٹظ…</div></div>
+        <div class="stat-mini"><div class="stat-mini-val blue">${lead.reviewCount||'â€“'}</div><div class="stat-mini-lbl">ط¹ط¯ط¯ ط§ظ„طھظ‚ظٹظٹظ…ط§طھ</div></div>
       </div>
-      ${lead.phone ? `<div><div style="font-size:11px;color:var(--txt3);margin-bottom:4px;">📱 رقم الهاتف</div>
+      ${lead.phone ? `<div><div style="font-size:11px;color:var(--txt3);margin-bottom:4px;">ًں“± ط±ظ‚ظ… ط§ظ„ظ‡ط§طھظپ</div>
         <div style="display:flex;gap:8px;align-items:center;">
           <div style="flex:1;font-family:monospace;font-size:16px;font-weight:600;color:var(--green);background:var(--surface2);padding:10px;border-radius:8px;text-align:center;">${lead.phone}</div>
-          <button class="icon-btn" onclick="navigator.clipboard.writeText('${lead.phone}');toast('✅ تم النسخ',1500,'success')">📋</button>
+          <button class="icon-btn" onclick="navigator.clipboard.writeText('${lead.phone}');toast('âœ… طھظ… ط§ظ„ظ†ط³ط®',1500,'success')">ًں“‹</button>
         </div></div>` : ''}
-      <div><div style="font-size:11px;color:var(--txt3);margin-bottom:4px;">💬 الرسالة الجاهزة</div>
+      <div><div style="font-size:11px;color:var(--txt3);margin-bottom:4px;">ًں’¬ ط§ظ„ط±ط³ط§ظ„ط© ط§ظ„ط¬ط§ظ‡ط²ط©</div>
         <div style="background:#075e54;color:#fff;padding:14px;border-radius:12px;white-space:pre-wrap;font-size:13px;line-height:1.8;">${msg}</div></div>
       <div class="btn-row">
-        <button class="btn btn-wa" onclick="sendWhatsApp(${idx});closeModal('modal-detail')">💬 إرسال واتساب</button>
-        <a class="btn btn-ghost" href="tel:${lead.phone}" style="text-decoration:none;">📞 اتصال</a>
+        <button class="btn btn-wa" onclick="sendWhatsApp(${idx});closeModal('modal-detail')">ًں’¬ ط¥ط±ط³ط§ظ„ ظˆط§طھط³ط§ط¨</button>
+        <a class="btn btn-ghost" href="tel:${lead.phone}" style="text-decoration:none;">ًں“‍ ط§طھطµط§ظ„</a>
       </div>
     </div>`;
   document.getElementById('modal-detail').classList.add('show');
@@ -1058,51 +1058,51 @@ function quickSearch(city, cat) {
 
 async function runSora() {
   const btn = document.getElementById('sora-btn');
-  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> سورا يبحث...';
+  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> ط³ظˆط±ط§ ظٹط¨ط­ط«...';
   try {
     const city = document.getElementById('sora-city').value.trim();
     const cat = document.getElementById('sora-cat').value.trim();
     const target = document.getElementById('sora-target').value;
-    if (!city || !cat) { toast('⚠️ أدخل المدينة والنشاط', 2000); btn.disabled = false; btn.innerHTML = '<span>🚀</span> ابدأ البحث'; return; }
+    if (!city || !cat) { toast('âڑ ï¸ڈ ط£ط¯ط®ظ„ ط§ظ„ظ…ط¯ظٹظ†ط© ظˆط§ظ„ظ†ط´ط§ط·', 2000); btn.disabled = false; btn.innerHTML = '<span>ًںڑ€</span> ط§ط¨ط¯ط£ ط§ظ„ط¨ط­ط«'; return; }
     const body = { city, category: cat };
     if (target) body.target = Number(target);
     const r = await api('/api/agents/sora/run', 'POST', body);
-    toast(r.message || '✅ سورا يعمل... انتظر', 3000, 'success');
-    setTimeout(() => { loadAllLeads(); loadStats(); toast('✅ تم! شوف قائمة العملاء', 3000, 'success'); }, 15000);
-  } catch (e) { toast('❌ ' + e.message, 3000, 'error'); }
-  finally { btn.disabled = false; btn.innerHTML = '<span>🚀</span> ابدأ البحث'; }
+    toast(r.message || 'âœ… ط³ظˆط±ط§ ظٹط¹ظ…ظ„... ط§ظ†طھط¸ط±', 3000, 'success');
+    setTimeout(() => { loadAllLeads(); loadStats(); toast('âœ… طھظ…! ط´ظˆظپ ظ‚ط§ط¦ظ…ط© ط§ظ„ط¹ظ…ظ„ط§ط،', 3000, 'success'); }, 15000);
+  } catch (e) { toast('â‌Œ ' + e.message, 3000, 'error'); }
+  finally { btn.disabled = false; btn.innerHTML = '<span>ًںڑ€</span> ط§ط¨ط¯ط£ ط§ظ„ط¨ط­ط«'; }
 }
 
 async function saveTemplate() {
   const tmpl = document.getElementById('msg-template').value;
-  try { await api('/api/settings', 'PUT', { messageTemplate: tmpl }); settings.messageTemplate = tmpl; toast('✅ تم حفظ القالب', 3000, 'success'); }
-  catch (e) { toast('❌ ' + e.message, 3000, 'error'); }
+  try { await api('/api/settings', 'PUT', { messageTemplate: tmpl }); settings.messageTemplate = tmpl; toast('âœ… طھظ… ط­ظپط¸ ط§ظ„ظ‚ط§ظ„ط¨', 3000, 'success'); }
+  catch (e) { toast('â‌Œ ' + e.message, 3000, 'error'); }
 }
 
 async function runGold() {
   const btn = document.getElementById('gold-btn');
-  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> جولد يحلّل...';
-  try { const r = await api('/api/agents/gold/run', 'POST'); toast(r.message || '✅ جولد يعمل', 3000, 'success'); setTimeout(loadReports, 5000); }
-  catch (e) { toast('❌ ' + e.message, 3000, 'error'); }
-  finally { btn.disabled = false; btn.innerHTML = '<span>⚡</span> توليد تقرير الآن'; }
+  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> ط¬ظˆظ„ط¯ ظٹط­ظ„ظ‘ظ„...';
+  try { const r = await api('/api/agents/gold/run', 'POST'); toast(r.message || 'âœ… ط¬ظˆظ„ط¯ ظٹط¹ظ…ظ„', 3000, 'success'); setTimeout(loadReports, 5000); }
+  catch (e) { toast('â‌Œ ' + e.message, 3000, 'error'); }
+  finally { btn.disabled = false; btn.innerHTML = '<span>âڑ،</span> طھظˆظ„ظٹط¯ طھظ‚ط±ظٹط± ط§ظ„ط¢ظ†'; }
 }
 
 async function loadReports() {
   const el = document.getElementById('reports-container');
   try {
     const list = await api('/api/reports');
-    if (!list?.length) { el.innerHTML = `<div class="empty-state"><div class="empty-icon">📊</div><div class="empty-title">لا توجد تقارير</div><div class="empty-text">اضغط "توليد تقرير الآن"</div></div>`; return; }
+    if (!list?.length) { el.innerHTML = `<div class="empty-state"><div class="empty-icon">ًں“ٹ</div><div class="empty-title">ظ„ط§ طھظˆط¬ط¯ طھظ‚ط§ط±ظٹط±</div><div class="empty-text">ط§ط¶ط؛ط· "طھظˆظ„ظٹط¯ طھظ‚ط±ظٹط± ط§ظ„ط¢ظ†"</div></div>`; return; }
     el.innerHTML = list.map(r => `
       <div class="report-card">
-        <div class="card-head"><div class="card-title"><span class="icon">📊</span> ${r.date}</div><div class="card-badge green">${r.conversionRate||0}% تحويل</div></div>
+        <div class="card-head"><div class="card-title"><span class="icon">ًں“ٹ</span> ${r.date}</div><div class="card-badge green">${r.conversionRate||0}% طھط­ظˆظٹظ„</div></div>
         <div class="report-stats">
-          <div class="report-stat"><div class="report-stat-val" style="color:var(--blue);">${r.companiesFound||0}</div><div class="report-stat-lbl">🏢 مكتشفة</div></div>
-          <div class="report-stat"><div class="report-stat-val" style="color:var(--gold);">${r.messagesSent||0}</div><div class="report-stat-lbl">📧 مرسلة</div></div>
-          <div class="report-stat"><div class="report-stat-val" style="color:var(--green);">${r.replies||0}</div><div class="report-stat-lbl">💬 ردود</div></div>
+          <div class="report-stat"><div class="report-stat-val" style="color:var(--blue);">${r.companiesFound||0}</div><div class="report-stat-lbl">ًںڈ¢ ظ…ظƒطھط´ظپط©</div></div>
+          <div class="report-stat"><div class="report-stat-val" style="color:var(--gold);">${r.messagesSent||0}</div><div class="report-stat-lbl">ًں“§ ظ…ط±ط³ظ„ط©</div></div>
+          <div class="report-stat"><div class="report-stat-val" style="color:var(--green);">${r.replies||0}</div><div class="report-stat-lbl">ًں’¬ ط±ط¯ظˆط¯</div></div>
         </div>
         ${r.reportText ? `<div class="report-text">${r.reportText}</div>` : ''}
       </div>`).join('');
-  } catch (e) { el.innerHTML = `<div class="loader" style="color:var(--red);">خطأ: ${e.message}</div>`; }
+  } catch (e) { el.innerHTML = `<div class="loader" style="color:var(--red);">ط®ط·ط£: ${e.message}</div>`; }
 }
 
 async function loadSettingsUI() {
@@ -1117,7 +1117,7 @@ async function loadSettingsUI() {
 }
 
 function renderCategories(cats) {
-  document.getElementById('cats-list').innerHTML = cats.map((c, i) => `<span class="tag">${c}<span class="tag-remove" onclick="removeCategory(${i})">×</span></span>`).join('');
+  document.getElementById('cats-list').innerHTML = cats.map((c, i) => `<span class="tag">${c}<span class="tag-remove" onclick="removeCategory(${i})">أ—</span></span>`).join('');
 }
 function addCategory() {
   const inp = document.getElementById('cat-input'); const val = inp.value.trim();
@@ -1137,10 +1137,10 @@ async function saveSettings() {
     categories: settings.categories || []
   };
   try { await api('/api/settings', 'PUT', payload); settings = { ...settings, ...payload }; }
-  catch (e) { toast('❌ ' + e.message, 3000, 'error'); }
+  catch (e) { toast('â‌Œ ' + e.message, 3000, 'error'); }
 }
 
-boot();
+setInterval(()=>{fetch(SERVER_URL+"/health").catch(()=>{})},600000);fetch(SERVER_URL+"/health").catch(()=>{});boot();
 </script>
 </body>
 </html>
