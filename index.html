@@ -16,15 +16,17 @@
       --bg:       #050508;
       --surface:  rgba(255,255,255,0.03);
       --surface2: rgba(255,255,255,0.06);
-      --border:   rgba(255,255,255,0.07);
+      --surface3: rgba(255,255,255,0.09);
+      --border:   rgba(255,255,255,0.08);
       --red:      #dc2626;
       --red-d:    #991b1b;
       --gold:     #d97706;
       --green:    #16a34a;
       --blue:     #2563eb;
+      --wa:       #25d366;
       --txt:      #f1f5f9;
       --txt2:     #94a3b8;
-      --txt3:     #475569;
+      --txt3:     #64748b;
       --radius:   14px;
     }
 
@@ -46,9 +48,7 @@
       justify-content: center; z-index: 1000; gap: 40px;
     }
 
-    .lock-logo {
-      text-align: center;
-    }
+    .lock-logo { text-align: center; }
     .lock-logo h1 {
       font-size: 28px; font-weight: 700;
       background: linear-gradient(135deg, #dc2626, #d97706);
@@ -57,9 +57,7 @@
     }
     .lock-logo p { color: var(--txt3); font-size: 13px; margin-top: 6px; }
 
-    .pin-dots {
-      display: flex; gap: 16px;
-    }
+    .pin-dots { display: flex; gap: 16px; }
     .pin-dot {
       width: 14px; height: 14px; border-radius: 50%;
       border: 2px solid var(--txt3);
@@ -127,14 +125,26 @@
       font-size: 12px; color: var(--txt3);
     }
     .status-dot {
-      width: 7px; height: 7px; border-radius: 50%;
+      width: 8px; height: 8px; border-radius: 50%;
       background: var(--green);
-      box-shadow: 0 0 6px var(--green);
+      box-shadow: 0 0 8px var(--green);
+      animation: pulse 2s ease-in-out infinite;
     }
-    .logout-btn {
+    .status-dot.warn { background: var(--gold); box-shadow: 0 0 8px var(--gold); }
+    .status-dot.err  { background: var(--red);  box-shadow: 0 0 8px var(--red); }
+
+    @keyframes pulse {
+      0%,100% { opacity: 1; }
+      50% { opacity: .4; }
+    }
+
+    .header-actions { display: flex; align-items: center; gap: 12px; }
+    .icon-btn {
       background: none; border: none; color: var(--txt3);
       font-size: 18px; cursor: pointer; padding: 4px;
+      transition: color .2s;
     }
+    .icon-btn:hover { color: var(--txt); }
 
     /* الصفحات */
     .page { display: none; flex: 1; padding: 16px 16px 80px; }
@@ -154,6 +164,14 @@
       margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
     }
     .card-title .icon { font-size: 16px; }
+    .card-title .count {
+      margin-right: auto;
+      font-size: 11px;
+      background: var(--surface2);
+      padding: 2px 8px;
+      border-radius: 10px;
+      color: var(--txt2);
+    }
 
     /* إحصائيات */
     .stats-grid {
@@ -166,6 +184,14 @@
       border-radius: var(--radius);
       padding: 16px;
       text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .stat-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--red), transparent);
+      opacity: .5;
     }
     .stat-val {
       font-size: 32px; font-weight: 700;
@@ -176,11 +202,11 @@
 
     /* شريط الميزانية */
     .budget-bar {
-      height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden;
+      height: 8px; background: var(--surface2); border-radius: 4px; overflow: hidden;
       margin: 8px 0;
     }
     .budget-fill {
-      height: 100%; border-radius: 3px;
+      height: 100%; border-radius: 4px;
       background: linear-gradient(90deg, var(--green), var(--gold), var(--red));
       transition: width .5s ease;
     }
@@ -191,16 +217,20 @@
       gap: 8px; padding: 12px 20px; border-radius: 10px;
       font-size: 14px; font-weight: 600; cursor: pointer;
       border: none; transition: all .2s ease; width: 100%;
+      font-family: inherit;
     }
     .btn-red { background: var(--red); color: #fff; }
     .btn-red:hover { background: #b91c1c; }
     .btn-red:active { transform: scale(.98); }
+    .btn-wa { background: var(--wa); color: #fff; }
+    .btn-wa:hover { background: #1da851; }
     .btn-ghost {
       background: var(--surface2); color: var(--txt);
       border: 1px solid var(--border);
     }
-    .btn-ghost:hover { background: var(--surface); }
+    .btn-ghost:hover { background: var(--surface3); }
     .btn:disabled { opacity: .5; cursor: not-allowed; }
+    .btn-sm { padding: 8px 12px; font-size: 12px; }
 
     .btn-row { display: flex; gap: 10px; }
     .btn-row .btn { flex: 1; }
@@ -221,6 +251,23 @@
 
     .form-row { margin-bottom: 14px; }
     .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    /* البحث */
+    .search-box {
+      position: relative; margin-bottom: 12px;
+    }
+    .search-box input {
+      padding-right: 38px;
+    }
+    .search-box::before {
+      content: '🔍';
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 14px;
+      pointer-events: none;
+    }
 
     /* المفتاح Toggle */
     .toggle-row {
@@ -280,15 +327,77 @@
     .badge-reply  { background: rgba(22,163,74,.2);  color: #4ade80; }
     .badge-client { background: rgba(220,38,38,.2);  color: #f87171; }
 
-    /* قائمة الشركات */
-    .lead-item {
-      padding: 14px 0; border-bottom: 1px solid var(--border);
-      display: flex; justify-content: space-between; align-items: flex-start;
-      gap: 10px;
+    /* بطاقة الشركة */
+    .lead-card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 10px;
+      transition: all .2s ease;
     }
-    .lead-item:last-child { border-bottom: none; }
-    .lead-name { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
-    .lead-meta { font-size: 12px; color: var(--txt3); }
+    .lead-card:hover {
+      border-color: rgba(220,38,38,.3);
+      background: var(--surface3);
+    }
+    .lead-header {
+      display: flex; justify-content: space-between;
+      align-items: flex-start; gap: 10px; margin-bottom: 8px;
+    }
+    .lead-name { font-size: 15px; font-weight: 600; }
+    .lead-meta {
+      font-size: 12px; color: var(--txt3);
+      margin-bottom: 12px; line-height: 1.7;
+    }
+    .lead-rating {
+      display: inline-flex; align-items: center; gap: 3px;
+      color: var(--gold); font-weight: 600;
+    }
+    .lead-actions {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 6px;
+    }
+    .action-btn {
+      display: flex; align-items: center; justify-content: center; gap: 5px;
+      padding: 9px; border-radius: 8px;
+      font-size: 12px; font-weight: 600;
+      text-decoration: none; cursor: pointer; border: none;
+      transition: all .2s; font-family: inherit;
+    }
+    .action-wa { background: var(--wa); color: #fff; }
+    .action-wa:hover { background: #1da851; }
+    .action-call { background: var(--blue); color: #fff; }
+    .action-call:hover { background: #1d4ed8; }
+    .action-copy { background: var(--surface3); color: var(--txt); border: 1px solid var(--border); }
+    .action-copy:hover { background: var(--surface); }
+
+    /* مودال */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,.7);
+      display: none; align-items: center; justify-content: center;
+      z-index: 200; padding: 20px;
+      backdrop-filter: blur(8px);
+    }
+    .modal-overlay.show { display: flex; }
+    .modal {
+      background: #0a0a12;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      max-width: 500px; width: 100%;
+      max-height: 85vh; overflow-y: auto;
+    }
+    .modal-title {
+      font-size: 16px; font-weight: 600;
+      margin-bottom: 14px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .modal-close {
+      background: none; border: none; color: var(--txt3);
+      font-size: 24px; cursor: pointer; padding: 0;
+      width: 30px; height: 30px;
+    }
 
     /* التقرير */
     .report-text {
@@ -311,7 +420,7 @@
       align-items: center; padding: 10px 0;
       cursor: pointer; background: none; border: none;
       color: var(--txt3); font-size: 10px; gap: 4px;
-      transition: color .2s;
+      transition: color .2s; font-family: inherit;
     }
     .nav-btn .nav-icon { font-size: 20px; }
     .nav-btn.active { color: var(--red); }
@@ -329,13 +438,52 @@
 
     /* إشعار داخل الصفحة */
     .toast {
-      position: fixed; top: 70px; left: 50%; transform: translateX(-50%);
+      position: fixed; top: 70px; left: 50%; transform: translateX(-50%) translateY(-20px);
       background: #1e293b; border: 1px solid var(--border);
       color: var(--txt); padding: 10px 20px; border-radius: 30px;
       font-size: 13px; z-index: 999; white-space: nowrap;
-      opacity: 0; transition: opacity .3s; pointer-events: none;
+      opacity: 0; transition: all .3s; pointer-events: none;
     }
-    .toast.show { opacity: 1; }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .toast.success { border-color: var(--green); }
+    .toast.error { border-color: var(--red); }
+
+    /* فلاتر سريعة */
+    .filter-tabs {
+      display: flex; gap: 8px; margin-bottom: 14px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .filter-tab {
+      padding: 7px 14px; border-radius: 20px;
+      background: var(--surface2); border: 1px solid var(--border);
+      color: var(--txt2); font-size: 12px; cursor: pointer;
+      white-space: nowrap; font-family: inherit;
+      transition: all .2s;
+    }
+    .filter-tab.active {
+      background: rgba(220,38,38,.15);
+      border-color: var(--red);
+      color: var(--txt);
+    }
+
+    /* مؤشر صحة النظام */
+    .health-card {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+    }
+    .health-item {
+      text-align: center; padding: 10px;
+      background: var(--surface2); border-radius: 10px;
+    }
+    .health-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      margin: 0 auto 6px; background: var(--green);
+      box-shadow: 0 0 8px var(--green);
+    }
+    .health-dot.warn { background: var(--gold); box-shadow: 0 0 8px var(--gold); }
+    .health-dot.err  { background: var(--red);  box-shadow: 0 0 8px var(--red); }
+    .health-name { font-size: 11px; color: var(--txt3); }
 
     /* تقسيم الصفحة في الشاشات الكبيرة */
     @media (min-width: 768px) {
@@ -345,6 +493,29 @@
 
     /* الخط العربي */
     select option { background: #1e293b; }
+
+    /* علامة الأنشطة */
+    .tag {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 20px; padding: 5px 12px; font-size: 12px;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .tag-remove {
+      cursor: pointer; color: var(--red); font-weight: 700;
+      font-size: 14px; line-height: 1;
+    }
+
+    /* زر FAB */
+    .fab {
+      position: fixed; bottom: 80px; left: 16px;
+      width: 50px; height: 50px; border-radius: 50%;
+      background: var(--red); color: #fff;
+      border: none; cursor: pointer;
+      box-shadow: 0 4px 14px rgba(220,38,38,.4);
+      font-size: 20px; z-index: 50;
+      display: none; align-items: center; justify-content: center;
+    }
+    .fab.show { display: flex; }
   </style>
 </head>
 <body>
@@ -386,18 +557,36 @@
 <!-- ===== إشعار الـ Toast ===== -->
 <div class="toast" id="toast"></div>
 
+<!-- ===== مودال معاينة الرسالة ===== -->
+<div class="modal-overlay" id="modal-preview">
+  <div class="modal">
+    <div class="modal-title">
+      <span>معاينة الرسالة</span>
+      <button class="modal-close" onclick="closeModal('modal-preview')">×</button>
+    </div>
+    <div id="preview-content"></div>
+    <div class="btn-row" style="margin-top:16px;">
+      <button class="btn btn-wa" id="preview-send-btn">
+        <span>💬</span> إرسال واتساب
+      </button>
+      <button class="btn btn-ghost" onclick="closeModal('modal-preview')">إلغاء</button>
+    </div>
+  </div>
+</div>
+
 <!-- ===== التطبيق الرئيسي ===== -->
 <div id="app">
 
   <!-- Header -->
   <header class="header">
     <div class="header-title">سورا · ديب · جولد</div>
-    <div style="display:flex;align-items:center;gap:12px;">
+    <div class="header-actions">
       <div class="header-status">
         <div class="status-dot" id="status-dot"></div>
         <span id="status-text">متصل</span>
       </div>
-      <button class="logout-btn" onclick="logout()" title="تسجيل الخروج">↩</button>
+      <button class="icon-btn" onclick="refreshAll()" title="تحديث">🔄</button>
+      <button class="icon-btn" onclick="logout()" title="تسجيل الخروج">↩</button>
     </div>
   </header>
 
@@ -424,20 +613,39 @@
       </div>
     </div>
 
+    <!-- صحة النظام -->
+    <div class="card">
+      <div class="card-title"><span class="icon">💚</span> صحة النظام</div>
+      <div class="health-card">
+        <div class="health-item">
+          <div class="health-dot" id="h-server"></div>
+          <div class="health-name">الخادم</div>
+        </div>
+        <div class="health-item">
+          <div class="health-dot" id="h-db"></div>
+          <div class="health-name">قاعدة البيانات</div>
+        </div>
+        <div class="health-item">
+          <div class="health-dot" id="h-google"></div>
+          <div class="health-name">Google API</div>
+        </div>
+      </div>
+    </div>
+
     <!-- اليوم -->
     <div class="card">
       <div class="card-title"><span class="icon">📅</span> إحصائيات اليوم</div>
       <div style="display:flex;justify-content:space-around;text-align:center;">
         <div>
-          <div style="font-size:22px;font-weight:700;color:var(--blue);" id="t-disc">–</div>
+          <div style="font-size:24px;font-weight:700;color:var(--blue);" id="t-disc">–</div>
           <div style="font-size:11px;color:var(--txt3);">مكتشفة</div>
         </div>
         <div>
-          <div style="font-size:22px;font-weight:700;color:var(--gold);" id="t-sent">–</div>
+          <div style="font-size:24px;font-weight:700;color:var(--gold);" id="t-sent">–</div>
           <div style="font-size:11px;color:var(--txt3);">مرسلة</div>
         </div>
         <div>
-          <div style="font-size:22px;font-weight:700;color:var(--green);" id="t-rep">–</div>
+          <div style="font-size:24px;font-weight:700;color:var(--green);" id="t-rep">–</div>
           <div style="font-size:11px;color:var(--txt3);">ردود</div>
         </div>
       </div>
@@ -459,12 +667,21 @@
     <!-- توزيع الحالات -->
     <div class="card">
       <div class="card-title"><span class="icon">📊</span> حالة العملاء المحتملين</div>
-      <div id="status-breakdown" style="display:flex;flex-direction:column;gap:8px;"></div>
+      <div id="status-breakdown" style="display:flex;flex-direction:column;gap:10px;"></div>
     </div>
 
-    <button class="btn btn-ghost" onclick="loadStats()">
-      <span>🔄</span> تحديث
-    </button>
+    <!-- إجراءات سريعة -->
+    <div class="card">
+      <div class="card-title"><span class="icon">⚡</span> إجراءات سريعة</div>
+      <div class="btn-row" style="margin-bottom:10px;">
+        <button class="btn btn-red btn-sm" onclick="showPage('sora', document.querySelector('[data-page=sora]'))">
+          <span>🔍</span> ابحث الآن
+        </button>
+        <button class="btn btn-ghost btn-sm" onclick="exportCSV()">
+          <span>📥</span> تصدير CSV
+        </button>
+      </div>
+    </div>
   </div>
 
   <!-- سورا -->
@@ -481,7 +698,7 @@
       </div>
       <div class="form-row">
         <label>عدد الشركات المطلوبة</label>
-        <input type="number" id="sora-target" min="1" max="100" placeholder="30">
+        <input type="number" id="sora-target" min="1" max="100" placeholder="5" value="5">
       </div>
       <button class="btn btn-red" id="sora-btn" onclick="runSora()">
         <span>🚀</span> تشغيل سورا الآن
@@ -489,12 +706,18 @@
     </div>
 
     <div class="card">
-      <div class="card-title"><span class="icon">🏢</span> آخر الشركات المكتشفة</div>
-      <div id="sora-results">
-        <div class="loader">سيتم عرض نتائج سورا هنا</div>
+      <div class="card-title">
+        <span class="icon">🏢</span> الشركات المكتشفة
+        <span class="count" id="sora-count">0</span>
       </div>
-      <button class="btn btn-ghost" style="margin-top:10px" onclick="loadLeads('جديد')">
-        تحميل الشركات الجديدة
+      <div class="search-box">
+        <input type="text" id="sora-search" placeholder="ابحث بالاسم أو المدينة..." oninput="filterLeads()">
+      </div>
+      <div id="sora-results">
+        <div class="loader">اضغط على "تحميل" لعرض الشركات</div>
+      </div>
+      <button class="btn btn-ghost" style="margin-top:10px" onclick="loadLeads('جديد', 'sora-results')">
+        <span>🔄</span> تحميل الشركات الجديدة
       </button>
     </div>
   </div>
@@ -510,7 +733,7 @@
         <button class="btn btn-red" id="deep-btn" onclick="runDeep()">
           <span>📨</span> إرسال الآن
         </button>
-        <button class="btn btn-ghost" onclick="loadLeads('أُرسل')">
+        <button class="btn btn-ghost" onclick="loadLeads('أُرسل', 'leads-list')">
           <span>📋</span> سجل الإرسال
         </button>
       </div>
@@ -528,17 +751,22 @@
     </div>
 
     <div class="card">
-      <div class="card-title"><span class="icon">📋</span> قائمة العملاء</div>
-      <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
-        <button class="btn btn-ghost" style="width:auto;padding:6px 14px;font-size:12px;"
-          onclick="loadLeads('جديد')">جديد</button>
-        <button class="btn btn-ghost" style="width:auto;padding:6px 14px;font-size:12px;"
-          onclick="loadLeads('أُرسل')">مُرسَل</button>
-        <button class="btn btn-ghost" style="width:auto;padding:6px 14px;font-size:12px;"
-          onclick="loadLeads('ردّ')">ردّ</button>
-        <button class="btn btn-ghost" style="width:auto;padding:6px 14px;font-size:12px;"
-          onclick="loadLeads('عميل')">عميل</button>
+      <div class="card-title">
+        <span class="icon">📋</span> قائمة العملاء
+        <span class="count" id="leads-count">0</span>
       </div>
+
+      <div class="filter-tabs">
+        <button class="filter-tab active" data-status="جديد" onclick="switchFilter(this)">جديد</button>
+        <button class="filter-tab" data-status="أُرسل" onclick="switchFilter(this)">مُرسَل</button>
+        <button class="filter-tab" data-status="ردّ" onclick="switchFilter(this)">ردّ</button>
+        <button class="filter-tab" data-status="عميل" onclick="switchFilter(this)">عميل</button>
+      </div>
+
+      <div class="search-box">
+        <input type="text" id="leads-search" placeholder="ابحث..." oninput="filterLeads()">
+      </div>
+
       <div id="leads-list"><div class="loader">اختر حالة لعرض القائمة</div></div>
     </div>
   </div>
@@ -625,7 +853,7 @@
       <div class="card-title"><span class="icon">🏭</span> الأنشطة التجارية المستهدفة</div>
       <div id="cats-list" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;"></div>
       <div style="display:flex;gap:8px;">
-        <input type="text" id="cat-input" placeholder="نشاط جديد" style="flex:1;">
+        <input type="text" id="cat-input" placeholder="نشاط جديد" style="flex:1;" onkeydown="if(event.key==='Enter') addCategory()">
         <button class="btn btn-red" style="width:auto;padding:10px 16px;" onclick="addCategory()">+</button>
       </div>
     </div>
@@ -635,23 +863,33 @@
       <div class="card-title"><span class="icon">📡</span> قنوات الإرسال</div>
       <div class="toggle-row">
         <div class="toggle-info">
+          <div class="toggle-label">واتساب (يدوي)</div>
+          <div class="toggle-sub">أزرار إرسال واتساب على كل شركة</div>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" id="ch-wa" checked onchange="saveSettings()">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="toggle-row">
+        <div class="toggle-info">
           <div class="toggle-label">الإيميل</div>
-          <div class="toggle-sub">يُرسَل عبر Resend</div>
+          <div class="toggle-sub">يُرسَل عبر Gmail</div>
         </div>
         <label class="toggle">
           <input type="checkbox" id="ch-email" onchange="saveSettings()">
           <span class="toggle-slider"></span>
         </label>
       </div>
-      <div class="toggle-row">
-        <div class="toggle-info">
-          <div class="toggle-label">واتساب</div>
-          <div class="toggle-sub" id="wa-sub">قيد تحقق Meta — غير مفعّل</div>
-        </div>
-        <label class="toggle">
-          <input type="checkbox" id="ch-wa" onchange="saveSettings()">
-          <span class="toggle-slider"></span>
-        </label>
+    </div>
+
+    <!-- معلومات النظام -->
+    <div class="card">
+      <div class="card-title"><span class="icon">ℹ️</span> معلومات النظام</div>
+      <div style="font-size:13px;line-height:2;color:var(--txt2);">
+        <div>المطور: <strong style="color:var(--txt);">مصطفى عبدالله أحمد</strong></div>
+        <div>العلامة: <strong style="color:var(--txt);">VOLT STORE</strong></div>
+        <div>الإصدار: <strong style="color:var(--txt);">2.0</strong></div>
       </div>
     </div>
 
@@ -659,6 +897,9 @@
       <span>💾</span> حفظ جميع الإعدادات
     </button>
   </div>
+
+  <!-- زر FAB -->
+  <button class="fab" id="fab-export" onclick="exportCSV()" title="تصدير CSV">📥</button>
 
   <!-- قائمة التنقل السفلية -->
   <nav class="bottom-nav">
@@ -682,9 +923,6 @@
 
 <script>
 // ===== الإعداد =====
-
-// ⚠️ عدّل هذا الرابط بعد نشر الخادم على Render
-// مثال: 'https://sora-deep-gold.onrender.com'
 const SERVER_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
   ? 'http://localhost:3000'
   : 'https://sora-deep-gold.onrender.com';
@@ -692,6 +930,8 @@ const SERVER_URL = window.location.hostname === 'localhost' || window.location.h
 let token    = localStorage.getItem('sdg_token');
 let pinValue = '';
 let settings = {};
+let currentLeads = [];
+let currentFilter = 'جديد';
 
 // ===== قفل الدخول =====
 function pinPress(d) {
@@ -731,8 +971,7 @@ async function verifyPin() {
       initApp();
     } else {
       document.querySelectorAll('.pin-dot').forEach(d => d.classList.add('error'));
-      document.getElementById('lock-error').textContent =
-        data.error || 'رمز خاطئ';
+      document.getElementById('lock-error').textContent = data.error || 'رمز خاطئ';
       pinValue = '';
       setTimeout(updateDots, 800);
     }
@@ -746,13 +985,11 @@ async function verifyPin() {
 // ===== بدء التطبيق =====
 function boot() {
   if (token) {
-    // محاولة تجاوز شاشة القفل بالجلسة المحفوظة
     api('/api/stats').then(() => {
       document.getElementById('lock-screen').style.display = 'none';
       document.getElementById('app').style.display = 'flex';
       initApp();
     }).catch(() => {
-      // الجلسة انتهت
       localStorage.removeItem('sdg_token');
       token = null;
     });
@@ -764,8 +1001,9 @@ function initApp() {
   loadSettingsUI();
   loadDeepQueue();
   loadReports();
-  // تحديث الإحصائيات كل دقيقة
+  checkHealth();
   setInterval(loadStats, 60000);
+  setInterval(checkHealth, 120000);
 }
 
 function logout() {
@@ -777,14 +1015,24 @@ function logout() {
   updateDots();
 }
 
+function refreshAll() {
+  loadStats();
+  loadDeepQueue();
+  checkHealth();
+  toast('🔄 جارٍ التحديث...', 1500);
+}
+
 // ===== التنقل بين الصفحات =====
 function showPage(name, btn) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   document.getElementById(`page-${name}`).classList.add('active');
-  btn.classList.add('active');
+  if (btn) btn.classList.add('active');
 
-  if (name === 'home')     loadStats();
+  const fab = document.getElementById('fab-export');
+  fab.classList.toggle('show', name === 'deep' || name === 'sora');
+
+  if (name === 'home')     { loadStats(); checkHealth(); }
   if (name === 'deep')     loadDeepQueue();
   if (name === 'gold')     loadReports();
   if (name === 'settings') loadSettingsUI();
@@ -809,11 +1057,36 @@ async function api(path, method = 'GET', body = null) {
 }
 
 // ===== Toast =====
-function toast(msg, dur = 3000) {
+function toast(msg, dur = 3000, type = '') {
   const el = document.getElementById('toast');
   el.textContent = msg;
-  el.classList.add('show');
+  el.className = 'toast show ' + type;
   setTimeout(() => el.classList.remove('show'), dur);
+}
+
+// ===== صحة النظام =====
+async function checkHealth() {
+  try {
+    const r = await fetch(`${SERVER_URL}/health`);
+    if (r.ok) {
+      document.getElementById('h-server').className = 'health-dot';
+      document.getElementById('status-dot').className = 'status-dot';
+      document.getElementById('status-text').textContent = 'متصل';
+    } else throw new Error();
+  } catch {
+    document.getElementById('h-server').className = 'health-dot err';
+    document.getElementById('status-dot').className = 'status-dot err';
+    document.getElementById('status-text').textContent = 'غير متصل';
+  }
+
+  try {
+    await api('/api/stats');
+    document.getElementById('h-db').className = 'health-dot';
+    document.getElementById('h-google').className = 'health-dot';
+  } catch {
+    document.getElementById('h-db').className = 'health-dot warn';
+    document.getElementById('h-google').className = 'health-dot warn';
+  }
 }
 
 // ===== الرئيسية: الإحصائيات =====
@@ -837,7 +1110,6 @@ async function loadStats() {
     document.getElementById('b-fill').style.width   = `${pct}%`;
     document.getElementById('b-remain').textContent = `المتبقي: ${d.budget.remaining} ريال`;
 
-    // توزيع الحالات
     const sb = document.getElementById('status-breakdown');
     const s  = d.byStatus;
     const total = s.new + s.sent + s.replied + s.client || 1;
@@ -847,12 +1119,12 @@ async function loadStats() {
       ['ردّ',    s.replied, '#16a34a'],
       ['عميل',   s.client,  '#dc2626']
     ].map(([lbl, val, col]) => `
-      <div style="display:flex;align-items:center;gap:8px;">
-        <span style="width:40px;font-size:12px;color:${col};">${lbl}</span>
-        <div style="flex:1;height:5px;background:var(--surface2);border-radius:3px;overflow:hidden;">
-          <div style="width:${Math.round(val/total*100)}%;height:100%;background:${col};border-radius:3px;"></div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="width:50px;font-size:12px;color:${col};font-weight:600;">${lbl}</span>
+        <div style="flex:1;height:6px;background:var(--surface2);border-radius:3px;overflow:hidden;">
+          <div style="width:${Math.round(val/total*100)}%;height:100%;background:${col};border-radius:3px;transition:width .5s;"></div>
         </div>
-        <span style="font-size:12px;color:var(--txt3);width:25px;text-align:left;">${val}</span>
+        <span style="font-size:12px;color:var(--txt);width:30px;text-align:left;font-weight:600;">${val}</span>
       </div>`).join('');
   } catch (e) {
     console.error('خطأ في تحميل الإحصائيات:', e);
@@ -873,9 +1145,10 @@ async function runSora() {
     if (cat)    body.category = cat;
     if (target) body.target   = Number(target);
     const r = await api('/api/agents/sora/run', 'POST', body);
-    toast(r.message || '✅ سورا يعمل في الخلفية');
+    toast(r.message || '✅ سورا يعمل في الخلفية', 3000, 'success');
+    setTimeout(() => loadLeads('جديد', 'sora-results'), 8000);
   } catch (e) {
-    toast('❌ ' + e.message);
+    toast('❌ ' + e.message, 3000, 'error');
   } finally {
     btn.disabled = false;
     btn.innerHTML = '<span>🚀</span> تشغيل سورا الآن';
@@ -885,14 +1158,28 @@ async function runSora() {
 // ===== ديب =====
 async function loadDeepQueue() {
   try {
-    const d   = await api('/api/leads?status=جديد&limit=100');
-    const el  = document.getElementById('deep-queue-info');
-    el.innerHTML = `<span style="color:var(--gold);font-size:20px;font-weight:700;">${d.total}</span>
+    const d = await api('/api/leads?status=جديد&limit=200');
+    const el = document.getElementById('deep-queue-info');
+    el.innerHTML = `<span style="color:var(--gold);font-size:24px;font-weight:700;">${d.total}</span>
       <span style="color:var(--txt3);"> شركة جاهزة للإرسال</span>`;
-    // تحميل القالب
     const s = await api('/api/settings');
-    document.getElementById('msg-template').value = s.messageTemplate || '';
+    document.getElementById('msg-template').value = s.messageTemplate || getDefaultTemplate();
   } catch {}
+}
+
+function getDefaultTemplate() {
+  return `السلام عليكم،
+
+نحن من فريق VOLT STORE المتخصص في تصميم المواقع الإلكترونية.
+
+لاحظنا أن "{اسم_الشركة}" في {المدينة} ليس لها موقع إلكتروني حتى الآن، ونود مساعدتكم في بناء حضور رقمي احترافي.
+
+نقدم:
+✅ تصميم موقع احترافي
+✅ ظهور في Google
+✅ دعم فني مستمر
+
+هل يمكننا التحدث؟ 🙏`;
 }
 
 async function runDeep() {
@@ -901,9 +1188,9 @@ async function runDeep() {
   btn.innerHTML = '<span class="spinner"></span> ديب يعمل...';
   try {
     const r = await api('/api/agents/deep/run', 'POST');
-    toast(r.message || '✅ ديب يعمل في الخلفية');
+    toast(r.message || '✅ ديب يعمل في الخلفية', 3000, 'success');
   } catch (e) {
-    toast('❌ ' + e.message);
+    toast('❌ ' + e.message, 3000, 'error');
   } finally {
     btn.disabled = false;
     btn.innerHTML = '<span>📨</span> إرسال الآن';
@@ -914,44 +1201,207 @@ async function saveTemplate() {
   const tmpl = document.getElementById('msg-template').value;
   try {
     await api('/api/settings', 'PUT', { messageTemplate: tmpl });
-    toast('✅ تم حفظ القالب');
+    toast('✅ تم حفظ القالب', 3000, 'success');
   } catch (e) {
-    toast('❌ ' + e.message);
+    toast('❌ ' + e.message, 3000, 'error');
   }
 }
 
-// جلب قائمة الشركات
-async function loadLeads(status) {
-  const el = document.getElementById('leads-list');
-  el.innerHTML = '<div class="loader"><div class="spinner"></div></div>';
-  try {
-    const d = await api(`/api/leads?status=${encodeURIComponent(status)}&limit=30`);
-    if (!d.leads?.length) {
-      el.innerHTML = '<div class="loader" style="color:var(--txt3);">لا توجد نتائج</div>';
-      return;
-    }
-    const badgeClass = {
-      'جديد': 'badge-new', 'أُرسل': 'badge-sent',
-      'ردّ': 'badge-reply', 'عميل': 'badge-client'
-    };
-    el.innerHTML = d.leads.map(l => `
-      <div class="lead-item">
-        <div>
-          <div class="lead-name">${l.name}</div>
-          <div class="lead-meta">
-            ${l.city} · ${l.category} · ⭐ ${l.rating}
-            ${l.phone ? ' · 📱 ' + l.phone : ''}
-            ${l.email ? ' · 📧 ' + l.email : ''}
-          </div>
-        </div>
-        <span class="badge ${badgeClass[l.status] || ''}">${l.status}</span>
-      </div>`).join('');
+// ===== رسالة واتساب مخصصة =====
+function buildWhatsAppMessage(lead) {
+  const tmpl = document.getElementById('msg-template')?.value || getDefaultTemplate();
+  return tmpl
+    .replace(/\{اسم_الشركة\}/g, lead.name || '')
+    .replace(/\{المدينة\}/g, lead.city || '')
+    .replace(/\{النشاط\}/g, lead.category || '')
+    .replace(/\{التقييم\}/g, lead.rating || '');
+}
 
-    // نتائج سورا
-    document.getElementById('sora-results').innerHTML = el.innerHTML;
+function getWhatsAppLink(lead) {
+  const phone = (lead.phone || '').replace(/\D/g, '');
+  if (!phone) return '';
+  const intl = phone.startsWith('966') ? phone : ('966' + phone.replace(/^0/, ''));
+  const msg = encodeURIComponent(buildWhatsAppMessage(lead));
+  return `https://wa.me/${intl}?text=${msg}`;
+}
+
+// ===== معاينة الرسالة =====
+function previewMessage(idx) {
+  const lead = currentLeads[idx];
+  if (!lead) return;
+  const msg = buildWhatsAppMessage(lead);
+  const link = getWhatsAppLink(lead);
+
+  document.getElementById('preview-content').innerHTML = `
+    <div style="background:var(--surface2);padding:14px;border-radius:10px;margin-bottom:14px;">
+      <div style="font-size:14px;font-weight:600;margin-bottom:4px;">${lead.name}</div>
+      <div style="font-size:12px;color:var(--txt3);">📱 ${lead.phone || '–'}</div>
+    </div>
+    <div style="background:#075e54;color:#fff;padding:14px;border-radius:10px;
+                white-space:pre-wrap;font-size:13px;line-height:1.8;">${msg}</div>
+  `;
+  document.getElementById('preview-send-btn').onclick = () => {
+    if (link) {
+      window.open(link, '_blank');
+      markAsSent(idx);
+    }
+    closeModal('modal-preview');
+  };
+  document.getElementById('modal-preview').classList.add('show');
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('show');
+}
+
+// ===== نسخ الرقم =====
+function copyPhone(phone) {
+  navigator.clipboard.writeText(phone).then(() => {
+    toast('✅ تم نسخ الرقم', 1500, 'success');
+  }).catch(() => {
+    toast('❌ فشل النسخ', 1500, 'error');
+  });
+}
+
+// ===== تغيير حالة الشركة =====
+async function markAsSent(idx) {
+  const lead = currentLeads[idx];
+  if (!lead || !lead.id) return;
+  try {
+    await api(`/api/leads/${lead.id}`, 'PUT', { status: 'أُرسل' });
+    currentLeads[idx].status = 'أُرسل';
+    renderLeads();
+    toast('✅ تم تحديث الحالة', 2000, 'success');
+  } catch (e) {
+    toast('⚠️ تم فتح واتساب فقط', 2000);
+  }
+}
+
+// ===== جلب قائمة الشركات =====
+async function loadLeads(status, containerId = 'leads-list') {
+  const el = document.getElementById(containerId);
+  el.innerHTML = '<div class="loader"><div class="spinner"></div></div>';
+  currentFilter = status;
+  try {
+    const d = await api(`/api/leads?status=${encodeURIComponent(status)}&limit=100`);
+    currentLeads = d.leads || [];
+    renderLeads(containerId);
+
+    if (containerId === 'leads-list') {
+      document.getElementById('leads-count').textContent = currentLeads.length;
+    } else {
+      document.getElementById('sora-count').textContent = currentLeads.length;
+    }
   } catch (e) {
     el.innerHTML = `<div class="loader" style="color:var(--red);">خطأ: ${e.message}</div>`;
   }
+}
+
+function switchFilter(btn) {
+  document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  loadLeads(btn.dataset.status, 'leads-list');
+}
+
+function filterLeads() {
+  const searchEl = document.getElementById('leads-search') || document.getElementById('sora-search');
+  if (!searchEl) return;
+  const q = searchEl.value.trim().toLowerCase();
+  const containerId = searchEl.id === 'sora-search' ? 'sora-results' : 'leads-list';
+
+  if (!q) {
+    renderLeads(containerId);
+    return;
+  }
+
+  const filtered = currentLeads.filter(l =>
+    (l.name || '').toLowerCase().includes(q) ||
+    (l.city || '').toLowerCase().includes(q) ||
+    (l.category || '').toLowerCase().includes(q) ||
+    (l.phone || '').includes(q)
+  );
+  renderLeads(containerId, filtered);
+}
+
+function renderLeads(containerId = 'leads-list', list = null) {
+  const el = document.getElementById(containerId);
+  const leads = list || currentLeads;
+
+  if (!leads.length) {
+    el.innerHTML = '<div class="loader" style="color:var(--txt3);">لا توجد نتائج</div>';
+    return;
+  }
+
+  const badgeClass = {
+    'جديد': 'badge-new', 'أُرسل': 'badge-sent',
+    'ردّ': 'badge-reply', 'عميل': 'badge-client'
+  };
+
+  el.innerHTML = leads.map((l, idx) => {
+    const realIdx = currentLeads.indexOf(l);
+    const phone = (l.phone || '').replace(/\D/g, '');
+    const hasPhone = !!phone;
+
+    return `
+      <div class="lead-card">
+        <div class="lead-header">
+          <div style="flex:1;min-width:0;">
+            <div class="lead-name">${l.name}</div>
+          </div>
+          <span class="badge ${badgeClass[l.status] || ''}">${l.status}</span>
+        </div>
+        <div class="lead-meta">
+          📍 ${l.city} · ${l.category}<br>
+          <span class="lead-rating">⭐ ${l.rating}</span>
+          ${l.reviewCount ? ` (${l.reviewCount} تقييم)` : ''}
+          ${hasPhone ? '<br>📱 ' + l.phone : ''}
+        </div>
+        ${hasPhone ? `
+          <div class="lead-actions">
+            <button class="action-btn action-wa" onclick="previewMessage(${realIdx})">
+              💬 معاينة وإرسال
+            </button>
+            <a class="action-btn action-call" href="tel:${l.phone}">
+              📞 اتصال
+            </a>
+            <button class="action-btn action-copy" onclick="copyPhone('${l.phone}')">
+              📋 نسخ
+            </button>
+          </div>
+        ` : '<div style="color:var(--txt3);font-size:12px;text-align:center;padding:8px;">لا يوجد رقم هاتف</div>'}
+      </div>`;
+  }).join('');
+}
+
+// ===== تصدير CSV =====
+function exportCSV() {
+  if (!currentLeads.length) {
+    toast('لا توجد بيانات للتصدير', 2000);
+    return;
+  }
+
+  const headers = ['الاسم', 'المدينة', 'النشاط', 'الهاتف', 'التقييم', 'الحالة'];
+  const rows = currentLeads.map(l => [
+    l.name || '',
+    l.city || '',
+    l.category || '',
+    l.phone || '',
+    l.rating || '',
+    l.status || ''
+  ]);
+
+  const csv = '\uFEFF' + [headers, ...rows]
+    .map(r => r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(','))
+    .join('\n');
+
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `leads-${new Date().toISOString().split('T')[0]}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+  toast('✅ تم تصدير الملف', 2000, 'success');
 }
 
 // ===== جولد =====
@@ -961,10 +1411,10 @@ async function runGold() {
   btn.innerHTML = '<span class="spinner"></span> جولد يعمل...';
   try {
     const r = await api('/api/agents/gold/run', 'POST');
-    toast(r.message || '✅ جولد يعمل في الخلفية');
+    toast(r.message || '✅ جولد يعمل في الخلفية', 3000, 'success');
     setTimeout(loadReports, 5000);
   } catch (e) {
-    toast('❌ ' + e.message);
+    toast('❌ ' + e.message, 3000, 'error');
   } finally {
     btn.disabled = false;
     btn.innerHTML = '<span>⚡</span> توليد تقرير الآن';
@@ -993,9 +1443,7 @@ async function loadReports() {
           <span style="color:var(--gold);">📧 ${r.messagesSent || 0} مرسلة</span>
           <span style="color:var(--green);">💬 ${r.replies || 0} ردود</span>
         </div>
-        ${r.reportText
-          ? `<div class="report-text">${r.reportText}</div>`
-          : ''}
+        ${r.reportText ? `<div class="report-text">${r.reportText}</div>` : ''}
       </div>`).join('');
   } catch (e) {
     el.innerHTML = `<div class="loader" style="color:var(--red);">خطأ: ${e.message}</div>`;
@@ -1014,18 +1462,16 @@ async function loadSettingsUI() {
     document.getElementById('sch-sora').value   = settings.schedule?.soraStart || '08:00';
     document.getElementById('sch-deep').value   = settings.schedule?.deepStart || '10:00';
     document.getElementById('sch-gold').value   = settings.schedule?.goldStart || '20:00';
-    document.getElementById('ch-email').checked = settings.channels?.email  !== false;
-    document.getElementById('ch-wa').checked    = settings.channels?.whatsapp === true;
-    document.getElementById('msg-template').value = settings.messageTemplate || '';
+    document.getElementById('ch-email').checked = settings.channels?.email === true;
+    document.getElementById('ch-wa').checked    = settings.channels?.whatsapp !== false;
+    document.getElementById('msg-template').value = settings.messageTemplate || getDefaultTemplate();
 
-    // أيام الأسبوع
     const days = settings.days || {};
     document.querySelectorAll('.day-btn').forEach(btn => {
       const active = days[btn.dataset.day] !== false;
       btn.classList.toggle('active', active);
     });
 
-    // توزيع المدن
     const cityMap = settings.cities || {};
     const dayLabels = {
       saturday:'السبت', sunday:'الأحد', monday:'الاثنين',
@@ -1041,7 +1487,6 @@ async function loadSettingsUI() {
             onchange="saveSettings()">
         </div>`).join('');
 
-    // الأنشطة
     renderCategories(settings.categories || []);
 
   } catch (e) {
@@ -1051,12 +1496,9 @@ async function loadSettingsUI() {
 
 function renderCategories(cats) {
   document.getElementById('cats-list').innerHTML = cats.map((c, i) => `
-    <span style="background:var(--surface2);border:1px solid var(--border);
-      border-radius:20px;padding:5px 12px;font-size:12px;
-      display:flex;align-items:center;gap:6px;">
+    <span class="tag">
       ${c}
-      <span onclick="removeCategory(${i})"
-        style="cursor:pointer;color:var(--red);font-weight:700;">×</span>
+      <span class="tag-remove" onclick="removeCategory(${i})">×</span>
     </span>`).join('');
 }
 
@@ -1119,10 +1561,10 @@ async function saveSettings(showMsg = false) {
 
   try {
     await api('/api/settings', 'PUT', payload);
-    if (showMsg) toast('✅ تم حفظ جميع الإعدادات وتطبيقها فوراً');
+    if (showMsg) toast('✅ تم حفظ جميع الإعدادات', 3000, 'success');
     settings = { ...settings, ...payload };
   } catch (e) {
-    toast('❌ ' + e.message);
+    toast('❌ ' + e.message, 3000, 'error');
   }
 }
 
