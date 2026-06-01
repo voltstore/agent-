@@ -406,11 +406,11 @@ function loadLL(){loadAll().then(()=>renderL())}
 
 function sf(b){document.querySelectorAll('.ftb').forEach(x=>x.classList.remove('active'));b.classList.add('active');CF=b.dataset.s;renderL()}
 
-function renderL(list=null){const el=document.getElementById('ll');const leads=list||AL[CF]||[];CL=leads;if(!leads.length){const msgs={new:'\u0644\u0627 \u064a\u0648\u062c\u062f \u0639\u0645\u0644\u0627\u0621 \u062c\u062f\u062f \u2014 \u0627\u0636\u063a\u0637 \u0633\u0648\u0631\u0627',sent:'\u0644\u0645 \u062a\u0631\u0633\u0644 \u0628\u0639\u062f',reply:'\u0644\u0627 \u062a\u0648\u062c\u062f \u0631\u062f\u0648\u062f',client:'\u0644\u0627 \u064a\u0648\u062c\u062f \u0639\u0645\u0644\u0627\u0621'};el.innerHTML='<div class="es"><div class="ei">\u{1F4CB}</div><div class="et">\u0641\u0627\u0631\u063a</div><div class="ex">'+(msgs[CF]||'')+' </div></div>';return}el.innerHTML=leads.map((l,i)=>{const ph=(l.phone||'').replace(/\D/g,''),hp=!!ph;return'<div class="cc" id="c-'+l.id+'"><div class="cc2"><div style="flex:1;min-width:0"><div class="cn">'+l.name+'</div><div class="ccat">'+l.city+' &middot; '+l.category+'</div></div><button class="cx" onclick="delL('+i+')">&#10005;</button></div><div class="ci"><span class="chip rt">&#11088; '+l.rating+(l.reviewCount?' ('+l.reviewCount+')':'')+'</span>'+(hp?'<span class="chip ph">'+l.phone+'</span>':'')+'</div>'+(hp?'<div class="ca"><button class="ab awa" onclick="swa('+i+')">&#128172; \u0648\u0627\u062a\u0633\u0627\u0628</button><(l.email?'<button class="ab" style="background:rgba(99,102,241,.15);color:#818cf8" onclick="sendEm('+i+')">&#128231; ط¥ظٹظ…ظٹظ„</button>':'<a class="ab acl" href="tel:\'+l.phone+\'">ط§طھطµط§ظ„ &#128222;</a>')a><button class="ab amr" onclick="showD('+i+')">&#8943;</button></div>':'<div style="color:var(--t3);font-size:11px;text-align:center;padding:8px">&#9888; \u0644\u0627 \u064a\u0648\u062c\u062f \u0631\u0642\u0645</div>')+'</div>'}).join('')}
+function renderL(list=null){const el=document.getElementById('ll');const leads=list||AL[CF]||[];CL=leads;if(!leads.length){const msgs={new:'\u0644\u0627 \u064a\u0648\u062c\u062f \u0639\u0645\u0644\u0627\u0621 \u062c\u062f\u062f \u2014 \u0627\u0636\u063a\u0637 \u0633\u0648\u0631\u0627',sent:'\u0644\u0645 \u062a\u0631\u0633\u0644 \u0628\u0639\u062f',reply:'\u0644\u0627 \u062a\u0648\u062c\u062f \u0631\u062f\u0648\u062f',client:'\u0644\u0627 \u064a\u0648\u062c\u062f \u0639\u0645\u0644\u0627\u0621'};el.innerHTML='<div class="es"><div class="ei">\u{1F4CB}</div><div class="et">\u0641\u0627\u0631\u063a</div><div class="ex">'+(msgs[CF]||'')+' </div></div>';return}el.innerHTML=leads.map((l,i)=>{const ph=(l.phone||'').replace(/\D/g,''),hp=!!ph;return'<div class="cc" id="c-'+l.id+'"><div class="cc2"><div style="flex:1;min-width:0"><div class="cn">'+l.name+'</div><div class="ccat">'+l.city+' &middot; '+l.category+'</div></div><button class="cx" onclick="delL('+i+')">&#10005;</button></div><div class="ci"><span class="chip rt">&#11088; '+l.rating+(l.reviewCount?' ('+l.reviewCount+')':'')+'</span>'+(hp?'<span class="chip ph">'+l.phone+'</span>':'')+'</div>'+(hp?'<div class="ca"><button class="ab awa" onclick="swa('+i+')">&#128172; \u0648\u0627\u062a\u0633\u0627\u0628</button><(l.email?'<button class="ab" style="background:rgba(99,102,241,.15);color:#818cf8" onclick="sendEm('+i+')">&#128231; إيميل</button>':'<a class="ab acl" href="tel:\'+l.phone+\'">اتصال &#128222;</a>')a><button class="ab amr" onclick="showD('+i+')">&#8943;</button></div>':'<div style="color:var(--t3);font-size:11px;text-align:center;padding:8px">&#9888; \u0644\u0627 \u064a\u0648\u062c\u062f \u0631\u0642\u0645</div>')+'</div>'}).join('')}
 
 function flt(){const q=document.getElementById('ls').value.trim().toLowerCase();if(!q){renderL();return}renderL((AL[CF]||[]).filter(l=>(l.name||'').toLowerCase().includes(q)||(l.city||'').toLowerCase().includes(q)||(l.phone||'').includes(q)))}
 
-function buildMsg(l){const t=S.messageTemplate||defT();return t.replace(/\{ط§ط³ظ…_ط§ظ„ط´ط±ظƒط©\}/g,l.name||'').replace(/\{ط§ظ„ظ…ط¯ظٹظ†ط©\}/g,l.city||'').replace(/\{ط§ظ„ظ†ط´ط§ط·\}/g,l.category||'')}
+function buildMsg(l){const t=S.messageTemplate||defT();return t.replace(/\{اسم_الشركة\}/g,l.name||'').replace(/\{المدينة\}/g,l.city||'').replace(/\{النشاط\}/g,l.category||'')}
 function waLink(l){const ph=(l.phone||'').replace(/\D/g,'');if(!ph)return'';const intl=ph.startsWith('966')?ph:'966'+ph.replace(/^0/,'');return'https://wa.me/'+intl+'?text='+encodeURIComponent(buildMsg(l))}
 function defT(){return'\u0627\u0644\u0633\u0644\u0627\u0645 \u0639\u0644\u064a\u0643\u0645\u060c\n\n\u0646\u062d\u0646 \u0645\u0646 \u0641\u0631\u064a\u0642 VOLT STORE \u0627\u0644\u0645\u062a\u062e\u0635\u0635 \u0641\u064a \u062a\u0635\u0645\u064a\u0645 \u0627\u0644\u0645\u0648\u0627\u0642\u0639.\n\n\u0644\u0627\u062d\u0638\u0646\u0627 \u0623\u0646 "{\u0627\u0633\u0645_\u0627\u0644\u0634\u0631\u0643\u0629}" \u0641\u064a {\u0627\u0644\u0645\u062f\u064a\u0646\u0629} \u0644\u064a\u0633 \u0644\u0647\u0627 \u0645\u0648\u0642\u0639.\n\n\u0646\u0642\u062f\u0645:\n\u2705 \u062a\u0635\u0645\u064a\u0645 \u0645\u0648\u0642\u0639 \u0627\u062d\u062a\u0631\u0627\u0641\u064a\n\u2705 \u0638\u0647\u0648\u0631 \u0641\u064a Google\n\u2705 \u062f\u0639\u0645 \u0641\u0646\u064a \u0645\u0633\u062a\u0645\u0631\n\n\u0647\u0644 \u064a\u0645\u0643\u0646\u0646\u0627 \u0627\u0644\u062a\u062d\u062f\u062b\u061f \u{1F64F}'}
 
@@ -440,15 +440,15 @@ async function saveSett(){const p={dailyTarget:Number(document.getElementById('s
 
 async function sendEm(i){
   const l=CL[i];if(!l||!l.id)return;
-  if(!l.email){toast('ظ„ط§ ظٹظˆط¬ط¯ ط¥ظٹظ…ظٹظ„',2000,'bad');return}
+  if(!l.email){toast('لا يوجد إيميل',2000,'bad');return}
   const c=document.getElementById('c-'+l.id);if(c)c.classList.add('bye');
   try{
     const r=await api('/api/leads/'+l.id+'/email','POST');
     if(r.success){
       setTimeout(()=>{if(c)c.remove();AL[CF]=(AL[CF]||[]).filter(x=>x.id!==l.id);loadStats();if(!document.querySelectorAll('.cc:not(.bye)').length)renderL()},400);
-      toast('âœ… طھظ… ط¥ط±ط³ط§ظ„ ط§ظ„ط¥ظٹظ…ظٹظ„',2500,'ok');
-    }else{if(c)c.classList.remove('bye');toast('â‌Œ '+(r.error||'ظپط´ظ„'),2500,'bad');}
-  }catch(e){if(c)c.classList.remove('bye');toast('â‌Œ '+e.message,2500,'bad');}
+      toast('✅ تم إرسال الإيميل',2500,'ok');
+    }else{if(c)c.classList.remove('bye');toast('❌ '+(r.error||'فشل'),2500,'bad');}
+  }catch(e){if(c)c.classList.remove('bye');toast('❌ '+e.message,2500,'bad');}
 }
 setInterval(()=>{fetch(BASE+'/health').catch(()=>{})},600000);fetch(BASE+'/health').catch(()=>{});boot();
 </script>
