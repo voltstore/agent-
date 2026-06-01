@@ -90,11 +90,12 @@ label{font-size:12px;color:var(--t2);margin-bottom:6px;display:block;font-weight
 .ci{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px}
 .chip{background:var(--s2);border:1px solid var(--b);padding:5px 9px;border-radius:8px;font-size:11px;color:var(--t2);display:inline-flex;align-items:center;gap:4px}
 .chip.rt{color:var(--gold)}.chip.ph{color:var(--gr);font-weight:600;font-family:monospace}
-.ca{display:grid;grid-template-columns:2fr 1fr 1fr;gap:6px}
+.ca{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
 .ab{display:flex;align-items:center;justify-content:center;gap:5px;padding:10px 8px;border-radius:10px;font-size:12px;font-weight:700;text-decoration:none;cursor:pointer;border:none;transition:all .15s;font-family:inherit}
 .awa{background:var(--wa);color:#fff}
 .awa:hover{background:#1da851;transform:scale(1.02)}
 .acl{background:rgba(59,130,246,.15);color:var(--bl);border:1px solid rgba(59,130,246,.3)}
+.agm{background:rgba(234,67,53,.15);color:#ea4335;border:1px solid rgba(234,67,53,.3)}
 .amr{background:var(--s2);color:var(--t2);border:1px solid var(--b)}
 .mo{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:flex-end;justify-content:center;z-index:200;backdrop-filter:blur(12px)}
 .mo.show{display:flex}
@@ -210,16 +211,14 @@ label{font-size:12px;color:var(--t2);margin-bottom:6px;display:block;font-weight
         <span><span style="color:var(--gr)">&#9679;</span> <span id="h-cl">0</span> &#1593;&#1605;&#1604;&#1575;&#1569;</span>
       </div>
     </div>
-
     <div class="qa" id="qab" style="display:none">
       <div class="qi">&#9889;</div>
       <div class="qtt">
         <div class="qtl"><span id="qac">0</span> &#1588;&#1585;&#1603;&#1577; &#1580;&#1575;&#1607;&#1586;&#1577;</div>
         <div class="qsb">&#1575;&#1590;&#1594;&#1591; &#1604;&#1604;&#1576;&#1583;&#1569;</div>
       </div>
-      <button class="qb" onclick="showPage('leads',document.querySelector('[data-page=leads]'))">&#1575;&#1576;&#1583;&#1571; &#8592;</button>
+      <button class="qb" onclick="sp('leads',document.querySelector('[data-page=leads]'))">&#1575;&#1576;&#1583;&#1571; &#8592;</button>
     </div>
-
     <div class="card">
       <div class="ch"><div class="ct">&#128197; &#1575;&#1604;&#1610;&#1608;&#1605;</div><div class="cb br" id="today-d">&#8211;</div></div>
       <div class="sg">
@@ -228,18 +227,10 @@ label{font-size:12px;color:var(--t2);margin-bottom:6px;display:block;font-weight
         <div class="sm"><div class="smv gr" id="t-rep">&#8211;</div><div class="sml">&#1585;&#1583;&#1608;&#1583;</div></div>
       </div>
     </div>
-
     <div class="card">
       <div class="ch"><div class="ct">&#128202; &#1578;&#1608;&#1586;&#1610;&#1593; &#1575;&#1604;&#1581;&#1575;&#1604;&#1575;&#1578;</div></div>
       <div id="sbd"></div>
     </div>
-
-    <div class="card" style="background:linear-gradient(135deg,rgba(99,102,241,.1),transparent)">
-      <div class="ch"><div class="ct">&#129302; &#1585;&#1589;&#1610;&#1583; Claude API</div></div>
-      <p style="font-size:12px;color:var(--t3);line-height:1.7;margin-bottom:12px">&#1604;&#1575; &#1610;&#1605;&#1603;&#1606; &#1602;&#1585;&#1575;&#1569;&#1577; &#1575;&#1604;&#1585;&#1589;&#1610;&#1583; &#1578;&#1604;&#1602;&#1575;&#1574;&#1610;&#1611;&#1575; &#8212; &#1575;&#1601;&#1578;&#1581; &#1604;&#1608;&#1581;&#1577; Anthropic</p>
-      <button class="btn bgh" onclick="window.open('https://console.anthropic.com/settings/billing','_blank')">&#128179; &#1601;&#1578;&#1581; &#1604;&#1608;&#1581;&#1577; &#1575;&#1604;&#1585;&#1589;&#1610;&#1583;</button>
-    </div>
-
     <div class="card">
       <div class="ch"><div class="ct">&#128190; Firebase</div><div class="cb" id="fb-b">&#8211;</div></div>
       <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--t2);margin-bottom:8px">
@@ -247,7 +238,6 @@ label{font-size:12px;color:var(--t2);margin-bottom:6px;display:block;font-weight
       </div>
       <div class="pg"><div class="pgf br" id="fb-f" style="width:0%"></div></div>
     </div>
-
     <div class="card">
       <div class="ch"><div class="ct">&#128200; &#1575;&#1604;&#1605;&#1610;&#1586;&#1575;&#1606;&#1610;&#1577;</div><div class="cb" id="b-b">&#8211;</div></div>
       <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--t2);margin-bottom:8px">
@@ -255,7 +245,6 @@ label{font-size:12px;color:var(--t2);margin-bottom:6px;display:block;font-weight
       </div>
       <div class="pg"><div class="pgf" id="b-f" style="width:0%"></div></div>
     </div>
-
     <div class="card">
       <div class="ch"><div class="ct">&#9881; &#1581;&#1575;&#1604;&#1577; &#1575;&#1604;&#1606;&#1592;&#1575;&#1605;</div></div>
       <div class="ir"><span class="irl">&#128269; &#1575;&#1604;&#1582;&#1575;&#1583;&#1605;</span><span class="cb gr" id="ss">&#1605;&#1578;&#1589;&#1604;</span></div>
@@ -272,7 +261,8 @@ label{font-size:12px;color:var(--t2);margin-bottom:6px;display:block;font-weight
       </div>
       <p style="font-size:12px;color:var(--t3);line-height:1.7">
         <strong style="color:var(--wa)">&#1608;&#1575;&#1578;&#1587;&#1575;&#1576;</strong> = &#1573;&#1585;&#1587;&#1575;&#1604; &#1608;&#1573;&#1582;&#1601;&#1575;&#1569; &middot;
-        <strong style="color:var(--red)">&#10005;</strong> = &#1581;&#1584;&#1601; &#1605;&#1606; &#1575;&#1604;&#1602;&#1575;&#1574;&#1605;&#1577;
+        <strong style="color:#ea4335">&#128231;</strong> = &#1601;&#1578;&#1581; Gmail &middot;
+        <strong style="color:var(--red)">&#10005;</strong> = &#1581;&#1584;&#1601;
       </p>
     </div>
     <div class="ft">
@@ -325,12 +315,6 @@ label{font-size:12px;color:var(--t2);margin-bottom:6px;display:block;font-weight
     </div>
     <div class="card">
       <div class="ch"><div class="ct">&#9999; &#1602;&#1575;&#1604;&#1576; &#1585;&#1587;&#1575;&#1604;&#1577; &#1608;&#1575;&#1578;&#1587;&#1575;&#1576;</div></div>
-      <p style="font-size:11px;color:var(--t3);margin-bottom:10px;line-height:1.7">
-        &#1575;&#1604;&#1605;&#1578;&#1594;&#1610;&#1585;&#1575;&#1578;:
-        <code style="background:var(--s2);padding:2px 6px;border-radius:4px">{&#1575;&#1587;&#1605;_&#1575;&#1604;&#1588;&#1585;&#1603;&#1577;}</code>
-        <code style="background:var(--s2);padding:2px 6px;border-radius:4px">{&#1575;&#1604;&#1605;&#1583;&#1610;&#1606;&#1577;}</code>
-        <code style="background:var(--s2);padding:2px 6px;border-radius:4px">{&#1575;&#1604;&#1606;&#1588;&#1575;&#1591;}</code>
-      </p>
       <textarea id="msg-t" rows="9"></textarea>
       <button class="btn bbr" style="margin-top:10px" onclick="saveTpl()"><span>&#128190;</span> &#1581;&#1601;&#1592; &#1575;&#1604;&#1602;&#1575;&#1604;&#1576;</button>
     </div>
@@ -339,14 +323,6 @@ label{font-size:12px;color:var(--t2);margin-bottom:6px;display:block;font-weight
       <div class="fg">
         <div><label>&#1575;&#1604;&#1607;&#1583;&#1601; &#1575;&#1604;&#1610;&#1608;&#1605;&#1610;</label><input type="number" id="st" min="1" max="100" onchange="saveSett()"></div>
         <div><label>&#1571;&#1583;&#1606;&#1609; &#1578;&#1602;&#1610;&#1610;&#1605;</label><input type="number" id="sr" min="1" max="5" step="0.1" onchange="saveSett()"></div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="ch"><div class="ct">&#127981; &#1575;&#1604;&#1571;&#1606;&#1588;&#1591;&#1577;</div></div>
-      <div id="catsl" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px"></div>
-      <div style="display:flex;gap:8px">
-        <input type="text" id="cat-i" placeholder="&#1606;&#1588;&#1575;&#1591; &#1580;&#1583;&#1610;&#1583;..." onkeydown="if(event.key==='Enter')addCat()">
-        <button class="btn bbr" style="width:auto;padding:12px 18px" onclick="addCat()">+</button>
       </div>
     </div>
     <div class="card" style="background:linear-gradient(135deg,rgba(99,102,241,.06),transparent)">
@@ -371,7 +347,6 @@ label{font-size:12px;color:var(--t2);margin-bottom:6px;display:block;font-weight
 <script>
 const BASE=window.location.hostname==='localhost'||window.location.hostname==='127.0.0.1'?'http://localhost:3000':'https://sora-deep-gold.onrender.com';
 const STATUSES={new:'\u062c\u062f\u064a\u062f',sent:'\u0623\u064f\u0631\u0633\u0644',reply:'\u0631\u062f\u0651',client:'\u0639\u0645\u064a\u0644'};
-const RSTATUS={'\u062c\u062f\u064a\u062f':'new','\u0623\u064f\u0631\u0633\u0644':'sent','\u0631\u062f\u0651':'reply','\u0639\u0645\u064a\u0644':'client'};
 let token=localStorage.getItem('sdg_token'),pin='',S={},CL=[],CF='new';
 const AL={new:[],sent:[],reply:[],client:[]};
 
@@ -384,7 +359,7 @@ function pd(){pin=pin.slice(0,-1);ud();document.getElementById('lerr').textConte
 function ud(){document.querySelectorAll('.dot').forEach((x,i)=>{x.classList.toggle('on',i<pin.length);x.classList.remove('err')})}
 async function vp(){try{const r=await fetch(BASE+'/api/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pin})});const d=await r.json();if(r.ok&&d.token){token=d.token;localStorage.setItem('sdg_token',token);document.getElementById('lock').style.display='none';document.getElementById('app').style.display='flex';init()}else{document.querySelectorAll('.dot').forEach(x=>x.classList.add('err'));document.getElementById('lerr').textContent=d.error||'\u0631\u0645\u0632 \u062e\u0627\u0637\u0626';pin='';setTimeout(ud,800)}}catch{document.getElementById('lerr').textContent='\u062e\u0637\u0623 \u0641\u064a \u0627\u0644\u0627\u062a\u0635\u0627\u0644';pin='';ud()}}
 
-function boot(){document.getElementById('lock').style.display='none';document.getElementById('app').style.display='flex';init()}
+function boot(){if(token)api('/api/stats').then(()=>{document.getElementById('lock').style.display='none';document.getElementById('app').style.display='flex';init()}).catch(()=>{localStorage.removeItem('sdg_token');token=null})}
 function init(){td();loadStats();loadAll();loadUI();loadReports();chk();setInterval(loadStats,60000);setInterval(chk,120000)}
 function td(){document.getElementById('today-d').textContent=new Date().toLocaleDateString('ar-SA',{weekday:'long',day:'numeric',month:'long'})}
 function logout(){localStorage.removeItem('sdg_token');token=null;document.getElementById('lock').style.display='flex';document.getElementById('app').style.display='none';pin='';ud()}
@@ -403,22 +378,23 @@ async function loadStats(){try{const d=await api('/api/stats');document.getEleme
 async function loadAll(){try{for(const[k,v] of Object.entries(STATUSES)){const d=await api('/api/leads?status='+encodeURIComponent(v)+'&limit=200');AL[k]=d.leads||[]}updateFB();if(document.getElementById('page-leads').classList.contains('active'))renderL()}catch(e){console.error(e)}}
 function updateFB(){const n=Object.values(AL).reduce((a,x)=>a+x.length,0);const kb=Math.round(n*0.4);document.getElementById('fb-c').textContent=n+' \u0633\u062c\u0644';document.getElementById('fb-s').textContent=kb>1024?(kb/1024).toFixed(1)+' MB':kb+' KB';document.getElementById('fb-f').style.width=Math.max(2,kb/10240*100)+'%';document.getElementById('fb-b').textContent=(kb>1024?(kb/1024).toFixed(1)+' MB':kb+' KB')+' / 1 GB'}
 function loadLL(){loadAll().then(()=>renderL())}
-
 function sf(b){document.querySelectorAll('.ftb').forEach(x=>x.classList.remove('active'));b.classList.add('active');CF=b.dataset.s;renderL()}
 
-function renderL(list=null){const el=document.getElementById('ll');const leads=list||AL[CF]||[];CL=leads;if(!leads.length){const msgs={new:'\u0644\u0627 \u064a\u0648\u062c\u062f \u0639\u0645\u0644\u0627\u0621 \u062c\u062f\u062f \u2014 \u0627\u0636\u063a\u0637 \u0633\u0648\u0631\u0627',sent:'\u0644\u0645 \u062a\u0631\u0633\u0644 \u0628\u0639\u062f',reply:'\u0644\u0627 \u062a\u0648\u062c\u062f \u0631\u062f\u0648\u062f',client:'\u0644\u0627 \u064a\u0648\u062c\u062f \u0639\u0645\u0644\u0627\u0621'};el.innerHTML='<div class="es"><div class="ei">\u{1F4CB}</div><div class="et">\u0641\u0627\u0631\u063a</div><div class="ex">'+(msgs[CF]||'')+' </div></div>';return}el.innerHTML=leads.map((l,i)=>{const ph=(l.phone||'').replace(/\D/g,''),hp=!!ph;return'<div class="cc" id="c-'+l.id+'"><div class="cc2"><div style="flex:1;min-width:0"><div class="cn">'+l.name+'</div><div class="ccat">'+l.city+' &middot; '+l.category+'</div></div><button class="cx" onclick="delL('+i+')">&#10005;</button></div><div class="ci"><span class="chip rt">&#11088; '+l.rating+(l.reviewCount?' ('+l.reviewCount+')':'')+'</span>'+(hp?'<span class="chip ph">'+l.phone+'</span>':'')+'</div>'+(hp?'<div class="ca"><button class="ab awa" onclick="swa('+i+')">&#128172; \u0648\u0627\u062a\u0633\u0627\u0628</button><a class="ab acl" href="tel:\'+l.phone+\'">&#128222; \u0627\u062a\u0635\u0627\u0644</a>><button class="ab amr" onclick="showD('+i+')">&#8943;</button></div>':'<div style="color:var(--t3);font-size:11px;text-align:center;padding:8px">&#9888; \u0644\u0627 \u064a\u0648\u062c\u062f \u0631\u0642\u0645</div>')+'</div>'}).join('')}
+function renderL(list=null){const el=document.getElementById('ll');const leads=list||AL[CF]||[];CL=leads;if(!leads.length){const msgs={new:'\u0644\u0627 \u064a\u0648\u062c\u062f \u0639\u0645\u0644\u0627\u0621 \u062c\u062f\u062f \u2014 \u0627\u0636\u063a\u0637 \u0633\u0648\u0631\u0627',sent:'\u0644\u0645 \u062a\u0631\u0633\u0644 \u0628\u0639\u062f',reply:'\u0644\u0627 \u062a\u0648\u062c\u062f \u0631\u062f\u0648\u062f',client:'\u0644\u0627 \u064a\u0648\u062c\u062f \u0639\u0645\u0644\u0627\u0621'};el.innerHTML='<div class="es"><div class="ei">\u{1F4CB}</div><div class="et">\u0641\u0627\u0631\u063a</div><div class="ex">'+(msgs[CF]||'')+'</div></div>';return}el.innerHTML=leads.map((l,i)=>{const ph=(l.phone||'').replace(/\D/g,''),hp=!!ph;return'<div class="cc" id="c-'+l.id+'"><div class="cc2"><div style="flex:1;min-width:0"><div class="cn">'+l.name+'</div><div class="ccat">'+l.city+' &middot; '+l.category+'</div></div><button class="cx" onclick="delL('+i+')">&#10005;</button></div><div class="ci"><span class="chip rt">&#11088; '+l.rating+(l.reviewCount?' ('+l.reviewCount+')':'')+'</span>'+(hp?'<span class="chip ph">'+l.phone+'</span>':'')+'</div>'+(hp?'<div class="ca"><button class="ab awa" onclick="swa('+i+')">&#128172; \u0648\u0627\u062a\u0633\u0627\u0628</button><button class="ab agm" onclick="gmailL('+i+')">&#128231; \u0625\u064a\u0645\u064a\u0644</button><button class="ab amr" onclick="showD('+i+')">&#8943;</button></div>':'<div style="color:var(--t3);font-size:11px;text-align:center;padding:8px">&#9888; \u0644\u0627 \u064a\u0648\u062c\u062f \u0631\u0642\u0645</div>')+'</div>'}).join('')}
 
 function flt(){const q=document.getElementById('ls').value.trim().toLowerCase();if(!q){renderL();return}renderL((AL[CF]||[]).filter(l=>(l.name||'').toLowerCase().includes(q)||(l.city||'').toLowerCase().includes(q)||(l.phone||'').includes(q)))}
 
 function buildMsg(l){const t=S.messageTemplate||defT();return t.replace(/\{اسم_الشركة\}/g,l.name||'').replace(/\{المدينة\}/g,l.city||'').replace(/\{النشاط\}/g,l.category||'')}
 function waLink(l){const ph=(l.phone||'').replace(/\D/g,'');if(!ph)return'';const intl=ph.startsWith('966')?ph:'966'+ph.replace(/^0/,'');return'https://wa.me/'+intl+'?text='+encodeURIComponent(buildMsg(l))}
-function defT(){return'\u0627\u0644\u0633\u0644\u0627\u0645 \u0639\u0644\u064a\u0643\u0645\u060c\n\n\u0646\u062d\u0646 \u0645\u0646 \u0641\u0631\u064a\u0642 VOLT STORE \u0627\u0644\u0645\u062a\u062e\u0635\u0635 \u0641\u064a \u062a\u0635\u0645\u064a\u0645 \u0627\u0644\u0645\u0648\u0627\u0642\u0639.\n\n\u0644\u0627\u062d\u0638\u0646\u0627 \u0623\u0646 "{\u0627\u0633\u0645_\u0627\u0644\u0634\u0631\u0643\u0629}" \u0641\u064a {\u0627\u0644\u0645\u062f\u064a\u0646\u0629} \u0644\u064a\u0633 \u0644\u0647\u0627 \u0645\u0648\u0642\u0639.\n\n\u0646\u0642\u062f\u0645:\n\u2705 \u062a\u0635\u0645\u064a\u0645 \u0645\u0648\u0642\u0639 \u0627\u062d\u062a\u0631\u0627\u0641\u064a\n\u2705 \u0638\u0647\u0648\u0631 \u0641\u064a Google\n\u2705 \u062f\u0639\u0645 \u0641\u0646\u064a \u0645\u0633\u062a\u0645\u0631\n\n\u0647\u0644 \u064a\u0645\u0643\u0646\u0646\u0627 \u0627\u0644\u062a\u062d\u062f\u062b\u061f \u{1F64F}'}
+function defT(){return'\u0627\u0644\u0633\u0644\u0627\u0645 \u0639\u0644\u064a\u0643\u0645\u060c\n\n\u0646\u062d\u0646 \u0645\u0646 \u0641\u0631\u064a\u0642 VOLT STORE \u0627\u0644\u0645\u062a\u062e\u0635\u0635 \u0641\u064a \u062a\u0635\u0645\u064a\u0645 \u0627\u0644\u0645\u0648\u0627\u0642\u0639.\n\n\u0644\u0627\u062d\u0638\u0646\u0627 \u0623\u0646 "{\u0627\u0633\u0645_\u0627\u0644\u0634\u0631\u0643\u0629}" \u0641\u064a {\u0627\u0644\u0645\u062f\u064a\u0646\u0629} \u0644\u064a\u0633 \u0644\u0647\u0627 \u0645\u0648\u0642\u0639.\n\n\u0646\u0642\u062f\u0645:\n\u2705 \u062a\u0635\u0645\u064a\u0645 \u0645\u0648\u0642\u0639 \u0627\u062d\u062a\u0631\u0627\u0641\u064a\n\u2705 \u0638\u0647\u0648\u0631 \u0641\u064a Google\n\u2705 \u062f\u0639\u0645 \u0641\u0646\u064a \u0645\u0633\u062a\u0645\u0631\n\n\u0647\u0644 \u064a\u0645\u0643\u0646\u0646\u0627 \u0627\u0644\u062a\u062d\u062f\u062b\u061f \ud83d\ude4f'}
+
+async function gmailL(i){const l=CL[i];if(!l)return;const msg=buildMsg(l);const subject=encodeURIComponent('\u0639\u0631\u0636 \u062e\u0627\u0635 \u0644\u0640 '+l.name+' \u2014 \u062a\u0635\u0645\u064a\u0645 \u0645\u0648\u0642\u0639 \u0627\u062d\u062a\u0631\u0627\u0641\u064a');const body=encodeURIComponent(msg);window.open('https://mail.google.com/mail/?view=cm&fs=1&su='+subject+'&body='+body,'_blank')}
 
 async function swa(i){const l=CL[i];if(!l)return;const lk=waLink(l);if(!lk){toast('\u0644\u0627 \u064a\u0648\u062c\u062f \u0631\u0642\u0645',2000,'bad');return}const c=document.getElementById('c-'+l.id);if(c)c.classList.add('bye');window.open(lk,'_blank');try{if(l.id)await api('/api/leads/'+l.id,'PUT',{status:STATUSES.sent})}catch{}setTimeout(()=>{if(c)c.remove();AL.new=(AL.new||[]).filter(x=>x.id!==l.id);if(l.status!==STATUSES.sent){l.status=STATUSES.sent;AL.sent=[l,...(AL.sent||[])]}loadStats();if(!document.querySelectorAll('.cc:not(.bye)').length)renderL();toast('\u2705 \u062a\u0645 \u2014 \u0645\u0631\u0633\u0644',2500,'ok')},400)}
 
 async function delL(i){const l=CL[i];if(!l)return;const c=document.getElementById('c-'+l.id);if(c)c.classList.add('bye');try{if(l.id)await api('/api/leads/'+l.id,'DELETE')}catch{}setTimeout(()=>{if(c)c.remove();AL[CF]=(AL[CF]||[]).filter(x=>x.id!==l.id);loadStats();updateFB();if(!document.querySelectorAll('.cc:not(.bye)').length)renderL();toast('\u062a\u0645 \u0627\u0644\u062d\u0630\u0641',2000)},400)}
 
-function showD(i){const l=CL[i];if(!l)return;const msg=buildMsg(l);document.getElementById('md-t').textContent=l.name;document.getElementById('md-c').innerHTML='<div style="display:flex;flex-direction:column;gap:14px"><div><small style="color:var(--t3)">\u0627\u0644\u0645\u0648\u0642\u0639</small><div style="font-size:14px;margin-top:4px">'+l.city+' &middot; '+l.category+'</div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div class="sm"><div class="smv gd">'+(l.rating||'&#8211;')+'</div><div class="sml">\u0627\u0644\u062a\u0642\u064a\u064a\u0645</div></div><div class="sm"><div class="smv bl">'+(l.reviewCount||'&#8211;')+'</div><div class="sml">\u062a\u0642\u064a\u064a\u0645\u0627\u062a</div></div></div>'+(l.phone?'<div><small style="color:var(--t3)">\u0631\u0642\u0645 \u0627\u0644\u0647\u0627\u062a\u0641</small><div style="display:flex;gap:8px;align-items:center;margin-top:4px"><div style="flex:1;font-family:monospace;font-size:16px;font-weight:600;color:var(--gr);background:var(--s2);padding:10px;border-radius:8px;text-align:center">'+l.phone+'</div><button class="ib" onclick="navigator.clipboard.writeText(\''+l.phone+'\');toast(\'\u2705 \u062a\u0645 \u0627\u0644\u0646\u0633\u062e\',1500,\'ok\')">&#128203;</button></div></div>':'')+'<div><small style="color:var(--t3)">\u0627\u0644\u0631\u0633\u0627\u0644\u0629</small><div style="background:#075e54;color:#fff;padding:14px;border-radius:12px;white-space:pre-wrap;font-size:13px;line-height:1.8;margin-top:4px">'+msg+'</div></div><div class="br2"><button class="btn bwa" onclick="swa('+i+');cm(\'mo-detail\')">&#128172; \u0625\u0631\u0633\u0627\u0644 \u0648\u0627\u062a\u0633\u0627\u0628</button><a class="btn bgh" href="tel:'+(l.phone||'')+'" style="text-decoration:none">&#128222; \u0627\u062a\u0635\u0627\u0644</a></div></div>';document.getElementById('mo-detail').classList.add('show')}
+function showD(i){const l=CL[i];if(!l)return;const msg=buildMsg(l);document.getElementById('md-t').textContent=l.name;document.getElementById('md-c').innerHTML='<div style="display:flex;flex-direction:column;gap:14px"><div><small style="color:var(--t3)">\u0627\u0644\u0645\u0648\u0642\u0639</small><div style="font-size:14px;margin-top:4px">'+l.city+' &middot; '+l.category+'</div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div class="sm"><div class="smv gd">'+(l.rating||'&#8211;')+'</div><div class="sml">\u0627\u0644\u062a\u0642\u064a\u064a\u0645</div></div><div class="sm"><div class="smv bl">'+(l.reviewCount||'&#8211;')+'</div><div class="sml">\u062a\u0642\u064a\u064a\u0645\u0627\u062a</div></div></div>'+(l.phone?'<div><small style="color:var(--t3)">\u0631\u0642\u0645 \u0627\u0644\u0647\u0627\u062a\u0641</small><div style="display:flex;gap:8px;align-items:center;margin-top:4px"><div style="flex:1;font-family:monospace;font-size:16px;font-weight:600;color:var(--gr);background:var(--s2);padding:10px;border-radius:8px;text-align:center">'+l.phone+'</div><button class="ib" onclick="navigator.clipboard.writeText(\''+l.phone+'\');toast(\'\u2705 \u062a\u0645 \u0627\u0644\u0646\u0633\u062e\',1500,\'ok\')">&#128203;</button></div></div>':'')+'<div><small style="color:var(--t3)">\u0627\u0644\u0631\u0633\u0627\u0644\u0629</small><div style="background:#075e54;color:#fff;padding:14px;border-radius:12px;white-space:pre-wrap;font-size:13px;line-height:1.8;margin-top:4px">'+msg+'</div></div><div class="br2"><button class="btn bwa" onclick="swa('+i+');cm(\'mo-detail\')">&#128172; \u0625\u0631\u0633\u0627\u0644 \u0648\u0627\u062a\u0633\u0627\u0628</button><button class="btn" style="background:rgba(234,67,53,.15);color:#ea4335;border:1px solid rgba(234,67,53,.3)" onclick="gmailL('+i+');cm(\'mo-detail\')">&#128231; \u0625\u064a\u0645\u064a\u0644</button></div></div>';document.getElementById('mo-detail').classList.add('show')}
 function cm(id){document.getElementById(id).classList.remove('show')}
 
 function qs(city,cat){document.getElementById('s-city').value=city;document.getElementById('s-cat').value=cat;runSora()}
@@ -432,24 +408,11 @@ async function loadReports(){const el=document.getElementById('rc');try{const li
 
 async function loadUI(){try{S=await api('/api/settings');if(!S)return;document.getElementById('st').value=S.dailyTarget||30;document.getElementById('sr').value=S.minRating||4.0;document.getElementById('msg-t').value=S.messageTemplate||defT();renderCats(S.categories||[])}catch(e){console.error(e)}}
 
-function renderCats(cats){document.getElementById('catsl').innerHTML=cats.map((c,i)=>'<span class="tg">'+c+'<span class="tgx" onclick="rmCat('+i+')">&#215;</span></span>').join('')}
-function addCat(){const inp=document.getElementById('cat-i');const v=inp.value.trim();if(!v)return;const cats=S.categories||[];if(!cats.includes(v)){cats.push(v);S.categories=cats;renderCats(cats);saveSett()}inp.value=''}
+function renderCats(cats){const el=document.getElementById('catsl');if(el)el.innerHTML=cats.map((c,i)=>'<span class="tg">'+c+'<span class="tgx" onclick="rmCat('+i+')">&#215;</span></span>').join('')}
+function addCat(){const inp=document.getElementById('cat-i');if(!inp)return;const v=inp.value.trim();if(!v)return;const cats=S.categories||[];if(!cats.includes(v)){cats.push(v);S.categories=cats;renderCats(cats);saveSett()}inp.value=''}
 function rmCat(i){const cats=S.categories||[];cats.splice(i,1);S.categories=cats;renderCats(cats);saveSett()}
 async function saveSett(){const p={dailyTarget:Number(document.getElementById('st').value)||30,minRating:parseFloat(document.getElementById('sr').value)||4.0,categories:S.categories||[]};try{await api('/api/settings','PUT',p);S={...S,...p}}catch(e){toast('\u274c '+e.message,3000,'bad')}}
 
-
-async function sendEm(i){
-  const l=CL[i];if(!l||!l.id)return;
-  if(!l.email){toast('لا يوجد إيميل',2000,'bad');return}
-  const c=document.getElementById('c-'+l.id);if(c)c.classList.add('bye');
-  try{
-    const r=await api('/api/leads/'+l.id+'/email','POST');
-    if(r.success){
-      setTimeout(()=>{if(c)c.remove();AL[CF]=(AL[CF]||[]).filter(x=>x.id!==l.id);loadStats();if(!document.querySelectorAll('.cc:not(.bye)').length)renderL()},400);
-      toast('✅ تم إرسال الإيميل',2500,'ok');
-    }else{if(c)c.classList.remove('bye');toast('❌ '+(r.error||'فشل'),2500,'bad');}
-  }catch(e){if(c)c.classList.remove('bye');toast('❌ '+e.message,2500,'bad');}
-}
 setInterval(()=>{fetch(BASE+'/health').catch(()=>{})},600000);fetch(BASE+'/health').catch(()=>{});boot();
 </script>
 </body>
