@@ -1,4 +1,4 @@
-﻿'use strict';
+'use strict';
 require('dotenv').config({ path: require('path').join(__dirname, '..', '.env') });
 const https = require('https');
 const { fbGet, fbSet, fbPush, logEvent, notifyOwner, checkBudget, DEFAULT_SETTINGS, MAX_FAILURES } = require('./utils');
