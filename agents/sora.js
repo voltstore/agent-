@@ -14,3 +14,4 @@ function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
 if(require.main===module){const[,,city,category,target]=process.argv;runSora({city,category,target:target?Number(target):undefined}).then(r=>{console.log('\nالنتيجة:',r);process.exit(0)}).catch(e=>{console.error(e);process.exit(1)})}
 module.exports={runSora};
 
+
