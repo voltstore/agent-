@@ -1,0 +1,1 @@
+const fs=require(chr(39)+" fs+chr(39));

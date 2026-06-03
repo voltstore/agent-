@@ -397,7 +397,7 @@ textarea.frm-input{resize:vertical;min-height:120px;line-height:1.7}
 
 <script>
 const BASE=window.location.hostname==='localhost'||window.location.hostname==='127.0.0.1'?'http://localhost:3000':'https://sora-deep-gold.onrender.com';
-const STATUSES={new:'\u062c\u062f\u064a\u062f',sent:'\u0623\u064f\u0631\u0633\u0644',reply:'\u0631\u062f\u0651',client:'\u0639\u0645\u064a\u0644'};
+const STATUSES={new:'new',sent:'sent',reply:'reply',client:'client'};
 let token=localStorage.getItem('sdg_token'),pin='',S={},CL=[],CF='new';
 const AL={new:[],sent:[],reply:[],client:[]};
 
