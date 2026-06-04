@@ -1,20 +1,231 @@
-﻿'use strict';
+'use strict';
 require('dotenv').config({ path: require('path').join(__dirname, '..', '.env') });
 const https = require('https');
-const { fbGet, fbSet, fbPush, logEvent, notifyOwner, checkBudget, DEFAULT_SETTINGS, MAX_FAILURES } = require('./utils');
+const { fbGet, fbSet, fbPush, logEvent, checkBudget, DEFAULT_SETTINGS, MAX_FAILURES } = require('./utils');
+
 const GOOGLE_API_KEY = process.env.GOOGLE_SEARCH_API_KEY;
-const ALL_AREAS = ['ط§ظ„ط±ظٹط§ط¶','ط´ظ…ط§ظ„ ط§ظ„ط±ظٹط§ط¶','ط¬ظ†ظˆط¨ ط§ظ„ط±ظٹط§ط¶','ط´ط±ظ‚ ط§ظ„ط±ظٹط§ط¶','ط؛ط±ط¨ ط§ظ„ط±ظٹط§ط¶','ط§ظ„ط¹ظ„ظٹط§ ط§ظ„ط±ظٹط§ط¶','ط§ظ„ظ…ظ„ظ‚ط§ ط§ظ„ط±ظٹط§ط¶','ط§ظ„ظ†ط±ط¬ط³ ط§ظ„ط±ظٹط§ط¶','ط§ظ„ظٹط§ط³ظ…ظٹظ† ط§ظ„ط±ظٹط§ط¶','ط§ظ„ظˆط±ظˆط¯ ط§ظ„ط±ظٹط§ط¶','ط§ظ„ط±ظˆط¶ط© ط§ظ„ط±ظٹط§ط¶','ط­ظٹ ط§ظ„ط³ظ„ظٹظ…ط§ظ†ظٹط© ط§ظ„ط±ظٹط§ط¶','ط§ظ„ظ…ط­ظ…ط¯ظٹط© ط§ظ„ط±ظٹط§ط¶','ط§ظ„ط®ط±ط¬','ط§ظ„ط¯ط±ط¹ظٹط©','ط§ظ„ط²ظ„ظپظٹ','ط§ظ„ظ…ط¬ظ…ط¹ط©','ط´ظ‚ط±ط§ط،','ط§ظ„ط¯ظˆط§ط¯ظ…ظٹ','ط§ظ„ط£ظپظ„ط§ط¬','ظˆط§ط¯ظٹ ط§ظ„ط¯ظˆط§ط³ط±','ط§ظ„ط³ظ„ظٹظ„','ط¬ط¯ط©','ط´ظ…ط§ظ„ ط¬ط¯ط©','ط¬ظ†ظˆط¨ ط¬ط¯ط©','ظˆط³ط· ط¬ط¯ط©','ط§ظ„ط±ظˆط¶ط© ط¬ط¯ط©','ط§ظ„ط­ظ…ط±ط§ط، ط¬ط¯ط©','ط§ظ„ط²ظ‡ط±ط§ط، ط¬ط¯ط©','ط§ظ„ط¨ظˆط§ط¯ظٹ ط¬ط¯ط©','ط§ظ„طµظپط§ ط¬ط¯ط©','ط§ظ„ظپظٹطµظ„ظٹط© ط¬ط¯ط©','ط§ظ„ط³ط§ظ…ط± ط¬ط¯ط©','ط£ط¨ط­ط± ط¬ط¯ط©','ط§ظ„ط´ط§ط·ط¦ ط¬ط¯ط©','ط¨ط±ظٹظ…ط§ظ† ط¬ط¯ط©','ظ…ظƒط© ط§ظ„ظ…ظƒط±ظ…ط©','ط§ظ„ط¹ط²ظٹط²ظٹط© ظ…ظƒط©','ط§ظ„ط´ظ‡ط¯ط§ط، ظ…ظƒط©','ط§ظ„ط·ط§ط¦ظپ','ط´ظ…ط§ظ„ ط§ظ„ط·ط§ط¦ظپ','ط§ظ„ظ‡ط¯ط§','ط§ظ„ط´ظپط§','ط§ظ„ظƒط±','ط§ظ„ط¬ظ†ظˆط¨ ط§ظ„ط·ط§ط¦ظپ','ط§ظ„ظ…ط¯ظٹظ†ط© ط§ظ„ظ…ظ†ظˆط±ط©','ط§ظ„ط¹ظˆط§ظ„ظٹ ط§ظ„ظ…ط¯ظٹظ†ط©','ظ‚ط¨ط§ط،','ط§ظ„ط¹ظ‚ظٹظ‚ ط§ظ„ظ…ط¯ظٹظ†ط©','ط§ظ„ط¯ظ…ط§ظ…','ط§ظ„ط®ط¨ط±','ط§ظ„ط¸ظ‡ط±ط§ظ†','ط§ظ„ظ‚ط·ظٹظپ','ط³ظٹظ‡ط§طھ','طµظپظˆظ‰','ط§ظ„ط¹ظˆط§ظ…ظٹط©','ط§ظ„ط¬ط¨ظٹظ„','ط§ظ„ط£ط­ط³ط§ط،','ط§ظ„ظ‡ظپظˆظپ','ط§ظ„ظ…ط¨ط±ط²','ط§ظ„ط¹ظٹظˆظ† ط§ظ„ط£ط­ط³ط§ط،','طھط¨ظˆظƒ','ط´ط±ظ…ط§','ط§ظ„ط¨ط¯ط¹','ط­ط§ط¦ظ„','ط¨ظ‚ط¹ط§ط،','ط§ظ„ط؛ط²ط§ظ„ط©','ط¹ط±ط¹ط±','ط±ظپط­ط§ط،','ط·ط±ظٹظپ','ط³ظƒط§ظƒط§','ط§ظ„ظ‚ط±ظٹط§طھ','ط¯ظˆظ…ط© ط§ظ„ط¬ظ†ط¯ظ„','ط£ط¨ظ‡ط§','ط®ظ…ظٹط³ ظ…ط´ظٹط·','ظ…ط­ط§ظٹظ„ ط¹ط³ظٹط±','ط§ظ„ظ†ظ…ط§طµ','ط¨ظٹط´ط©','ط¸ظ‡ط±ط§ظ† ط§ظ„ط¬ظ†ظˆط¨','ط¬ط§ط²ط§ظ†','طµط¨ظٹط§','ط£ط¨ظˆ ط¹ط±ظٹط´','طµط§ظ…ط·ط©','ط§ظ„ط¯ط±ط¨','ظ†ط¬ط±ط§ظ†','ط´ط±ظˆط±ط©','ط­ط¨ظˆظ†ط§','ظٹظ†ط¨ط¹','ط±ط§ط¨ط؛','ط§ظ„ظ„ظٹط«','ط§ظ„ظ‚ظ†ظپط°ط©','ط§ظ„ظ…ظˆظٹظ‡','ط§ظ„ط¹ط±ط¶ظٹط§طھ'];
-function placesSearch(query){return new Promise((resolve,reject)=>{const body={textQuery:query,languageCode:'ar',maxResultCount:20};const options={hostname:'places.googleapis.com',path:'/v1/places:searchText',method:'POST',headers:{'Content-Type':'application/json','X-Goog-Api-Key':GOOGLE_API_KEY,'X-Goog-FieldMask':'places.displayName,places.nationalPhoneNumber,places.internationalPhoneNumber,places.websiteUri,places.rating,places.userRatingCount,places.formattedAddress,places.id,nextPageToken'}};const req=https.request(options,(res)=>{let data='';res.on('data',chunk=>data+=chunk);res.on('end',()=>{try{resolve(JSON.parse(data))}catch(e){reject(e)}})});req.on('error',reject);req.write(JSON.stringify(body));req.end()})}
-async function isAlreadySaved(phone,name){try{const leads=await fbGet('leads')||{};return Object.values(leads).some(l=>(phone&&l.phone===phone)||l.name===name)}catch{return false}}
-function parsePlace(place,city,category){const name=place.displayName?.text||'';const phone=(place.nationalPhoneNumber||place.internationalPhoneNumber||'').replace(/\s|-/g,'');const hasWebsite=!!place.websiteUri;const rating=place.rating||0;const reviewCount=place.userRatingCount||0;const address=place.formattedAddress||city;return{name,phone,hasWebsite,rating,reviewCount,address,city,category}}
-async function getNextArea(preferredCity){if(preferredCity)return preferredCity;try{const settings=await fbGet('settings')||{};const usedAreas=settings.usedAreas||[];const unused=ALL_AREAS.filter(a=>!usedAreas.includes(a));if(unused.length===0){await fbSet('settings/usedAreas',[]);return ALL_AREAS[Math.floor(Math.random()*ALL_AREAS.length)]}return unused[Math.floor(Math.random()*unused.length)]}catch{return ALL_AREAS[Math.floor(Math.random()*ALL_AREAS.length)]}}
-async function markAreaUsed(area){try{const settings=await fbGet('settings')||{};const usedAreas=settings.usedAreas||[];if(!usedAreas.includes(area)){usedAreas.push(area);await fbSet('settings/usedAreas',usedAreas)}}catch{}}
-async function runSora(options={}){const t0=Date.now();let failures=0,totalScanned=0,totalSkipped=0;try{if(!(await checkBudget()))return{success:false,reason:'ظ…ظٹط²ط§ظ†ظٹط© ظ…ظ†طھظ‡ظٹط©'};const settings=await fbGet('settings')||DEFAULT_SETTINGS;const cats=settings.categories||DEFAULT_SETTINGS.categories;const city=await getNextArea(options.city);const category=options.category||cats[Math.floor(Math.random()*cats.length)];const target=Number(options.target||settings.dailyTarget||30);const minRating=Number(settings.minRating||4.0);const minReviews=Number(settings.minReviews||5);await logEvent('info',`ط³ظˆط±ط§: ط¨ط¯ط، ط§ظ„ط¨ط­ط« â€” ${city} | ${category} | ط§ظ„ظ‡ط¯ظپ: ${target}`);console.log(`\nط³ظˆط±ط§: ${city} | ${category} | ط§ظ„ظ‡ط¯ظپ: ${target}`);const found=[];let round=0;const maxRound=8;const queries=[`${category} ${city}`,`${category} ظپظٹ ${city}`,`ط£ظپط¶ظ„ ${category} ${city}`,`${category} ${city} ط®ط¯ظ…ط§طھ`,`ط´ط±ظƒط© ${category} ${city}`,`ظ…ط¤ط³ط³ط© ${category} ${city}`,`${category} ${city} ظ…ط­طھط±ظپ`,`${category} ط¨ط§ظ„ظ‚ط±ط¨ ظ…ظ† ${city}`];while(found.length<target&&round<maxRound){round++;const query=queries[(round-1)%queries.length];console.log(`\n  â†گ ط¬ظˆظ„ط© ${round}/${maxRound} â€” "${query}"`);console.log(`     ظ…طھط¨ظ‚ظچظ‘: ${target-found.length} | طھظ… ط§ظ„ط¹ط«ظˆط±: ${found.length}`);try{const results=await placesSearch(query);const places=results.places||[];totalScanned+=places.length;console.log(`     ظ†طھط§ط¦ط¬ Google: ${places.length} ظ…ظƒط§ظ†`);for(const place of places){if(found.length>=target)break;const company=parsePlace(place,city,category);if(company.hasWebsite){totalSkipped++;continue}if(company.rating<minRating){totalSkipped++;continue}if(company.reviewCount<minReviews){totalSkipped++;continue}if(!company.phone){totalSkipped++;continue}const cleanPhone=(company.phone||'').replace(/\D/g,'');if(!cleanPhone.startsWith('05')){totalSkipped++;continue}if(!company.name||company.name.length<3){totalSkipped++;continue}if(found.some(f=>f.phone===company.phone||f.name===company.name)){totalSkipped++;continue}if(await isAlreadySaved(company.phone,company.name)){console.log(`     âں³ ظ…ظƒط±ط±: ${company.name}`);totalSkipped++;continue}found.push(company);console.log(`  âœ“ [${found.length}/${target}] ${company.name}`);console.log(`     ًں“‍ ${company.phone} | â­گ ${company.rating} (${company.reviewCount} طھظ‚ظٹظٹظ…)`);await sleep(50)}failures=0;if(found.length<target&&round<maxRound){console.log(`     âڈ³ ط§ظ†طھط¸ط§ط± 2 ط«ط§ظ†ظٹط©...`);await sleep(500)}}catch(e){failures++;await logEvent('error',`ط³ظˆط±ط§: ط®ط·ط£ ط¬ظˆظ„ط© ${round}`,{error:e.message});if(failures>=MAX_FAILURES)throw e;await sleep(1000)}}await markAreaUsed(city);let saved=0;const now=new Date().toISOString();for(const c of found){try{await fbPush('leads',{...c,status:'new',discoveredAt:now,source:'Google Maps',contacted:false,notes:''});saved++}catch(e){await logEvent('error',`ط³ظˆط±ط§: ظپط´ظ„ ط­ظپط¸ ${c.name}`,{error:e.message})}}try{const today=new Date().toISOString().split('T')[0];const statsKey=`stats/daily/${today}`;const existing=await fbGet(statsKey)||{};await fbSet(statsKey,{...existing,soraFound:(existing.soraFound||0)+saved,soraScanned:(existing.soraScanned||0)+totalScanned,soraRuns:(existing.soraRuns||0)+1,lastRun:now})}catch(e){console.warn('طھط­ط°ظٹط±:',e.message)}const secs=Math.round((Date.now()-t0)/1000);const mins=Math.round(secs/60);console.log(`\nط³ظˆط±ط§ ط§ظƒطھظ…ظ„! ظ…ط­ظپظˆط¸ط©: ${saved} | ط§ظ„ظ…ظ†ط·ظ‚ط©: ${city} | ط§ظ„ظ…ط¯ط©: ${mins>0?mins+' ط¯ظ‚ظٹظ‚ط©':secs+' ط«ط§ظ†ظٹط©'}`);await logEvent('info',`ط³ظˆط±ط§: ط§ظƒطھظ…ظ„ â€” ${saved} ط´ط±ظƒط© ظ…ظ† ${city}`);return{success:true,found:saved,scanned:totalScanned,skipped:totalSkipped,city,category}}catch(err){await logEvent('error','ط³ظˆط±ط§: ظپط´ظ„ ط¹ط§ظ…',{error:err.message});return{success:false,error:err.message}}}
-function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
-if(require.main===module){const[,,city,category,target]=process.argv;runSora({city,category,target:target?Number(target):undefined}).then(r=>{console.log('\nط§ظ„ظ†طھظٹط¬ط©:',r);process.exit(0)}).catch(e=>{console.error(e);process.exit(1)})}
-module.exports={runSora};
-
-
-
-
-
+
+const ALL_AREAS = [
+  /* الرياض وأحياؤها */
+  'الرياض', 'شمال الرياض', 'جنوب الرياض', 'شرق الرياض', 'غرب الرياض',
+  'العليا الرياض', 'الملقا الرياض', 'النرجس الرياض', 'الياسمين الرياض',
+  'الورود الرياض', 'الروضة الرياض', 'السليمانية الرياض', 'المحمدية الرياض',
+  'الخرج', 'الدرعية', 'الزلفي', 'المجمعة', 'شقراء', 'الدوادمي',
+  'الأفلاج', 'وادي الدواسر', 'السليل',
+  /* جدة */
+  'جدة', 'شمال جدة', 'جنوب جدة', 'وسط جدة', 'الروضة جدة',
+  'الحمراء جدة', 'الزهراء جدة', 'البوادي جدة', 'الصفا جدة',
+  'الفيصلية جدة', 'السامر جدة', 'أبحر جدة', 'الشاطئ جدة', 'بريمان جدة',
+  /* مكة والطائف */
+  'مكة المكرمة', 'العزيزية مكة', 'الشهداء مكة',
+  'الطائف', 'شمال الطائف', 'الهدا', 'الشفا', 'الكر',
+  /* المدينة المنورة */
+  'المدينة المنورة', 'العوالي المدينة', 'قباء', 'العقيق المدينة',
+  /* المنطقة الشرقية */
+  'الدمام', 'الخبر', 'الظهران', 'القطيف', 'سيهات', 'صفوى',
+  'العوامية', 'الجبيل', 'الأحساء', 'الهفوف', 'المبرز', 'العيون',
+  /* الشمال والشمال الغربي */
+  'تبوك', 'شرما', 'البدع', 'حائل', 'بقعاء', 'الغزالة',
+  'عرعر', 'رفحاء', 'طريف', 'سكاكا', 'القريات', 'دومة الجندل',
+  /* الجنوب والجنوب الغربي */
+  'أبها', 'خميس مشيط', 'محايل عسير', 'النماص', 'بيشة',
+  'ظهران الجنوب', 'جازان', 'صبيا', 'أبو عريش', 'صامطة', 'الدرب',
+  'نجران', 'شرورة', 'حبونا',
+  /* الغرب */
+  'ينبع', 'رابغ', 'الليث', 'القنفذة', 'المويه', 'العرضيات'
+];
+
+function placesSearch(query) {
+  return new Promise((resolve, reject) => {
+    const body    = { textQuery: query, languageCode: 'ar', maxResultCount: 20 };
+    const options = {
+      hostname: 'places.googleapis.com',
+      path:     '/v1/places:searchText',
+      method:   'POST',
+      headers:  {
+        'Content-Type':     'application/json',
+        'X-Goog-Api-Key':   GOOGLE_API_KEY,
+        'X-Goog-FieldMask': 'places.displayName,places.nationalPhoneNumber,places.internationalPhoneNumber,places.websiteUri,places.rating,places.userRatingCount,places.formattedAddress,places.id,nextPageToken'
+      }
+    };
+    const req = https.request(options, (res) => {
+      let data = '';
+      res.on('data', chunk => data += chunk);
+      res.on('end', () => { try { resolve(JSON.parse(data)); } catch (e) { reject(e); } });
+    });
+    req.on('error', reject);
+    req.write(JSON.stringify(body));
+    req.end();
+  });
+}
+
+async function isAlreadySaved(phone, name) {
+  try {
+    const leads = await fbGet('leads') || {};
+    return Object.values(leads).some(l => (phone && l.phone === phone) || l.name === name);
+  } catch { return false; }
+}
+
+function parsePlace(place, city, category) {
+  const name        = place.displayName?.text || '';
+  const phone       = (place.nationalPhoneNumber || place.internationalPhoneNumber || '').replace(/\s|-/g, '');
+  const hasWebsite  = !!place.websiteUri;
+  const rating      = place.rating || 0;
+  const reviewCount = place.userRatingCount || 0;
+  const address     = place.formattedAddress || city;
+  return { name, phone, hasWebsite, rating, reviewCount, address, city, category };
+}
+
+async function getNextArea(preferredCity) {
+  if (preferredCity) return preferredCity;
+  try {
+    const settings  = await fbGet('settings') || {};
+    const usedAreas = settings.usedAreas || [];
+    const unused    = ALL_AREAS.filter(a => !usedAreas.includes(a));
+    if (unused.length === 0) {
+      await fbSet('settings/usedAreas', []);
+      return ALL_AREAS[Math.floor(Math.random() * ALL_AREAS.length)];
+    }
+    return unused[Math.floor(Math.random() * unused.length)];
+  } catch { return ALL_AREAS[Math.floor(Math.random() * ALL_AREAS.length)]; }
+}
+
+async function markAreaUsed(area) {
+  try {
+    const settings  = await fbGet('settings') || {};
+    const usedAreas = settings.usedAreas || [];
+    if (!usedAreas.includes(area)) {
+      usedAreas.push(area);
+      await fbSet('settings/usedAreas', usedAreas);
+    }
+  } catch {}
+}
+
+async function runSora(options = {}) {
+  const t0 = Date.now();
+  let failures = 0, totalScanned = 0, totalSkipped = 0;
+
+  try {
+    if (!(await checkBudget())) return { success: false, reason: 'ميزانية منتهية' };
+
+    const settings   = await fbGet('settings') || DEFAULT_SETTINGS;
+    const cats       = settings.categories || DEFAULT_SETTINGS.categories;
+    const city       = await getNextArea(options.city);
+    const category   = options.category || cats[Math.floor(Math.random() * cats.length)];
+    const target     = Number(options.target || settings.dailyTarget || 30);
+    const minRating  = Number(settings.minRating  || 4.0);
+    const minReviews = Number(settings.minReviews || 5);
+
+    await logEvent('info', `سورا: بدأ البحث — ${city} | ${category} | الهدف: ${target}`);
+    console.log(`\nسورا: ${city} | ${category} | الهدف: ${target}`);
+
+    const found   = [];
+    let round     = 0;
+    const maxRound = 8;
+    const queries = [
+      `${category} ${city}`,
+      `${category} في ${city}`,
+      `أفضل ${category} ${city}`,
+      `${category} ${city} خدمات`,
+      `شركة ${category} ${city}`,
+      `مؤسسة ${category} ${city}`,
+      `${category} ${city} محترف`,
+      `${category} بالقرب من ${city}`
+    ];
+
+    while (found.length < target && round < maxRound) {
+      round++;
+      const query = queries[(round - 1) % queries.length];
+      console.log(`\n  ← جولة ${round}/${maxRound} — "${query}"`);
+      console.log(`     متبقّي: ${target - found.length} | تم العثور: ${found.length}`);
+
+      try {
+        const results = await placesSearch(query);
+        const places  = results.places || [];
+        totalScanned += places.length;
+        console.log(`     نتائج Google: ${places.length} مكان`);
+
+        for (const place of places) {
+          if (found.length >= target) break;
+          const company = parsePlace(place, city, category);
+
+          if (company.hasWebsite)              { totalSkipped++; continue; }
+          if (company.rating < minRating)      { totalSkipped++; continue; }
+          if (company.reviewCount < minReviews){ totalSkipped++; continue; }
+          if (!company.phone)                  { totalSkipped++; continue; }
+
+          const cleanPhone = (company.phone || '').replace(/\D/g, '');
+          if (!cleanPhone.startsWith('05'))    { totalSkipped++; continue; }
+          if (!company.name || company.name.length < 3) { totalSkipped++; continue; }
+          if (found.some(f => f.phone === company.phone || f.name === company.name)) { totalSkipped++; continue; }
+          if (await isAlreadySaved(company.phone, company.name)) {
+            console.log(`     ↩ مكرر: ${company.name}`);
+            totalSkipped++;
+            continue;
+          }
+
+          found.push(company);
+          console.log(`  ✓ [${found.length}/${target}] ${company.name}`);
+          console.log(`     📞 ${company.phone} | ⭐ ${company.rating} (${company.reviewCount} تقييم)`);
+          await sleep(50);
+        }
+
+        failures = 0;
+        if (found.length < target && round < maxRound) {
+          console.log('     ⏳ انتظار 500ms...');
+          await sleep(500);
+        }
+      } catch (e) {
+        failures++;
+        await logEvent('error', `سورا: خطأ جولة ${round}`, { error: e.message });
+        if (failures >= MAX_FAILURES) throw e;
+        await sleep(1000);
+      }
+    }
+
+    await markAreaUsed(city);
+
+    let saved = 0;
+    const now = new Date().toISOString();
+    for (const c of found) {
+      try {
+        await fbPush('leads', { ...c, status: 'new', discoveredAt: now, source: 'Google Maps', contacted: false, notes: '' });
+        saved++;
+      } catch (e) { await logEvent('error', `سورا: فشل حفظ ${c.name}`, { error: e.message }); }
+    }
+
+    try {
+      const today    = now.split('T')[0];
+      const key      = `stats/daily/${today}`;
+      const existing = await fbGet(key) || {};
+      await fbSet(key, {
+        ...existing,
+        soraFound:   (existing.soraFound   || 0) + saved,
+        soraScanned: (existing.soraScanned || 0) + totalScanned,
+        soraRuns:    (existing.soraRuns    || 0) + 1,
+        lastRun:     now
+      });
+    } catch (e) { console.warn('تحذير stats:', e.message); }
+
+    const secs = Math.round((Date.now() - t0) / 1000);
+    const dur  = secs >= 60 ? `${Math.round(secs / 60)} دقيقة` : `${secs} ثانية`;
+    console.log(`\nسورا اكتمل! محفوظة: ${saved} | المنطقة: ${city} | المدة: ${dur}`);
+    await logEvent('info', `سورا: اكتمل — ${saved} شركة من ${city}`);
+
+    return { success: true, found: saved, scanned: totalScanned, skipped: totalSkipped, city, category };
+  } catch (err) {
+    await logEvent('error', 'سورا: فشل عام', { error: err.message });
+    return { success: false, error: err.message };
+  }
+}
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+if (require.main === module) {
+  const [,, city, category, target] = process.argv;
+  runSora({ city, category, target: target ? Number(target) : undefined })
+    .then(r => { console.log('\nالنتيجة:', r); process.exit(0); })
+    .catch(e => { console.error(e); process.exit(1); });
+}
+
+module.exports = { runSora };
