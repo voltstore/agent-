@@ -337,6 +337,54 @@ textarea.fi{resize:vertical;min-height:110px;line-height:1.8}
 .var-hints{font-size:11px;color:var(--t3);margin-top:5px;line-height:1.8}
 .vt{background:var(--cy2);color:var(--cy);padding:1px 6px;border-radius:4px;font-family:monospace;font-size:10px}
 
+/* WEEKLY CHART */
+.wchart{padding:14px 16px;border-bottom:1px solid var(--b)}
+.wchart-title{font-size:11px;color:var(--t3);font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-bottom:10px;display:flex;justify-content:space-between}
+.wchart-bars{display:flex;align-items:flex-end;gap:3px;height:52px}
+.wbar{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px}
+.wbar-fill{width:100%;border-radius:2px 2px 0 0;min-height:2px;transition:height .6s ease}
+.wbar-lbl{font-size:8px;color:var(--t4);white-space:nowrap}
+.wbar-val{font-size:8px;color:var(--t3)}
+
+/* TODAY PANEL */
+.today-panel{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--b);border-bottom:1px solid var(--b)}
+.tp-box{background:var(--bg);padding:12px 8px;text-align:center}
+.tp-val{font-size:22px;font-weight:800;line-height:1}
+.tp-lbl{font-size:10px;color:var(--t3);margin-top:2px}
+
+/* CARD AGE INDICATOR */
+.age-fresh{color:var(--gr)!important}
+.age-week {color:var(--gold)!important}
+.age-old  {color:var(--t4)!important}
+
+/* EMAIL BADGE */
+.has-email{display:inline-block;width:16px;height:16px;border-radius:4px;background:rgba(234,67,53,.12);color:#ea4335;font-size:9px;text-align:center;line-height:16px;margin-right:2px;flex-shrink:0}
+
+/* NOTES PREVIEW ON CARD */
+.lnote-prev{font-size:10px;color:var(--t3);font-style:italic;padding:4px 8px;background:var(--s);border-radius:5px;margin-top:5px;border-right:2px solid var(--b2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* LOAD MORE */
+.load-more{text-align:center;padding:16px}
+.lm-btn{background:var(--s);border:1px solid var(--b);border-radius:var(--rs);color:var(--t2);font-size:13px;font-weight:600;padding:10px 28px;cursor:pointer;font-family:'Tajawal',sans-serif;transition:all .15s}
+.lm-btn:active{background:var(--s2);color:var(--cy)}
+
+/* SORA LIVE COUNTER */
+.sp-counter{font-size:22px;font-weight:800;color:var(--cy);text-align:center;margin:6px 0 2px}
+.sp-timer{font-size:10px;color:var(--t4);text-align:center}
+
+/* DETAIL: TIMELINE */
+.tl{margin:12px 0 4px}
+.tl-title{font-size:11px;color:var(--t3);font-weight:600;margin-bottom:8px}
+.tl-row{display:flex;align-items:center;gap:8px;padding:5px 0}
+.tl-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.tl-info{flex:1}
+.tl-ev{font-size:12px;color:var(--t2)}
+.tl-d{font-size:10px;color:var(--t4)}
+
+/* MAP LINK */
+.map-link{font-size:11px;color:var(--bl);text-decoration:none;display:inline-flex;align-items:center;gap:3px}
+.map-link:active{opacity:.7}
+
 @media(min-width:600px){
   #app,#lock{max-width:600px;margin:0 auto}
   .hdr,.bnav{position:fixed;max-width:600px;left:50%;transform:translateX(-50%)}
@@ -444,6 +492,22 @@ textarea.fi{resize:vertical;min-height:110px;line-height:1.8}
     <div class="sbox"><div class="sv2" id="s-sent" style="color:var(--gold)">0</div><div class="sl2">تم الإرسال</div></div>
     <div class="sbox"><div class="sv2" id="s-rep" style="color:var(--bl)">0</div><div class="sl2">ردود</div></div>
     <div class="sbox"><div class="sv2" id="s-cli" style="color:var(--pur)">0</div><div class="sl2">عملاء فعليون</div></div>
+  </div>
+
+  <!-- TODAY PANEL -->
+  <div class="today-panel">
+    <div class="tp-box"><div class="tp-val" id="td-disc" style="color:var(--cy)">0</div><div class="tp-lbl">اكتُشف اليوم</div></div>
+    <div class="tp-box"><div class="tp-val" id="td-sent" style="color:var(--gold)">0</div><div class="tp-lbl">أُرسل اليوم</div></div>
+    <div class="tp-box"><div class="tp-val" id="td-rep"  style="color:var(--bl)">0</div><div class="tp-lbl">ردود اليوم</div></div>
+  </div>
+
+  <!-- WEEKLY CHART -->
+  <div class="wchart">
+    <div class="wchart-title">
+      <span>النشاط — آخر 7 أيام</span>
+      <span id="wc-total" style="color:var(--cy)"></span>
+    </div>
+    <div class="wchart-bars" id="wc-bars"><div style="color:var(--t4);font-size:11px">جارٍ التحميل...</div></div>
   </div>
 
   <div class="funnel">
@@ -559,6 +623,8 @@ textarea.fi{resize:vertical;min-height:110px;line-height:1.8}
     <div class="sora-prog" id="sora-prog">
       <div class="sp-head"><div class="sp-dot"></div><span class="sp-title" id="sp-title">سورا يبحث...</span></div>
       <div class="sp-bar"><div class="sp-fill"></div></div>
+      <div class="sp-counter" id="sp-counter">0</div>
+      <div class="sp-timer" id="sp-timer">شركة وجدت حتى الآن</div>
       <div class="sp-msg" id="sp-msg">جارٍ البحث في Google Maps</div>
     </div>
     <div class="sora-hist" id="sora-hist" style="display:none">
@@ -626,6 +692,8 @@ let compactMode = localStorage.getItem('sdg_compact')==='1';
 let bulkMode = false, selected = new Set();
 let soraTimer = null, undoLead = null, undoTimer = null;
 let ACTIVITY = [];
+const PAGE_SIZE = 50;
+let visibleCount = PAGE_SIZE;
 
 /* ════ AUTH ════ */
 function pp(d){if(pin.length>=6)return;pin+=d;ud();if(pin.length===6)setTimeout(vp,120)}
@@ -721,7 +789,39 @@ function renderAct(){
 }
 
 /* ════ INIT ════ */
-function init(){loadStats();loadAll();loadUI();loadReports();chk();setInterval(loadStats,60000);setInterval(chk,120000)}
+function init(){loadStats();loadAll();loadUI();loadReports();loadWeeklyChart();chk();setInterval(loadStats,60000);setInterval(chk,120000);setInterval(loadWeeklyChart,300000)}
+
+/* ════ WEEKLY CHART ════ */
+async function loadWeeklyChart(){
+  try{
+    const days=await api('/api/stats/weekly');
+    if(!days||!days.length)return;
+    const max=Math.max(...days.map(d=>d.discovered||0),1);
+    const total=days.reduce((s,d)=>s+(d.discovered||0),0);
+    txt('wc-total',total+' إجمالي');
+    const el=$('wc-bars');if(!el)return;
+    el.innerHTML=days.map(d=>{
+      const h=Math.max(2,Math.round(((d.discovered||0)/max)*46));
+      const today=d.date===new Date().toISOString().split('T')[0];
+      const col=today?'var(--cy)':'rgba(34,211,238,.35)';
+      return`<div class="wbar">
+        <span class="wbar-val">${d.discovered||''}</span>
+        <div class="wbar-fill" style="height:${h}px;background:${col}"></div>
+        <span class="wbar-lbl">${d.label}</span>
+      </div>`;
+    }).join('');
+  }catch(e){console.warn('chart:',e.message)}
+}
+
+/* ════ KEYBOARD SHORTCUTS ════ */
+document.addEventListener('keydown',e=>{
+  if(!token)return;
+  if(e.key==='Escape'){['mo-detail','mo-add','mo-confirm'].forEach(id=>{const el=$(id);if(el)el.classList.remove('show')});return}
+  if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')return;
+  if(e.key==='r'||e.key==='R'){refresh();return}
+  if(e.key==='/'||e.key==='ل'){const inp=$('ls');if(inp){sp('leads',document.querySelector('[data-p="leads"]'));setTimeout(()=>inp.focus(),200)};return}
+  if(e.key==='h'||e.key==='H'||e.key==='أ')sp('home',document.querySelector('[data-p="home"]'));
+});
 
 /* ════ HEALTH ════ */
 async function chk(){
@@ -745,6 +845,9 @@ async function loadStats(){
     txt('l-tot','('+d.total.leads+')');
     const todDisc=d.today.discovered;
     txt('t-disc',todDisc+' شركة');
+    animCount('td-disc',d.today.discovered);
+    animCount('td-sent',d.today.sent);
+    animCount('td-rep',d.today.replies);
 
     /* goal ring */
     const daily=S.dailyTarget||30, pct=Math.min(100,Math.round(todDisc/daily*100));
@@ -820,7 +923,7 @@ function updateCounts(){
   txt('l-tot','('+tot+')');
 }
 
-function sf(b){$$('.ftab').forEach(x=>x.classList.remove('active'));b.classList.add('active');CF=b.dataset.s;$('ls').value='';renderL()}
+function sf(b){$$('.ftab').forEach(x=>x.classList.remove('active'));b.classList.add('active');CF=b.dataset.s;$('ls').value='';visibleCount=PAGE_SIZE;renderL()}
 
 function getSorted(leads){
   const s=$('sort-sel')?.value||'newest';
@@ -845,16 +948,31 @@ function renderL(list=null){
   CL=leads;
   const msgs={new:'لا يوجد جدد — شغّل سورا',sent:'لم يُرسل بعد',reply:'لا توجد ردود',client:'لا يوجد عملاء بعد'};
   if(!leads.length){el.innerHTML=`<div class="es"><div class="ei">📭</div><div class="et">فارغ</div><div class="ex">${msgs[CF]||''}</div>${CF==='new'?'<button class="btn btn-cy btn-sm" style="width:auto;margin:0 auto" onclick="sp(\'sora\',document.querySelector(\'[data-p=sora]\'))">🚀 شغّل سورا</button>':''}</div>`;return}
+  const visible=leads.slice(0,visibleCount);
+  const remaining=leads.length-visible.length;
   txt('ltool-stat',leads.length+' شركة');
-  el.innerHTML=leads.map((l,i)=>buildCard(l,i)).join('');
+  el.innerHTML=visible.map((l,i)=>buildCard(l,i)).join('')
+    +(remaining>0?`<div class="load-more"><button class="lm-btn" onclick="loadMore()">تحميل ${Math.min(remaining,PAGE_SIZE)} إضافية من أصل ${remaining} متبقية</button></div>`:'');
+}
+
+function loadMore(){visibleCount+=PAGE_SIZE;renderL()}
+
+function ageClass(iso){
+  if(!iso)return'age-old';
+  const h=(Date.now()-new Date(iso))/3600000;
+  if(h<24)return'age-fresh';if(h<168)return'age-week';return'age-old';
 }
 
 function buildCard(l,i){
   const ph=(l.phone||'').replace(/\D/g,''),hp=!!ph,st=norm(l.status);
   const sl={new:'جديد',sent:'مرسل',reply:'ردّ',client:'عميل'};
   const badge=`<span class="lbadge ${st}">${sl[st]}</span>`;
-  const src=l.source==='manual'?'<span class="lsrc">✍️</span>':'<span class="lsrc">🤖</span>';
+  const src=l.source==='manual'?'<span class="lsrc" title="يدوي">✍️</span>':'<span class="lsrc" title="Google Maps">🤖</span>';
+  const emailIco=l.email?`<span class="has-email" title="${esc(l.email)}">@</span>`:'';
   const isSel=selected.has(l.id);
+  const ageCls=ageClass(l.discoveredAt);
+  const notePrev=l.notes?`<div class="lnote-prev">📝 ${esc(l.notes)}</div>`:'';
+
   return `<div class="lcard${compactMode?' compact':''} ${isSel?'selected':''}" id="c-${l.id}" onclick="cardClick(${i})">
     ${!bulkMode?`<button class="la-del" onclick="event.stopPropagation();delL(${i})">✕</button>`:''}
     ${bulkMode?`<input type="checkbox" style="position:absolute;top:14px;left:12px;accent-color:var(--cy);width:16px;height:16px;cursor:pointer" ${isSel?'checked':''} onclick="event.stopPropagation();toggleSel('${l.id}')">` :''}
@@ -862,7 +980,13 @@ function buildCard(l,i){
       <div class="lav" style="${avColor(l.name)}">${(l.name||'?')[0]}</div>
       <div class="linfo">
         <div class="lname">${esc(l.name)}</div>
-        <div class="lsub"><span>${esc(l.city||'')}</span>${l.category?`<div class="ldot"></div><span>${esc(l.category)}</span>`:''}<div class="ldot"></div><span>${ago(l.discoveredAt)}</span></div>
+        <div class="lsub">
+          ${emailIco}
+          <span>${esc(l.city||'')}</span>
+          ${l.category?`<div class="ldot"></div><span>${esc(l.category)}</span>`:''}
+          <div class="ldot"></div>
+          <span class="${ageCls}">${ago(l.discoveredAt)}</span>
+        </div>
       </div>
       ${badge}
     </div>
@@ -870,15 +994,16 @@ function buildCard(l,i){
     <div class="lcard-mid">
       <div style="display:flex;align-items:center;gap:6px">
         <div class="lstars">${stars(l.rating||0)}</div>
-        <span style="font-size:11px;color:var(--t2)">${l.rating||0}</span>
-        <span style="font-size:10px;color:var(--t4)">(${l.reviewCount||0})</span>
+        <span style="font-size:11px;color:var(--t2);font-weight:700">${l.rating||0}</span>
+        <span style="font-size:10px;color:var(--t4)">(${l.reviewCount||0} تقييم)</span>
         ${src}
       </div>
-      ${hp?`<div class="lphone-row"><span class="lph" dir="ltr">${l.phone}</span><button class="lcopy" onclick="event.stopPropagation();copyPhone('${l.phone}')">📋</button><button class="lcall" onclick="event.stopPropagation();callPhone('${l.phone}')">📞</button></div>`:''}
+      ${hp?`<div class="lphone-row"><span class="lph" dir="ltr">${l.phone}</span><button class="lcopy" onclick="event.stopPropagation();copyPhone('${l.phone}')" title="نسخ">📋</button><button class="lcall" onclick="event.stopPropagation();callPhone('${l.phone}')" title="اتصال">📞</button></div>`:''}
     </div>
+    ${notePrev}
     ${hp?`<div class="lcard-acts" onclick="event.stopPropagation()">
       <button class="la la-wa" onclick="swa(${i})">💬 واتساب</button>
-      <button class="la la-em" onclick="gmailL(${i})">📧 إيميل</button>
+      <button class="la la-em" onclick="gmailL(${i})">${l.email?'📧 إيميل':'📝 مسودة'}</button>
       <button class="la la-more" onclick="showD(${i})">⋯</button>
     </div>`:`<div class="no-ph">⚠ لا يوجد رقم جوال صالح</div>`}`:''}
   </div>`;
@@ -925,11 +1050,13 @@ function showD(i){
       <div class="dgbox"><div class="dgv" style="color:var(--gold)">${l.rating||'—'}</div><div class="dgl">التقييم</div></div>
       <div class="dgbox"><div class="dgv" style="color:var(--bl)">${l.reviewCount||'—'}</div><div class="dgl">تقييمات</div></div>
     </div>
-    <div class="d-row"><span class="drl">📱 الرقم</span><span class="drv" dir="ltr" style="color:var(--cy)">${l.phone||'—'} ${l.phone?`<button onclick="copyPhone('${l.phone}')" style="background:none;border:none;cursor:pointer;font-size:11px">📋</button>`:''}</span></div>
-    <div class="d-row"><span class="drl">📧 الإيميل</span><span class="drv">${l.email||'—'}</span></div>
-    <div class="d-row"><span class="drl">📍 العنوان</span><span class="drv">${esc(l.address||'—')}</span></div>
+    <div class="d-row"><span class="drl">📱 الرقم</span><span class="drv" dir="ltr" style="color:var(--cy)">${l.phone||'—'} ${l.phone?`<button onclick="copyPhone('${l.phone}')" style="background:none;border:none;cursor:pointer;font-size:11px">📋</button> <button onclick="callPhone('${l.phone}')" style="background:none;border:none;cursor:pointer;font-size:11px">📞</button>`:''}</span></div>
+    <div class="d-row"><span class="drl">📧 الإيميل</span><span class="drv">${l.email?`<a href="mailto:${l.email}" style="color:var(--bl)">${l.email}</a>`:'—'}</span></div>
+    <div class="d-row"><span class="drl">📍 العنوان</span><span class="drv">${l.address?`<a class="map-link" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((l.name||'')+' '+(l.address||''))}" target="_blank">📌 ${esc(l.address)}</a>`:'—'}</span></div>
     <div class="d-row"><span class="drl">🔍 المصدر</span><span class="drv">${l.source==='manual'?'✍️ يدوي':'🤖 Google Maps'}</span></div>
     <div class="d-row"><span class="drl">🕐 الاكتشاف</span><span class="drv">${fmtDate(l.discoveredAt)}</span></div>
+    ${l.sentAt?`<div class="d-row"><span class="drl">💬 الإرسال</span><span class="drv" style="color:var(--gold)">${fmtDate(l.sentAt)}</span></div>`:''}
+    ${l.notes?`<div class="d-row"><span class="drl">📝 ملاحظة</span><span class="drv" style="color:var(--t2)">${esc(l.notes)}</span></div>`:''}
     <div style="margin:12px 0 6px;font-size:11px;color:var(--t3);font-weight:600;letter-spacing:.3px">تغيير الحالة</div>
     <div class="st-btns">
       <button class="stb new ${st==='new'?'on':''}"    onclick="changeStatus('new')">🆕 جديد</button>
@@ -963,7 +1090,7 @@ async function changeStatus(ns){
     updateCounts();loadStats();
     const sl={new:'جديد',sent:'مرسل',reply:'ردّ',client:'عميل'};
     toast('✅ '+sl[ns],2000,'ok');
-    logAct('🔄',l.name+' → '+sl[ns]);
+    logAct('🔄',DL.name+' → '+sl[ns]);
   }catch(e){toast('❌ '+e.message,3000,'bad')}
 }
 
@@ -1063,30 +1190,57 @@ function toggleCity(el){
 }
 function setCat(c){$('s-cat').value=c}
 
+let soraPollTimer=null;
 async function runSora(){
   const btn=$('s-btn'),prog=$('sora-prog');
   const cat=$('s-cat').value.trim();
   if(!cat){toast('أدخل النشاط التجاري',2000,'bad');return}
+
   btn.disabled=true;btn.innerHTML='<span class="sp"></span> سورا يبحث...';
   prog.classList.add('show');
-  $('sp-title').textContent=`يبحث في ${selCities[0]}...`;
-  $('sp-msg').textContent=`${selCities[0]} | ${cat} | هدف: ${$('s-tgt').value}`;
+  const city=selCities[0];
+  $('sp-title').textContent=`🔍 يبحث في ${city}...`;
+  $('sp-msg').textContent=`${city} | ${cat} | هدف: ${$('s-tgt').value} شركة`;
+  txt('sp-counter','0');txt('sp-timer','شركة وجدت حتى الآن');
 
-  const opts={city:selCities[0],category:cat,target:Number($('s-tgt').value)||15,minRating:parseFloat($('s-rat').value)||3.5,minReviews:parseInt($('s-rev').value)||3};
+  const opts={city,category:cat,target:Number($('s-tgt').value)||15,minRating:parseFloat($('s-rat').value)||3.5,minReviews:parseInt($('s-rev').value)||3};
+  const t0=Date.now();
+
   try{
     const r=await api('/api/agents/sora/run','POST',opts);
-    toast(r.message||'✅ سورا يعمل في الخلفية',4000,'ok');
-    saveSoraHist(selCities[0],cat,opts.target);
-    logAct('🔍','بحث سورا: '+selCities[0]+' - '+cat);
+    if(r.success===false&&r.state?.running){toast('⚠️ سورا يعمل بالفعل في '+r.state.city,3000,'info');prog.classList.remove('show');btn.disabled=false;btn.innerHTML='🚀 ابدأ البحث';return}
+    toast(r.message||'✅ سورا يعمل في الخلفية',3000,'ok');
+    saveSoraHist(city,cat,opts.target);
+    logAct('🔍','بحث سورا: '+city+' - '+cat);
+
+    /* live polling */
+    let prevFound=0;
+    clearInterval(soraPollTimer);
+    soraPollTimer=setInterval(async()=>{
+      try{
+        const st=await api('/api/agents/sora/status');
+        const elapsed=Math.round((Date.now()-t0)/1000);
+        const mins=Math.floor(elapsed/60),secs=elapsed%60;
+        txt('sp-timer',`${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')} — جارٍ البحث`);
+        if(st.found>prevFound){animCount('sp-counter',st.found);prevFound=st.found}
+        if(!st.running&&elapsed>5){clearInterval(soraPollTimer);finishSora(st.found||0)}
+      }catch{}
+    },3000);
+
     clearTimeout(soraTimer);
-    soraTimer=setTimeout(async()=>{
-      prog.classList.remove('show');
-      await loadAll();await loadStats();
-      sp('leads',document.querySelector('[data-p="leads"]'));
-      toast('✅ اكتمل البحث! تحقق من الشركات الجديدة',5000,'ok');
-    },35000);
+    soraTimer=setTimeout(()=>{clearInterval(soraPollTimer);finishSora(prevFound)},50000);
+
   }catch(e){toast('❌ '+e.message,3000,'bad');prog.classList.remove('show')}
   finally{btn.disabled=false;btn.innerHTML='🚀 ابدأ البحث'}
+}
+
+async function finishSora(found){
+  const prog=$('sora-prog');
+  prog.classList.remove('show');
+  await loadAll();await loadStats();await loadWeeklyChart();
+  sp('leads',document.querySelector('[data-p="leads"]'));
+  toast(`✅ اكتمل! وجد ${found} شركة جديدة`,5000,'ok');
+  logAct('✅','اكتمل سورا: '+found+' شركة');
 }
 
 const HIST_KEY='sdg_sora_hist';
