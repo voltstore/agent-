@@ -6,214 +6,284 @@ const { fbGet, fbSet, fbPush, logEvent, checkBudget, DEFAULT_SETTINGS, MAX_FAILU
 const GOOGLE_API_KEY = process.env.GOOGLE_SEARCH_API_KEY;
 
 const ALL_AREAS = [
-  /* الرياض وأحياؤها */
-  'الرياض', 'شمال الرياض', 'جنوب الرياض', 'شرق الرياض', 'غرب الرياض',
-  'العليا الرياض', 'الملقا الرياض', 'النرجس الرياض', 'الياسمين الرياض',
-  'الورود الرياض', 'الروضة الرياض', 'السليمانية الرياض', 'المحمدية الرياض',
-  'الخرج', 'الدرعية', 'الزلفي', 'المجمعة', 'شقراء', 'الدوادمي',
-  'الأفلاج', 'وادي الدواسر', 'السليل',
-  /* جدة */
-  'جدة', 'شمال جدة', 'جنوب جدة', 'وسط جدة', 'الروضة جدة',
-  'الحمراء جدة', 'الزهراء جدة', 'البوادي جدة', 'الصفا جدة',
-  'الفيصلية جدة', 'السامر جدة', 'أبحر جدة', 'الشاطئ جدة', 'بريمان جدة',
-  /* مكة والطائف */
-  'مكة المكرمة', 'العزيزية مكة', 'الشهداء مكة',
-  'الطائف', 'شمال الطائف', 'الهدا', 'الشفا', 'الكر',
-  /* المدينة المنورة */
-  'المدينة المنورة', 'العوالي المدينة', 'قباء', 'العقيق المدينة',
-  /* المنطقة الشرقية */
-  'الدمام', 'الخبر', 'الظهران', 'القطيف', 'سيهات', 'صفوى',
-  'العوامية', 'الجبيل', 'الأحساء', 'الهفوف', 'المبرز', 'العيون',
-  /* الشمال والشمال الغربي */
-  'تبوك', 'شرما', 'البدع', 'حائل', 'بقعاء', 'الغزالة',
-  'عرعر', 'رفحاء', 'طريف', 'سكاكا', 'القريات', 'دومة الجندل',
-  /* الجنوب والجنوب الغربي */
-  'أبها', 'خميس مشيط', 'محايل عسير', 'النماص', 'بيشة',
-  'ظهران الجنوب', 'جازان', 'صبيا', 'أبو عريش', 'صامطة', 'الدرب',
-  'نجران', 'شرورة', 'حبونا',
-  /* الغرب */
-  'ينبع', 'رابغ', 'الليث', 'القنفذة', 'المويه', 'العرضيات'
+  'الرياض','شمال الرياض','جنوب الرياض','شرق الرياض','غرب الرياض',
+  'العليا الرياض','الملقا الرياض','النرجس الرياض','الياسمين الرياض',
+  'الورود الرياض','الروضة الرياض','السليمانية الرياض','المحمدية الرياض',
+  'الخرج','الدرعية','الزلفي','المجمعة','شقراء','الدوادمي',
+  'الأفلاج','وادي الدواسر','السليل',
+  'جدة','شمال جدة','جنوب جدة','وسط جدة','الروضة جدة',
+  'الحمراء جدة','الزهراء جدة','البوادي جدة','الصفا جدة',
+  'الفيصلية جدة','السامر جدة','أبحر جدة','الشاطئ جدة','بريمان جدة',
+  'مكة المكرمة','العزيزية مكة','الشهداء مكة',
+  'الطائف','شمال الطائف','الهدا','الشفا','الكر',
+  'المدينة المنورة','العوالي المدينة','قباء','العقيق المدينة',
+  'الدمام','الخبر','الظهران','القطيف','سيهات','صفوى',
+  'العوامية','الجبيل','الأحساء','الهفوف','المبرز','العيون',
+  'تبوك','شرما','البدع','حائل','بقعاء','الغزالة',
+  'عرعر','رفحاء','طريف','سكاكا','القريات','دومة الجندل',
+  'أبها','خميس مشيط','محايل عسير','النماص','بيشة',
+  'ظهران الجنوب','جازان','صبيا','أبو عريش','صامطة','الدرب',
+  'نجران','شرورة','حبونا',
+  'ينبع','رابغ','الليث','القنفذة','المويه','العرضيات'
 ];
 
-function placesSearch(query) {
+/* ══════════════════════════════════
+   تطبيع أرقام الجوال (إصلاح الخطأ الرئيسي)
+   Google يرجع +9665XXXXXXXX أو 05XXXXXXXX
+   كلاهما يجب أن يُقبل ويُحوَّل لـ 05XXXXXXXX
+══════════════════════════════════ */
+function normalizePhone(raw) {
+  if (!raw) return '';
+  const d = raw.replace(/\D/g, '');                       // أرقام فقط
+  if (d.startsWith('9665')   && d.length >= 12) return '0' + d.slice(3);   // 9665XXXXXXXX → 05XXXXXXXX
+  if (d.startsWith('009665') && d.length >= 14) return '0' + d.slice(5);   // 009665XXXXXXXX → 05XXXXXXXX
+  if (d.startsWith('05')     && d.length === 10) return d;                  // 05XXXXXXXX ← صحيح أصلاً
+  return '';
+}
+
+function isValidSaudiMobile(rawPhone) {
+  const norm = normalizePhone(rawPhone);
+  return norm.startsWith('05') && norm.length === 10;
+}
+
+/* ══════════════════════════════════
+   طلب Google Places مع دعم الـ pageToken
+══════════════════════════════════ */
+function gRequest(body) {
   return new Promise((resolve, reject) => {
-    const body    = { textQuery: query, languageCode: 'ar', maxResultCount: 20 };
-    const options = {
+    const opts = {
       hostname: 'places.googleapis.com',
       path:     '/v1/places:searchText',
       method:   'POST',
-      headers:  {
+      headers: {
         'Content-Type':     'application/json',
         'X-Goog-Api-Key':   GOOGLE_API_KEY,
-        'X-Goog-FieldMask': 'places.displayName,places.nationalPhoneNumber,places.internationalPhoneNumber,places.websiteUri,places.rating,places.userRatingCount,places.formattedAddress,places.id,nextPageToken'
+        'X-Goog-FieldMask': [
+          'places.displayName',
+          'places.nationalPhoneNumber',
+          'places.internationalPhoneNumber',
+          'places.websiteUri',
+          'places.rating',
+          'places.userRatingCount',
+          'places.formattedAddress',
+          'places.id',
+          'nextPageToken'
+        ].join(',')
       }
     };
-    const req = https.request(options, (res) => {
-      let data = '';
-      res.on('data', chunk => data += chunk);
-      res.on('end', () => { try { resolve(JSON.parse(data)); } catch (e) { reject(e); } });
+    const req = https.request(opts, res => {
+      let buf = '';
+      res.on('data', c => buf += c);
+      res.on('end', () => {
+        try { resolve(JSON.parse(buf)); }
+        catch(e) { reject(new Error('JSON: ' + buf.slice(0, 100))); }
+      });
     });
     req.on('error', reject);
+    req.setTimeout(18000, () => { req.destroy(); reject(new Error('timeout')); });
     req.write(JSON.stringify(body));
     req.end();
   });
 }
 
+/* جلب كل الصفحات لاستعلام واحد (حتى 60 نتيجة بدل 20) */
+async function fetchAllPages(query) {
+  const all = [];
+  let token = null, page = 0;
+  do {
+    const body = { textQuery: query, languageCode: 'ar', maxResultCount: 20 };
+    if (token) body.pageToken = token;
+    const r = await gRequest(body);
+    all.push(...(r.places || []));
+    token = r.nextPageToken || null;
+    page++;
+    if (token && page < 3) await sleep(500);
+  } while (token && page < 3);
+  return all;
+}
+
+/* 12 صيغة بحث مختلفة لتجنب نفس النتائج */
+function buildQueries(city, category) {
+  return [
+    `${category} ${city}`,
+    `${category} في ${city}`,
+    `محلات ${category} ${city}`,
+    `أفضل ${category} ${city}`,
+    `خدمات ${category} ${city}`,
+    `شركة ${category} ${city}`,
+    `مؤسسة ${category} ${city}`,
+    `${category} ${city} رخيص`,
+    `${category} منطقة ${city}`,
+    `${city} ${category}`,
+    `${category} قريب من ${city}`,
+    `متاجر ${category} في ${city}`,
+  ];
+}
+
 async function isAlreadySaved(phone, name) {
   try {
-    const leads = await fbGet('leads') || {};
-    return Object.values(leads).some(l => (phone && l.phone === phone) || l.name === name);
+    const norm = normalizePhone(phone);
+    const all  = await fbGet('leads') || {};
+    return Object.values(all).some(l => {
+      const lp = normalizePhone(l.phone || '');
+      return (norm && lp === norm) || l.name === name;
+    });
   } catch { return false; }
 }
 
-function parsePlace(place, city, category) {
-  const name        = place.displayName?.text || '';
-  const phone       = (place.nationalPhoneNumber || place.internationalPhoneNumber || '').replace(/\s|-/g, '');
-  const hasWebsite  = !!place.websiteUri;
-  const rating      = place.rating || 0;
-  const reviewCount = place.userRatingCount || 0;
-  const address     = place.formattedAddress || city;
-  return { name, phone, hasWebsite, rating, reviewCount, address, city, category };
+function parsePlace(p, city, category) {
+  const rawPhone = p.nationalPhoneNumber || p.internationalPhoneNumber || '';
+  return {
+    name:        p.displayName?.text || '',
+    phone:       normalizePhone(rawPhone),
+    hasWebsite:  !!p.websiteUri,
+    rating:      p.rating || 0,
+    reviewCount: p.userRatingCount || 0,
+    address:     p.formattedAddress || city,
+    city, category,
+    placeId:     p.id || ''
+  };
 }
 
-async function getNextArea(preferredCity) {
-  if (preferredCity) return preferredCity;
+async function getNextArea(preferred) {
+  if (preferred) return preferred;
   try {
-    const settings  = await fbGet('settings') || {};
-    const usedAreas = settings.usedAreas || [];
-    const unused    = ALL_AREAS.filter(a => !usedAreas.includes(a));
-    if (unused.length === 0) {
-      await fbSet('settings/usedAreas', []);
-      return ALL_AREAS[Math.floor(Math.random() * ALL_AREAS.length)];
-    }
-    return unused[Math.floor(Math.random() * unused.length)];
-  } catch { return ALL_AREAS[Math.floor(Math.random() * ALL_AREAS.length)]; }
+    const s    = await fbGet('settings') || {};
+    const used = s.usedAreas || [];
+    const free = ALL_AREAS.filter(a => !used.includes(a));
+    if (!free.length) { await fbSet('settings/usedAreas', []); return ALL_AREAS[0]; }
+    return free[Math.floor(Math.random() * free.length)];
+  } catch { return ALL_AREAS[0]; }
 }
 
 async function markAreaUsed(area) {
   try {
-    const settings  = await fbGet('settings') || {};
-    const usedAreas = settings.usedAreas || [];
-    if (!usedAreas.includes(area)) {
-      usedAreas.push(area);
-      await fbSet('settings/usedAreas', usedAreas);
-    }
+    const s = await fbGet('settings') || {};
+    const used = s.usedAreas || [];
+    if (!used.includes(area)) await fbSet('settings/usedAreas', [...used, area]);
   } catch {}
 }
 
+/* ══════════════════════════════════
+   runSora — الوظيفة الرئيسية
+══════════════════════════════════ */
 async function runSora(options = {}) {
   const t0 = Date.now();
-  let failures = 0, totalScanned = 0, totalSkipped = 0;
+  let totalScanned = 0, totalSkipped = 0, failures = 0;
 
   try {
     if (!(await checkBudget())) return { success: false, reason: 'ميزانية منتهية' };
 
     const settings   = await fbGet('settings') || DEFAULT_SETTINGS;
-    const cats       = settings.categories || DEFAULT_SETTINGS.categories;
     const city       = await getNextArea(options.city);
-    const category   = options.category || cats[Math.floor(Math.random() * cats.length)];
-    const target     = Number(options.target || settings.dailyTarget || 30);
-    const minRating  = Number(settings.minRating  || 4.0);
-    const minReviews = Number(settings.minReviews || 5);
+    const cats       = settings.categories || DEFAULT_SETTINGS.categories;
+    const category   = options.category  || cats[Math.floor(Math.random() * cats.length)];
+    const target     = Number(options.target     || settings.dailyTarget || 30);
+    const minRating  = Number(options.minRating  || settings.minRating   || 3.5); // ← خُفِّف من 4.0
+    const minReviews = Number(options.minReviews || settings.minReviews  || 3);   // ← خُفِّف من 5
 
-    await logEvent('info', `سورا: بدأ البحث — ${city} | ${category} | الهدف: ${target}`);
-    console.log(`\nسورا: ${city} | ${category} | الهدف: ${target}`);
+    await logEvent('info', `سورا: بدأ — ${city} | ${category} | هدف:${target} | تقييم≥${minRating} | مراجعات≥${minReviews}`);
+    console.log(`\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
+    console.log(`سورا ▶ ${city} | ${category} | هدف: ${target}`);
+    console.log(`الفلاتر: تقييم≥${minRating} | مراجعات≥${minReviews} | بلا موقع`);
+    console.log(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
 
     const found   = [];
-    let round     = 0;
-    const maxRound = 8;
-    const queries = [
-      `${category} ${city}`,
-      `${category} في ${city}`,
-      `أفضل ${category} ${city}`,
-      `${category} ${city} خدمات`,
-      `شركة ${category} ${city}`,
-      `مؤسسة ${category} ${city}`,
-      `${category} ${city} محترف`,
-      `${category} بالقرب من ${city}`
-    ];
+    const seenIds = new Set();
+    const queries = buildQueries(city, category);
+    let   qIdx    = 0;
 
-    while (found.length < target && round < maxRound) {
-      round++;
-      const query = queries[(round - 1) % queries.length];
-      console.log(`\n  ← جولة ${round}/${maxRound} — "${query}"`);
-      console.log(`     متبقّي: ${target - found.length} | تم العثور: ${found.length}`);
+    while (found.length < target && qIdx < queries.length) {
+      const query = queries[qIdx++];
+      console.log(`\n[${qIdx}/${queries.length}] "${query}"`);
 
       try {
-        const results = await placesSearch(query);
-        const places  = results.places || [];
+        const places = await fetchAllPages(query);  // يجلب حتى 60 نتيجة
         totalScanned += places.length;
-        console.log(`     نتائج Google: ${places.length} مكان`);
+        console.log(`  Google: ${places.length} نتيجة`);
 
         for (const place of places) {
           if (found.length >= target) break;
-          const company = parsePlace(place, city, category);
 
-          if (company.hasWebsite)              { totalSkipped++; continue; }
-          if (company.rating < minRating)      { totalSkipped++; continue; }
-          if (company.reviewCount < minReviews){ totalSkipped++; continue; }
-          if (!company.phone)                  { totalSkipped++; continue; }
+          /* منع التكرار بالـ placeId */
+          const pid = place.id || (place.displayName?.text + place.formattedAddress);
+          if (pid && seenIds.has(pid)) { totalSkipped++; continue; }
+          if (pid) seenIds.add(pid);
 
-          const cleanPhone = (company.phone || '').replace(/\D/g, '');
-          if (!cleanPhone.startsWith('05'))    { totalSkipped++; continue; }
-          if (!company.name || company.name.length < 3) { totalSkipped++; continue; }
-          if (found.some(f => f.phone === company.phone || f.name === company.name)) { totalSkipped++; continue; }
-          if (await isAlreadySaved(company.phone, company.name)) {
-            console.log(`     ↩ مكرر: ${company.name}`);
-            totalSkipped++;
-            continue;
+          const c = parsePlace(place, city, category);
+
+          /* ─── الفلاتر ─── */
+          if (c.hasWebsite)                { totalSkipped++; continue; }       // لديه موقع ← تجاهل
+          if (c.rating < minRating)        { totalSkipped++; continue; }       // تقييم منخفض
+          if (c.reviewCount < minReviews)  { totalSkipped++; continue; }       // مراجعات قليلة
+          if (!c.phone)                    { totalSkipped++; continue; }       // بلا رقم
+          if (!isValidSaudiMobile(c.phone)){ totalSkipped++; continue; }       // رقم غير سعودي/جوال
+          if (!c.name || c.name.length < 2){ totalSkipped++; continue; }       // اسم مفقود
+          /* تكرار داخل الجلسة */
+          if (found.some(f => f.phone === c.phone || f.name === c.name)) { totalSkipped++; continue; }
+          /* تكرار في Firebase */
+          if (await isAlreadySaved(c.phone, c.name)) {
+            console.log(`  ↩ مكرر: ${c.name}`);
+            totalSkipped++; continue;
           }
 
-          found.push(company);
-          console.log(`  ✓ [${found.length}/${target}] ${company.name}`);
-          console.log(`     📞 ${company.phone} | ⭐ ${company.rating} (${company.reviewCount} تقييم)`);
-          await sleep(50);
+          found.push(c);
+          console.log(`  ✓ [${found.length}/${target}] ${c.name} | ${c.phone} | ⭐${c.rating} (${c.reviewCount})`);
+          await sleep(30);
         }
 
         failures = 0;
-        if (found.length < target && round < maxRound) {
-          console.log('     ⏳ انتظار 500ms...');
-          await sleep(500);
-        }
-      } catch (e) {
+        if (found.length < target && qIdx < queries.length) await sleep(300);
+
+      } catch(e) {
         failures++;
-        await logEvent('error', `سورا: خطأ جولة ${round}`, { error: e.message });
+        await logEvent('error', `سورا: خطأ "${query}"`, { error: e.message });
+        console.error(`  ✗ خطأ: ${e.message}`);
         if (failures >= MAX_FAILURES) throw e;
-        await sleep(1000);
+        await sleep(2000);
       }
     }
 
     await markAreaUsed(city);
 
+    /* الحفظ في Firebase */
     let saved = 0;
     const now = new Date().toISOString();
     for (const c of found) {
       try {
-        await fbPush('leads', { ...c, status: 'new', discoveredAt: now, source: 'Google Maps', contacted: false, notes: '' });
+        await fbPush('leads', {
+          name: c.name, phone: c.phone, city: c.city, category: c.category,
+          rating: c.rating, reviewCount: c.reviewCount, address: c.address,
+          status: 'new', discoveredAt: now, source: 'Google Maps',
+          contacted: false, notes: '', placeId: c.placeId || ''
+        });
         saved++;
-      } catch (e) { await logEvent('error', `سورا: فشل حفظ ${c.name}`, { error: e.message }); }
+      } catch(e) { await logEvent('error', `سورا: فشل حفظ ${c.name}`, { error: e.message }); }
     }
 
+    /* إحصاء يومي */
     try {
-      const today    = now.split('T')[0];
-      const key      = `stats/daily/${today}`;
-      const existing = await fbGet(key) || {};
+      const key = `stats/daily/${now.split('T')[0]}`;
+      const ex  = await fbGet(key) || {};
       await fbSet(key, {
-        ...existing,
-        soraFound:   (existing.soraFound   || 0) + saved,
-        soraScanned: (existing.soraScanned || 0) + totalScanned,
-        soraRuns:    (existing.soraRuns    || 0) + 1,
-        lastRun:     now
+        ...ex,
+        soraFound:   (ex.soraFound   || 0) + saved,
+        soraScanned: (ex.soraScanned || 0) + totalScanned,
+        soraRuns:    (ex.soraRuns    || 0) + 1,
+        lastRun: now
       });
-    } catch (e) { console.warn('تحذير stats:', e.message); }
+    } catch {}
 
-    const secs = Math.round((Date.now() - t0) / 1000);
-    const dur  = secs >= 60 ? `${Math.round(secs / 60)} دقيقة` : `${secs} ثانية`;
-    console.log(`\nسورا اكتمل! محفوظة: ${saved} | المنطقة: ${city} | المدة: ${dur}`);
-    await logEvent('info', `سورا: اكتمل — ${saved} شركة من ${city}`);
+    const dur = Math.round((Date.now() - t0) / 1000);
+    const durStr = dur >= 60 ? `${Math.round(dur/60)} دقيقة` : `${dur} ثانية`;
+    console.log(`\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
+    console.log(`سورا ✓ | محفوظ: ${saved}/${target} | فحص: ${totalScanned} | تخطي: ${totalSkipped} | ${durStr}`);
+    console.log(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
+    await logEvent('info', `سورا: اكتمل — ${saved}/${target} من ${city} (فحص:${totalScanned} تخطي:${totalSkipped})`);
 
-    return { success: true, found: saved, scanned: totalScanned, skipped: totalSkipped, city, category };
-  } catch (err) {
+    return { success: true, found: saved, scanned: totalScanned, skipped: totalSkipped, city, category, duration: dur };
+
+  } catch(err) {
     await logEvent('error', 'سورا: فشل عام', { error: err.message });
     return { success: false, error: err.message };
   }
@@ -227,5 +297,4 @@ if (require.main === module) {
     .then(r => { console.log('\nالنتيجة:', r); process.exit(0); })
     .catch(e => { console.error(e); process.exit(1); });
 }
-
 module.exports = { runSora };
