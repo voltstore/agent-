@@ -1,16 +1,12 @@
 // Service Worker — سورا · ديب · جولد
-const CACHE = 'sdg-v1';
-const ASSETS = ['/', '/index.html', '/manifest.json', '/icon.svg'];
+const CACHE = 'sdg-v8';
+const ASSETS = ['/icon.svg'];
 
-// تخزين الأصول عند التثبيت
 self.addEventListener('install', e => {
-  e.waitUntil(
-    caches.open(CACHE).then(c => c.addAll(ASSETS))
-  );
+  e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)));
   self.skipWaiting();
 });
 
-// تفعيل وحذف الكاش القديم
 self.addEventListener('activate', e => {
   e.waitUntil(
     caches.keys().then(keys =>
@@ -20,27 +16,24 @@ self.addEventListener('activate', e => {
   self.clients.claim();
 });
 
-// الطلبات: خدمة الكاش للأصول الثابتة، الشبكة للـ API
 self.addEventListener('fetch', e => {
   const url = new URL(e.request.url);
 
-  // طلبات API تذهب للشبكة دائماً
-  if (url.pathname.startsWith('/api/') || url.hostname !== self.location.hostname) {
+  // API دائماً من الشبكة
+  if (url.pathname.startsWith('/api/') || url.hostname !== self.location.hostname) return;
+
+  // HTML — network first (يجلب الجديد دائماً، ويرجع للكاش فقط عند انقطاع النت)
+  if (e.request.headers.get('accept')?.includes('text/html') || url.pathname === '/' || url.pathname.endsWith('.html')) {
+    e.respondWith(
+      fetch(e.request)
+        .then(res => { if (res.ok) { const c = res.clone(); caches.open(CACHE).then(ca => ca.put(e.request, c)); } return res; })
+        .catch(() => caches.match(e.request))
+    );
     return;
   }
 
-  // الأصول الثابتة من الكاش أولاً
+  // الأصول الثابتة (أيقونات فقط) — cache first
   e.respondWith(
-    caches.match(e.request).then(cached => {
-      if (cached) return cached;
-      return fetch(e.request).then(res => {
-        // تخزين الاستجابات الناجحة
-        if (res.ok) {
-          const clone = res.clone();
-          caches.open(CACHE).then(c => c.put(e.request, clone));
-        }
-        return res;
-      });
-    }).catch(() => caches.match('/index.html'))
+    caches.match(e.request).then(cached => cached || fetch(e.request))
   );
 });
